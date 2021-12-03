@@ -4,7 +4,7 @@ import secrets
 import string
 from datetime import datetime
 import pyotp
-from flask import render_template, flash, redirect, url_for, session
+from flask import render_template, flash, redirect, url_for, session, Blueprint
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 from app import db
@@ -18,7 +18,9 @@ def randomPassword():
     return password
 
 
-# @users_blueprint TODO
+# CONFIG
+users_blueprint = Blueprint('users', __name__, template_folder='templates')
+
 # view registration
 @users_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
@@ -115,10 +117,10 @@ def profile():
 
 
 # view user account
-@users_blueprint.route('/account')
+@users_blueprint.route('/profile')
 @login_required
 def account():
-    return render_template('account.html',
+    return render_template('profile.html',
                            acc_no=current_user.id,
                            email=current_user.email,
                            firstname=current_user.firstname,
