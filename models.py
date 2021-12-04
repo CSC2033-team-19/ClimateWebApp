@@ -1,15 +1,15 @@
-import base64
+# imports
 from datetime import datetime
 from flask_login import UserMixin
-from sqlalchemy.testing import db
+from app import db
 from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
-from Crypto.Protocol.KDF import scrypt
-from Crypto.Random import get_random_bytes
+
 
 # function to encrypt posts / feed / card details etc later on TODO
 def encrypt(data, key):
     return Fernet(key).encrypt(bytes(data, 'utf-8'))
+
 
 # function to decrypt posts / feed / card details etc later on TODO
 def decrypt(data, key):
@@ -21,10 +21,12 @@ User Model class for user to save draw data in
 '''
 
 
+# User model class
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
+
     # User authentication information.
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
@@ -54,5 +56,16 @@ class User(db.Model, UserMixin):
         self.current_logged_in = None
 
 
+def init_db():
+    db.drop_all()
+    db.create_all()
+    admin = User(email='admin@email.com',
+                 password='Admin1!',
+                 pin_key='BFB5S34STBLZCOB22K6PPYDCMZMH46OJ',
+                 firstname='Alice',
+                 lastname='Jones',
+                 phone='0191-123-4567',
+                 role='admin')
 
-
+    db.session.add(admin)
+    db.session.commit()
