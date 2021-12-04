@@ -1,7 +1,36 @@
 {% extends "base.html" %}
 
+{% block head %}
+    {{ super() }}
+
+    <script type="application/javascript" src="/static/calculator.js"></script>
+
+    <style>
+
+    </style>
+{% endblock %}
+
 {% block content %}
-
-  <h1 class="title">Calculator</h1>
-
+    <div class="tab-container container">
+        <div class="tabs is-centered is-boxed">
+            <ul>
+                {# Travel tab #}
+                <li class="is-active">
+                    <a class="tab-link">Travel</a>
+                </li>
+                {# Home utilties tab #}
+                <li class="is-active">
+                    <a class="tab-link">Home utilities</a>
+                </li>
+                {# Food shopping #}
+                <li class="is-active">
+                    <a class="tab-link">Food shopping</a>
+                </li>
+                {# Other expenses e.g. goods, services #}
+                <li class="is-active">
+                    <a class="tab-link">Other expenses</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 {% endblock %}
