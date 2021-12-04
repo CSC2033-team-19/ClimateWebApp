@@ -6,7 +6,57 @@
     <script type="application/javascript" src="/static/calculator.js"></script>
 
     <style>
+        .content-tab {
+            border: 1px solid #eeeeee;
+            position: absolute;
+            width: 100%;
+            padding: 10px;
+        }
 
+        div.tabs {
+            margin-top: 15%;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .tab-container {
+            z-index: 1;
+            background-color: white;
+        }
+
+        .active {
+            animation: fadeIn 1s;
+            background-color: white;
+        }
+
+        .fading {
+            animation:fadeOut 0.4s;
+        }
+
+        .inactive {
+            visibility: hidden;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity:0;
+                top: -1em;
+            }
+            to {
+                opacity:1;
+                top:0%;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                top: 0%;
+            }
+            to {
+                opacity: 0;
+                top: -1em;
+            }
+        }
     </style>
 {% endblock %}
 
