@@ -2,10 +2,20 @@
 import socket
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+import os
+import sshtunnel
 
-# CONFIG TODO
+# Set up SSH tunnel to connect to the database.
+tunnel = sshtunnel.SSHTunnelForwarder(
+    ("linux.cs.ncl.ac.uk"), ssh_username=os.environ["SSH_USERNAME"], ssh_password=os.environ["SSH_PASSWORD"],
+    remote_bind_address=("cs-db.ncl.ac.uk", 3306)
+)
+
+tunnel.start()
+
+# CONFIG
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///greenify.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://csc2033_team19:SeerMid._Dim@127.0.0.1:{tunnel.local_bind_port}/csc2033_team19"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
