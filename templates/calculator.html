@@ -6,6 +6,9 @@
     <script type="application/javascript" src="/static/calculator.js"></script>
 
     <style>
+
+        {# Add in stylings for the tabs #}
+
         .content-tab {
             border: 1px solid #eeeeee;
             position: absolute;
@@ -23,6 +26,8 @@
             background-color: white;
         }
 
+        {# Add in active and inactive states, as well as the transition between the two. #}
+
         .active {
             animation: fadeIn 1s;
             background-color: white;
@@ -35,6 +40,8 @@
         .inactive {
             visibility: hidden;
         }
+
+        {# Add in animations #}
 
         @keyframes fadeIn {
             from {
@@ -58,6 +65,7 @@
             }
         }
     </style>
+
 {% endblock %}
 
 {% block content %}
