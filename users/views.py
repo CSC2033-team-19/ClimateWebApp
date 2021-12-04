@@ -5,8 +5,7 @@ import pyotp
 from flask import render_template, flash, redirect, url_for, session, Blueprint
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
-from app import db
-from models import User
+# from models import User
 from users.forms import RegisterForm, LoginForm
 
 # CONFIG
