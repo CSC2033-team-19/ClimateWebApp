@@ -28,22 +28,22 @@
                         <a href="{{ url_for('index') }}" class="navbar-item">
                             Home
                         </a>
-                        <a href="{{ url_for('feed') }}" class="navbar-item">
+                        <a href="{{ url_for('feed.feed') }}" class="navbar-item">
                             Feed
                         </a>
-                        <a href="{{ url_for('donate') }}" class="navbar-item">
+                        <a class="navbar-item">
                             Donate
                         </a>
-                        <a href="{{ url_for('map') }}" class="navbar-item">
+                        <a class="navbar-item">
                             Map
                         </a>
-                        <a href="{{ url_for('calculator') }}" class="navbar-item">
+                        <a href="{{ url_for('calculator.calculator') }}" class="navbar-item">
                             Carbon Footprint Calculator
                         </a>
-                        <a href="{{ url_for('admin') }}" class="navbar-item">
+                        <a href="{{ url_for('admin.admin') }}" class="navbar-item">
                             Admin
                         </a>
-                        <a href="{{ url_for('contact') }}" class="navbar-item">
+                        <a class="navbar-item">
                             Contact Us
                         </a>
                         <div class="navbar-item has-dropdown is-hoverable">
@@ -51,7 +51,7 @@
                                 Account
                             </a>
                             <div class="navbar-dropdown">
-                              <a href="{{ url_for('profile') }}" class="navbar-item">
+                              <a href="{{ url_for('users.profile') }}" class="navbar-item">
                                 Profile
                               </a>
                               <a href="{{ url_for('users.register') }}" class="navbar-item">

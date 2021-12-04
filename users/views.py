@@ -1,7 +1,5 @@
 # IMPORTS
 import logging
-import secrets
-import string
 from datetime import datetime
 import pyotp
 from flask import render_template, flash, redirect, url_for, session, Blueprint
@@ -11,16 +9,11 @@ from app import db
 from models import User
 from users.forms import RegisterForm, LoginForm
 
-# generate random password
-def randomPassword():
-    alphabet = string.ascii_letters + string.digits
-    password = ''.join(secrets.choice(alphabet) for i in range(8))
-    return password
-
-
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
+
+# VIEWS
 # view registration
 @users_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
@@ -61,12 +54,16 @@ def register():
 # view user login
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+
     # if session attribute logins does not exist create attribute logins
     if not session.get('logins'):
         session['logins'] = 0
+
     # if login attempts is 3 or more create an error message
     elif session.get('logins') >= 3:
         flash('Number of incorrect logins exceeded')
+
+    # create login form object
     form = LoginForm()
 
     if form.validate_on_submit():
@@ -111,15 +108,8 @@ def login():
 
 # view user profile
 @users_blueprint.route('/profile')
-@login_required
+#@login_required
 def profile():
-    return render_template('profile.html', name=current_user.firstname)
-
-
-# view user account
-@users_blueprint.route('/profile')
-@login_required
-def account():
     return render_template('profile.html',
                            acc_no=current_user.id,
                            email=current_user.email,
@@ -129,7 +119,7 @@ def account():
 
 
 @users_blueprint.route('/logout')
-@login_required
+#@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
