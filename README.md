@@ -24,8 +24,9 @@ What does this repo contain?
 ---------------------------
 Backend
 
-- FlaskAPI <a href='https://flask.palletsprojects.com/en/2.0.x/'>Flask</a>
-- Stripe <a href='https://stripe.com/docs/api?lang=python'>Stripe</a>
+- FlaskAPI <a href='https://flask.palletsprojects.com/en/2.0.x/'>Flask</a>.
+- Stripe <a href='https://stripe.com/docs/api?lang=python'>Stripe</a>.
+Install stripe package -> sudo pip install --upgrade stripe.
 - MariaDB
 
 Frontend
