@@ -5,8 +5,9 @@ import pyotp
 from flask import render_template, flash, redirect, url_for, session, Blueprint
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
-# from models import User
+from models import User
 from users.forms import RegisterForm, LoginForm
+from app import db
 
 # CONFIG
 users_blueprint = Blueprint('users', __name__, template_folder='templates')
@@ -37,7 +38,6 @@ def register():
                         lastname=form.lastname.data,
                         phone=form.phone.data,
                         password=form.password.data,
-                        pin_key=form.pin_key.data,
                         role='user')
 
         # add the new user to the database
@@ -84,23 +84,19 @@ def login():
 
             return render_template('login.html', form=form)
 
-        if pyotp.TOTP(user.pin_key).verify(form.pin_key.data):
-            # if user is verified reset login attempts to 0
-            session['logins'] = 0
+        session['logins'] = 0
 
-            login_user(user)
-            # direct to role appropriate page
-            user.last_logged_in = user.current_logged_in
-            user.current_logged_in = datetime.now()
-            db.session.add(user)
-            db.session.commit()
-            logging.info(user.firstname + " has sucessfully logged in the application")
-            if current_user.role == 'admin':
-                return redirect(url_for('admin.admin'))
-            else:
-                return redirect(url_for('lottery.lottery'))
+        login_user(user)
+        # direct to role appropriate page
+        user.last_logged_in = user.current_logged_in
+        user.current_logged_in = datetime.now()
+        db.session.add(user)
+        db.session.commit()
+        logging.info(user.firstname + " has successfully logged in the application")
+        if current_user.role == 'admin':
+            return redirect(url_for('admin.admin'))
         else:
-            flash("You have supplied an invalid 2FA token!", "danger")
+            return redirect(url_for('user.profile'))
 
     return render_template('login.html', form=form)
 

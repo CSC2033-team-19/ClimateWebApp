@@ -1,22 +1,29 @@
 # IMPORTS
 import socket
 from flask import Flask, render_template
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 import os
 import sshtunnel
 
 # Set up SSH tunnel to connect to the database.
-tunnel = sshtunnel.SSHTunnelForwarder(
-    ("linux.cs.ncl.ac.uk"), ssh_username=os.environ["SSH_USERNAME"], ssh_password=os.environ["SSH_PASSWORD"],
-    remote_bind_address=("cs-db.ncl.ac.uk", 3306)
-)
+#tunnel = sshtunnel.SSHTunnelForwarder(
+    #("linux.cs.ncl.ac.uk"), ssh_username=os.environ["SSH_USERNAME"], ssh_password=os.environ["SSH_PASSWORD"],
+    #remote_bind_address=("cs-db.ncl.ac.uk", 3306)
+#)
 
-tunnel.start()
+#tunnel.start()
 
 # CONFIG
+#app = Flask(__name__)
+#app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://csc2033_team19:SeerMid._Dim@127.0.0.1:{" \
+                                        #f"{tunnel.local_bind_port}/csc2033_team19 "
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
+
+#DB FOR TESTING
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://csc2033_team19:SeerMid._Dim@127.0.0.1:{" \
-                                        f"{tunnel.local_bind_port}/csc2033_team19 "
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///greenify.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
@@ -67,6 +74,18 @@ if __name__ == '__main__':
     free_socket.listen(5)
     free_port = free_socket.getsockname()[1]
     free_socket.close()
+
+    #LOGIN MANAGER
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'users.login'
+    login_manager.init_app(app)
+
+    from models import User
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
 
     # BLUEPRINTS
     # import blueprints
