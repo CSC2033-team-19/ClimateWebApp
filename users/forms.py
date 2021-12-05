@@ -11,7 +11,6 @@ class RegisterForm(FlaskForm):
     phone = StringField()
     password = PasswordField()
     confirm_password = PasswordField()
-    pin_key = StringField()
     submit = SubmitField()
 
 
@@ -19,5 +18,4 @@ class RegisterForm(FlaskForm):
 class LoginForm(FlaskForm):
     email = StringField()
     password = PasswordField()
-    pin_key = StringField()
     submit = SubmitField()

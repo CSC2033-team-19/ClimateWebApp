@@ -30,7 +30,7 @@ class User(db.Model, UserMixin):
     # User authentication information.
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
-    pin_key = db.Column(db.String(100), nullable=False)
+
 
     # User information
     firstname = db.Column(db.String(100), nullable=False)
@@ -43,13 +43,12 @@ class User(db.Model, UserMixin):
     last_logged_in = db.Column(db.DateTime, nullable=True)
     current_logged_in = db.Column(db.DateTime, nullable=True)
 
-    def __init__(self, email, firstname, lastname, phone, password, pin_key, role):
+    def __init__(self, email, firstname, lastname, phone, password, role):
         self.email = email
         self.firstname = firstname
         self.lastname = lastname
         self.phone = phone
         self.password = generate_password_hash(password)
-        self.pin_key = pin_key
         self.role = role
         self.registered_on = datetime.now()
         self.last_logged_in = None
@@ -61,7 +60,6 @@ def init_db():
     db.create_all()
     admin = User(email='admin@email.com',
                  password='Admin1!',
-                 pin_key='BFB5S34STBLZCOB22K6PPYDCMZMH46OJ',
                  firstname='Alice',
                  lastname='Jones',
                  phone='0191-123-4567',
