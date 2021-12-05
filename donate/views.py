@@ -1,4 +1,12 @@
-from flask import Blueprint
+# IMPORTS
+from flask import Blueprint, render_template
 
-# Config
-calculator_blueprint = Blueprint("donate", __name__, template_folder="templates")
+# CONFIG
+donate_blueprint = Blueprint("donate", __name__, template_folder="templates")
+
+
+# VIEWS
+# view feed homepage
+@donate_blueprint.route('/donate')
+def donate():
+    return render_template('donate.html')

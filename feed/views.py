@@ -7,7 +7,7 @@ feed_blueprint = Blueprint('feed', __name__, template_folder='templates')
 
 
 # VIEWS
-# view admin homepage
+# view feed homepage
 @feed_blueprint.route('/feed')
 def feed():
     return render_template('feed.html', name=current_user.firstname)
