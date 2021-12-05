@@ -15,7 +15,8 @@ tunnel.start()
 
 # CONFIG
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://csc2033_team19:SeerMid._Dim@127.0.0.1:{tunnel.local_bind_port}/csc2033_team19"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://csc2033_team19:SeerMid._Dim@127.0.0.1:{" \
+                                        f"{tunnel.local_bind_port}/csc2033_team19 "
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
