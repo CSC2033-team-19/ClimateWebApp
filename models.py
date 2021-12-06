@@ -2,7 +2,6 @@
 import base64
 from datetime import datetime
 from hashlib import scrypt
-
 from Crypto.Random import get_random_bytes
 from flask_login import UserMixin
 from app import db
@@ -21,7 +20,7 @@ def decrypt(data, key):
 
 
 '''
-User Model class for user to save draw data in
+User Model class 
 '''
 
 class User(db.Model, UserMixin):
@@ -77,3 +76,11 @@ class Post(db.Model):
     def view_post(self, postkey):
         self.title = decrypt(self.title, postkey)
         self.body = decrypt(self.body, postkey)
+
+    #def init_db():
+    #    db.drop_all()
+    #    db.create_all()
+    #    new_user = User(username='user1@test.com', password='mysecretpassword', role='admin',
+    #                    pinkey='BFB5S34STBLZCOB22K6PPYDCMZMH46OJ')
+    #    db.session.add(new_user)
+    #    db.session.commit()
