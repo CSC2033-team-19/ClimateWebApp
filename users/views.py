@@ -103,7 +103,7 @@ def login():
 
 # view user profile
 @users_blueprint.route('/profile')
-#@login_required
+@login_required
 def profile():
     return render_template('profile.html',
                            acc_no=current_user.id,
@@ -114,7 +114,7 @@ def profile():
 
 
 @users_blueprint.route('/logout')
-#@login_required
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
