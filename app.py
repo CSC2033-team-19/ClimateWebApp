@@ -1,37 +1,61 @@
 # IMPORTS
+import logging
 import socket
-from flask import Flask, render_template
-from flask_login import LoginManager
+from functools import wraps
+
+from flask import Flask, render_template, request
+from flask_login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
 import os
 import sshtunnel
 
 # Set up SSH tunnel to connect to the database.
-#tunnel = sshtunnel.SSHTunnelForwarder(
-    #("linux.cs.ncl.ac.uk"), ssh_username=os.environ["SSH_USERNAME"], ssh_password=os.environ["SSH_PASSWORD"],
-    #remote_bind_address=("cs-db.ncl.ac.uk", 3306)
-#)
+# tunnel = sshtunnel.SSHTunnelForwarder(
+# ("linux.cs.ncl.ac.uk"), ssh_username=os.environ["SSH_USERNAME"], ssh_password=os.environ["SSH_PASSWORD"],
+# remote_bind_address=("cs-db.ncl.ac.uk", 3306)
+# )
 
-#tunnel.start()
+# tunnel.start()
 
 # CONFIG
-#app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://csc2033_team19:SeerMid._Dim@127.0.0.1:{" \
-                                        #f"{tunnel.local_bind_port}/csc2033_team19 "
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
+# app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://csc2033_team19:SeerMid._Dim@127.0.0.1:{" \
+# f"{tunnel.local_bind_port}/csc2033_team19 "
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
-#DB FOR TESTING
+# DB FOR TESTING
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///greenify.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
 
+# FUNCTIONS
+def requires_roles(*roles):
+    def wrapper(f):
+        @wraps(f)
+        def wrapped(*args, **kwargs):
+            if current_user.role not in roles:
+                logging.warning('SECURITY - Unauthorised access attempt [%s, %s, %s, %s]',
+                                current_user.id,
+                                current_user.username,
+                                current_user.role,
+                                request.remote_addr)
+                # Redirect the user to an unauthorised notice!
+                return render_template('403.html')
+            return f(*args, **kwargs)
+
+        return wrapped
+
+    return wrapper
+
+
 # LOGGING TODO
 
 # initialise database TODO
 db = SQLAlchemy(app)
+
 
 # security headers TODO
 
@@ -40,6 +64,7 @@ db = SQLAlchemy(app)
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 # ERROR PAGE VIEWS
 @app.errorhandler(400)
@@ -75,7 +100,7 @@ if __name__ == '__main__':
     free_port = free_socket.getsockname()[1]
     free_socket.close()
 
-    #LOGIN MANAGER
+    # LOGIN MANAGER
 
     login_manager = LoginManager()
     login_manager.login_view = 'users.login'
@@ -83,9 +108,11 @@ if __name__ == '__main__':
 
     from models import User
 
+
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+
 
     # BLUEPRINTS
     # import blueprints
