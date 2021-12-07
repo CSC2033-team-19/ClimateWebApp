@@ -1,7 +1,7 @@
 # imports
 import base64
 from datetime import datetime
-from hashlib import scrypt
+from Crypto.Protocol.KDF import scrypt
 from Crypto.Random import get_random_bytes
 from flask_login import UserMixin
 from app import db
@@ -9,12 +9,12 @@ from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
 
 
-# function to encrypt posts / feed / card details etc later on TODO
+# function to encrypt posts / challenges / card details etc later on TODO
 def encrypt(data, key):
     return Fernet(key).encrypt(bytes(data, 'utf-8'))
 
 
-# function to decrypt posts / feed / card details etc later on TODO
+# function to decrypt posts / challenges / card details etc later on TODO
 def decrypt(data, key):
     return Fernet(key).decrypt(data).decode("utf-8")
 
@@ -63,13 +63,13 @@ class Post(db.Model):
     __tablename__ = 'posts'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, db.ForeignKey(User.username), nullable=True)
+    email = db.Column(db.String, db.ForeignKey(User.email), nullable=True)
     created = db.Column(db.DateTime, nullable=False)
     title = db.Column(db.Text, nullable=False, default=False)
     body = db.Column(db.Text, nullable=False, default=False)
 
-    def __init__(self, username, title, body, postkey):
-        self.username = username
+    def __init__(self, email, title, body, postkey):
+        self.email = email
         self.created = datetime.now()
         self.title = encrypt(title, postkey)
         self.body = encrypt(body, postkey)
