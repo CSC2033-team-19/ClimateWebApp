@@ -14,10 +14,7 @@
 <body>
 
 <style>
-    .table {
-        margin-left: auto;
-        margin-right: auto;
-    }
+
 </style>
 
 <section class="hero is-primary is-fullheight">
@@ -30,9 +27,22 @@
                         <a href="{{ url_for('index') }}" class="navbar-item">
                             Home
                         </a>
-                        <a href="{{ url_for('feed.feed') }}" class="navbar-item">
-                            Feed
-                        </a>
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link is-arrowless">
+                                Feed
+                            </a>
+                            <div class="navbar-dropdown">
+                              <a class="navbar-item">
+                                Challenges
+                              </a>
+                              <a href="{{ url_for('posts.create') }}" class="navbar-item">
+                                New Post
+                              </a>
+                              <a href="{{ url_for('posts.posts') }}" class="navbar-item">
+                                Posts
+                              </a>
+                            </div>
+                        </div>
                         <a ref="{{ url_for('donate.donate') }}" class="navbar-item">
                             Donate
                         </a>
@@ -49,7 +59,7 @@
                             Contact Us
                         </a>
                         <div class="navbar-item has-dropdown is-hoverable">
-                            <a class="navbar-link">
+                            <a class="navbar-link is-arrowless">
                                 Account
                             </a>
                             <div class="navbar-dropdown">
