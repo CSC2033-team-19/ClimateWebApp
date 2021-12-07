@@ -41,7 +41,7 @@ EMISSION_FACTORS = {
 
 # Views
 @calculator_blueprint.route("/calculator", methods=["GET", "POST"])
-# @login_required
+@login_required
 def calculator():
     form = CalculatorForm()
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="Added all login / sign up functionality, still need to apply log in from home screen and access control.">
+    <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="Create basic form for the carbon calculator along with some styles and scripts to make it look nicer.&#10;&#10;Also adds in the ability to add more imports/data to the header of a page if needed using the head block.">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +15,8 @@
       <list>
         <option value="Python Script" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -48,14 +50,19 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mariadb" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app.py" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="Python.app">
+  <component name="RunManager" selected="Python.asdad">
     <configuration name="ClimateWebApp" type="PythonConfigurationType" factoryName="Python">
       <module name="ClimateWebApp" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -100,9 +107,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="asdad" type="PythonConfigurationType" factoryName="Python">
+      <module name="ClimateWebApp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="SSH_USERNAME" value="C0024321" />
+        <env name="SSH_PASSWORD" value="ShoesSlowReal14072002" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\Adamw\PycharmProjects\Course\csc2031\ClimateWebApp\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.ClimateWebApp" />
       <item itemvalue="Python.app" />
+      <item itemvalue="Python.asdad" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -115,6 +147,9 @@
       <updated>1638811437614</updated>
       <workItem from="1638811442971" duration="4182000" />
       <workItem from="1638825767083" duration="1128000" />
+      <workItem from="1638836518263" duration="2471000" />
+      <workItem from="1638880921845" duration="1614000" />
+      <workItem from="1638882753211" duration="355000" />
     </task>
     <task id="LOCAL-00001" summary="Added requires_role">
       <created>1638816757735</created>
@@ -130,18 +165,39 @@
       <option name="project" value="LOCAL" />
       <updated>1638818642090</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Create basic form for the carbon calculator along with some styles and scripts to make it look nicer.&#10;&#10;Also adds in the ability to add more imports/data to the header of a page if needed using the head block.">
+      <created>1638838555760</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1638838555760</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added requires_role" />
     <MESSAGE value="Added all login / sign up functionality, still need to apply log in from home screen and access control." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added all login / sign up functionality, still need to apply log in from home screen and access control." />
+    <MESSAGE value="Create basic form for the carbon calculator along with some styles and scripts to make it look nicer.&#10;&#10;Also adds in the ability to add more imports/data to the header of a page if needed using the head block." />
+    <option name="LAST_COMMIT_MESSAGE" value="Create basic form for the carbon calculator along with some styles and scripts to make it look nicer.&#10;&#10;Also adds in the ability to add more imports/data to the header of a page if needed using the head block." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1638826890753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ClimateWebApp_calcll$asdad.coverage" NAME="asdad Coverage Results" MODIFIED="1638882070375" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
