@@ -26,7 +26,7 @@ import sshtunnel
 
 # DB FOR TESTING
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///greenify.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mariadb://csc2033_team19:SeerMid._Dim@cs-db.ncl.ac.uk:3306/csc2033_team19'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
