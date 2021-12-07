@@ -40,7 +40,7 @@ def create():
         db.session.add(new_post)
         db.session.commit()
 
-        return blog()
+        return feed()
     return render_template('create.html', form=form)
 
 
@@ -57,7 +57,7 @@ def update(id):
     if form.validate_on_submit():
         post.update_post(form.title.data, form.body.data, current_user.postkey)
         db.session.commit()
-        return blog()
+        return feed()
 
     post.view_post(current_user.postkey)
 
@@ -74,4 +74,4 @@ def delete(id):
     Post.query.filter_by(id=id).delete()
     db.session.commit()
 
-    return blog()
+    return feed()
