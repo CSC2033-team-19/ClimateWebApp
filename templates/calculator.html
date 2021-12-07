@@ -1,7 +1,114 @@
 {% extends "base.html" %}
 
+{% block head %}
+    {{ super() }}
+
+    <script type="application/javascript" src="/static/calculator.js"></script>
+
+    <style>
+
+        {# Add in stylings for the tabs #}
+
+        .content-tab {
+            border: 1px solid #eeeeee;
+            position: absolute;
+            width: 100%;
+            padding: 10px;
+        }
+
+        div.tabs {
+            margin-top: 15%;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .tab-container {
+            z-index: 1;
+            background-color: white;
+        }
+
+        {# Add in active and inactive states, as well as the transition between the two. #}
+
+        .active {
+            animation: fadeIn 1s;
+            background-color: white;
+        }
+
+        .fading {
+            animation:fadeOut 0.4s;
+        }
+
+        .inactive {
+            visibility: hidden;
+        }
+
+        {# Add in animations #}
+
+        @keyframes fadeIn {
+            from {
+                opacity:0;
+                top: -1em;
+            }
+            to {
+                opacity:1;
+                top:0%;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                top: 0%;
+            }
+            to {
+                opacity: 0;
+                top: -1em;
+            }
+        }
+    </style>
+
+{% endblock %}
+
 {% block content %}
+    <div class="tab-container container">
+        <div class="tabs is-centered is-boxed">
+            <ul>
+                {# Travel tab #}
+                <li class="is-active" onclick="openTab(event, 'travel')">
+                    <a class="tab-link">Travel</a>
+                </li>
+                {# Home utilties tab #}
+                <li class="is-active" onclick="openTab(event, 'home')">
+                    <a class="tab-link">Home utilities</a>
+                </li>
+                {# Food shopping #}
+                <li class="is-active" onclick="openTab(event, 'home')">
+                    <a class="tab-link">Food shopping</a>
+                </li>
+                {# Other expenses e.g. goods, services #}
+                <li class="is-active" onclick="openTab(event, 'home')">
+                    <a class="tab-link">Other expenses</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-  <h1 class="title">Calculator</h1>
+    <div class="container content-container">
+        {# Tab content which will show when the travel tab is open #}
+        <div id="travel" class="content-tab active">
+            Travel
+        </div>
+        {# Tab content which will show when the travel tab is open #}
+        <div id="home" class="content-tab inactive">
+            Home
+        </div>
+        {# Tab content which will show when the travel tab is open #}
+        <div id="food" class="content-tab inactive">
+            Food
+        </div>
+        {# Tab content which will show when the travel tab is open #}
+        <div id="other" class="content-tab inactive">
+            Other
+        </div>
 
+    </div>
 {% endblock %}
