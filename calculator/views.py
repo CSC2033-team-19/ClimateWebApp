@@ -41,7 +41,7 @@ EMISSION_FACTORS = {
 
 # Views
 @calculator_blueprint.route("/calculator", methods=["GET", "POST"])
-@login_required
+# @login_required
 def calculator():
     form = CalculatorForm()
 
@@ -78,7 +78,7 @@ def calculator():
 
         # TODO Pass this to the database and re-render the page
 
-    return render_template("calculator.html")
+    return render_template("calculator.html", form=form)
 
 
 # Functions for calculating emissions
