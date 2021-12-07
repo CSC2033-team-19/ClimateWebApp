@@ -40,6 +40,7 @@ class User(db.Model, UserMixin):
     current_logged_in = db.Column(db.DateTime, nullable=True)
 
     feeds = db.relationship('Post')
+    carbon_data = db.relationship("CarbonData")
 
     def __init__(self, username, password, role, pinkey):
         self.username = username
@@ -50,6 +51,30 @@ class User(db.Model, UserMixin):
         self.registered_on = datetime.now()
         self.last_logged_in = None
         self.current_logged_in = None
+
+
+class CarbonData(db.Model):
+
+    __tablename__ = "carbon_footprint_data"
+
+    # Initialise the columns of the table
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.Integer, db.ForeignKey(User.username), nullable=False)
+    total_emissions = db.Column(db.Float, nullable=False)
+    travel = db.Column(db.Float, nullable=False)
+    home = db.Column(db.Float, nullable=False)
+    food = db.Column(db.Float, nullable=False)
+    goods = db.Column(db.Float, nullable=False)
+    date_taken = db.Column(db.DateTime, nullable=False)
+
+    def __init__(self, total, _travel, _home, _food, _goods):
+        # self.username = current_user.username TODO implement with current_user
+        self.total_emissions = total
+        self.travel = _travel
+        self.home = _home
+        self.food = _food
+        self.goods = _goods
+        self.date_taken = datetime.utcnow().date()
 
 
 class Post(db.Model):
