@@ -24,6 +24,7 @@ User Model class
 '''
 
 
+# User model class
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -32,6 +33,9 @@ class User(db.Model, UserMixin):
     # User authentication information.
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
+
+    # crypto key for user's posts and challenges
+    postkey = db.Column(db.BLOB)
 
     # User activity information
     registered_on = db.Column(db.DateTime, nullable=True)
@@ -44,7 +48,8 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(100), nullable=False)
     role = db.Column(db.String(100), nullable=False, default='user')
 
-    feeds = db.relationship('Post')
+    posts = db.relationship('Post')
+    challenges = db.relationship('Challenge')
 
     def __init__(self, email, firstname, lastname, phone, password, role):
         self.email = email
@@ -59,6 +64,7 @@ class User(db.Model, UserMixin):
         self.current_logged_in = None
 
 
+# Post model class
 class Post(db.Model):
     __tablename__ = 'posts'
 
@@ -81,6 +87,33 @@ class Post(db.Model):
         db.session.commit()
 
     def view_post(self, postkey):
+        self.title = decrypt(self.title, postkey)
+        self.body = decrypt(self.body, postkey)
+
+
+# Challenge model class
+class Challenge(db.Model):
+    __tablename__ = 'challenges'
+
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String, db.ForeignKey(User.email), nullable=True)
+    created = db.Column(db.DateTime, nullable=False)
+    title = db.Column(db.Text, nullable=False, default=False)
+    body = db.Column(db.Text, nullable=False, default=False)
+
+    def __init__(self, email, title, body, postkey):
+        self.email = email
+        self.created = datetime.now()
+        self.title = encrypt(title, postkey)
+        self.body = encrypt(body, postkey)
+        db.session.commit()
+
+    def update_challenge(self, title, body, postkey):
+        self.title = encrypt(title, postkey)
+        self.body = encrypt(body, postkey)
+        db.session.commit()
+
+    def view_challenge(self, postkey):
         self.title = decrypt(self.title, postkey)
         self.body = decrypt(self.body, postkey)
 
