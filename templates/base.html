@@ -32,15 +32,18 @@
                                 Feed
                             </a>
                             <div class="navbar-dropdown">
-                              <a class="navbar-item">
+                                <a href="{{ url_for('challenges.create') }}" class="navbar-item">
+                                New Challenge
+                                </a>
+                                <a href="{{ url_for('challenges.challenges') }}" class="navbar-item">
                                 Challenges
-                              </a>
-                              <a href="{{ url_for('posts.create') }}" class="navbar-item">
+                                </a>
+                                <a href="{{ url_for('posts.create') }}" class="navbar-item">
                                 New Post
-                              </a>
-                              <a href="{{ url_for('posts.posts') }}" class="navbar-item">
+                                </a>
+                                 <a href="{{ url_for('posts.posts') }}" class="navbar-item">
                                 Posts
-                              </a>
+                                </a>
                             </div>
                         </div>
                         <a ref="{{ url_for('donate.donate') }}" class="navbar-item">
@@ -63,18 +66,18 @@
                                 Account
                             </a>
                             <div class="navbar-dropdown">
-                              <a href="{{ url_for('users.profile') }}" class="navbar-item">
+                                <a href="{{ url_for('users.profile') }}" class="navbar-item">
                                 Profile
-                              </a>
-                              <a href="{{ url_for('users.register') }}" class="navbar-item">
+                                </a>
+                                <a href="{{ url_for('users.register') }}" class="navbar-item">
                                 Register
-                              </a>
-                              <a href="{{ url_for('users.login') }}" class="navbar-item">
+                                </a>
+                                <a href="{{ url_for('users.login') }}" class="navbar-item">
                                 Login
-                              </a>
-                              <a href="{{ url_for('users.logout') }}" class="navbar-item">
+                                </a>
+                                <a href="{{ url_for('users.logout') }}" class="navbar-item">
                                 Logout
-                              </a>
+                                </a>
                             </div>
                         </div>
                     </div>
