@@ -31,7 +31,7 @@ def posts():
     return render_template('posts.html', posts=decrypted_posts)
 
 
-@posts_blueprint.route('/create', methods=('GET', 'POST'))
+@posts_blueprint.route('/create_post', methods=('GET', 'POST'))
 @login_required
 @requires_roles('admin')
 def create():
@@ -44,10 +44,10 @@ def create():
         db.session.commit()
 
         return posts()
-    return render_template('create.html', form=form)
+    return render_template('create_post.html', form=form)
 
 
-@posts_blueprint.route('/<int:id>/update', methods=('GET', 'POST'))
+@posts_blueprint.route('/<int:id>/update_post', methods=('GET', 'POST'))
 @login_required
 @requires_roles('admin')
 def update(id):
@@ -72,7 +72,7 @@ def update(id):
     form.title.data = post_copy.title
     form.body.data = post_copy.body
 
-    return render_template('update.html', form=form)
+    return render_template('update_post.html', form=form)
 
 
 @posts_blueprint.route('/<int:id>/delete')
