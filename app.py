@@ -124,6 +124,7 @@ if __name__ == '__main__':
     # import blueprints
     from users.views import users_blueprint
     from admin.views import admin_blueprint
+    from challenges.views import challenges_blueprint
     from posts.views import posts_blueprint
     from calculator.views import calculator_blueprint
     from donate.views import donate_blueprint
@@ -131,8 +132,9 @@ if __name__ == '__main__':
     # register blueprints with app
     app.register_blueprint(users_blueprint)
     app.register_blueprint(admin_blueprint)
-    app.register_blueprint(calculator_blueprint)
+    app.register_blueprint(challenges_blueprint)
     app.register_blueprint(posts_blueprint)
+    app.register_blueprint(calculator_blueprint)
     app.register_blueprint(donate_blueprint)
 
     app.run(host=my_host, port=free_port, debug=True)
