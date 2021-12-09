@@ -3,24 +3,23 @@
 {% block content %}
 
     <div class="column is-6 is-offset-3">
-        <h1 class="title is-1">Posts</h1>
+        <h1 class="title is-1">Challenges</h1>
         <div class="box">
-            {% for post in posts %}
+            {% for challenge in challenges %}
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
-                            <h1>{{ post.title }}</h1>
+                            <h1>{{ challenge.title }}</h1>
                             <p>
-                                <strong>{{ post.username }}</strong>
-                                <small>{{ post.created.strftime('%d-%m-%Y') }}</small>
+                                <small>{{ challenge.created.strftime('%d-%m-%Y') }}</small>
                                 <br>
-                                {{ post.body }}
+                                {{ challenge.body }}
                                 <br>
-                            {% if post.username == current_user.username %}
+                            {% if challenge.username == current_user.username %}
                             <div id="navbarMenuHeroA" class="navbar-menu">
                                 <div class="navbar-start">
-                                    <a class="navbar-item" href="{{ url_for('feed.update', id=post.id) }}">Update</a>
-                                    <a class="navbar-item" href="{{ url_for('feed.delete', id=post.id) }}">Delete</a>
+                                    <a class="navbar-item" href="{{ url_for('challenges.update', id=challenge.id) }}">Update</a>
+                                    <a class="navbar-item" href="{{ url_for('challenges.delete', id=challenge.id) }}">Delete</a>
                                 </div>
                             </div>
                             {% endif %}

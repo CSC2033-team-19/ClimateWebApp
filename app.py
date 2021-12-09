@@ -25,10 +25,16 @@ import sshtunnel
 # app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
 # DB FOR TESTING
+#app = Flask(__name__)
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mariadb+pymysql://csc2033_team19:SeerMid._Dim@cs-db.ncl.ac.uk:3306/csc2033_team19'
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
+
+# DB FOR TESTING
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mariadb://csc2033_team19:SeerMid._Dim@cs-db.ncl.ac.uk:3306/csc2033_team19'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///greenify.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # FUNCTIONS
@@ -118,15 +124,17 @@ if __name__ == '__main__':
     # import blueprints
     from users.views import users_blueprint
     from admin.views import admin_blueprint
-    from feed.views import feed_blueprint
+    from challenges.views import challenges_blueprint
+    from posts.views import posts_blueprint
     from calculator.views import calculator_blueprint
     from donate.views import donate_blueprint
 
     # register blueprints with app
     app.register_blueprint(users_blueprint)
     app.register_blueprint(admin_blueprint)
+    app.register_blueprint(challenges_blueprint)
+    app.register_blueprint(posts_blueprint)
     app.register_blueprint(calculator_blueprint)
-    app.register_blueprint(feed_blueprint)
     app.register_blueprint(donate_blueprint)
 
     app.run(host=my_host, port=free_port, debug=True)
