@@ -20,7 +20,12 @@ class CalculatorForm(FlaskForm):
 
     # Home utilities
     electricity = FloatField(validators=[DataRequired()], render_kw={"placeholder": 97})
-    clean_electricity_factor = DecimalRangeField(default=0, validators=[DataRequired()])
+    clean_electricity_factor = DecimalRangeField(default=0, validators=[DataRequired()],
+                                                 render_kw={"step": 1,
+                                                            "data-bs-toggle": "tooltip",
+                                                            "data-bs-placement": "top",
+                                                            "data-bs-animation": False
+                                                            })
     gas = FloatField(validators=[DataRequired()], render_kw={"placeholder": 95})
     heating_oil = FloatField(validators=[DataRequired()], render_kw={"placeholder": 55})
     water = FloatField(validators=[DataRequired()], render_kw={"placeholder": 33})

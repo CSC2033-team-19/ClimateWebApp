@@ -1,29 +1,21 @@
-function openTab(event, tabName) {
-    /**
-     * This will close a previously opened tab and open the new one.
-     * @param {Element} event clickevent containing data regarding the click.
-     * @param {String} tabName which tab needs to be opened.
-     */
+document.addEventListener("DOMContentLoaded", (doc_event) => {
+    // get the range slider element.
+    let electricity_factor_input = document.getElementById("clean_electricity_factor");
 
-    // move the active class from the previous tab to the new one.
-    document.querySelector("li.is-active").classList.remove("is-active");
-    event.target.parentElement.classList.add("is-active");
+    // initialise tooltip for electricity factor input
+    let electricity_factor_input_tooltip = new bootstrap.Tooltip(electricity_factor_input);
 
-    // find the new and old tabs on the document
-    let new_tab = document.getElementById(tabName);
-    let old_tab = document.querySelector("div.active");
+    // set up the default value
+    electricity_factor_input.setAttribute("data-bs-original-title", electricity_factor_input.value + "%");
 
-    if (new_tab === old_tab || !old_tab) {
-        new_tab.className = "content-tab active";
-        return;
-    }
-    // fade the old tab out so that it can be replaced by the new one
-    old_tab.className = "content-tab fading";
-    setTimeout(function() {
-        old_tab.className = "content-tab inactive";
+    // Add event listener for clean electricity update
+    electricity_factor_input.addEventListener("input", (_) => {
+        electricity_factor_input.setAttribute("data-bs-original-title", electricity_factor_input.value + "%");
+        electricity_factor_input_tooltip.show();
+    });
 
-    }, 400);
-
-    // set the new tabs state to active.
-    new_tab.className = "content-tab active";
-}
+    // close the tooltip when the mouse leaves the slider
+    electricity_factor_input.addEventListener("mouseleave", (_) => {
+        electricity_factor_input_tooltip.hide();
+    })
+})

@@ -1,88 +1,16 @@
-/* Container styles to position it in the page */
-.form-container {
-    margin-top: 25vh;
-}
-
-.container.has-text-centered {
-    align-self: flex-start;
-}
-
-/* Style tabs, overwrite some bulma css default options with own options to make it look nicer */
-
-div.tabs {
-    border-bottom: 1px solid #eeeeee;
-    color: #4a4a4a;
-}
-
-#ul-tab-container .is-active a {
-    border-color: #dbdbdb;
-}
-
+/* Align the tabs to the center of the page. */
 .tab-container {
-    background-color: white;
-    border-radius: 10px 10px 0 0;
-    z-index:3;
+    align-self: center;
+    margin-top: 15%;
 }
 
-.content-tab {
-    position: absolute;
-    width: 100%;
-    padding: 10px 5%;
-    border-radius: 0 0 10px 10px;
-    transition: all;
-    color: #4a4a4a;
+/* Set up border for the tabs */
+.tab-pane {
+    border: 1px solid rgb(222, 226, 230);
+    padding: 10px;
 }
 
-/* Create basic animation for the content tab */
-
-.content-tab.active {
-    animation: fadeIn 1s;
-    background-color: white;
-}
-
-.content-tab.fading {
-    animation: fadeOut 0.7s;
-}
-
-/* Inputs dont work well with opacity, so hide them */
-
-.content-tab.fading .input  {
-    visibility: hidden;
-}
-
-/* Hide inactive tabs */
-
-.content-tab.inactive {
-    visibility: hidden;
-}
-
-/* Set up keyframe animation */
-
-@keyframes fadeIn {
-    from {
-        opacity:0;
-        top: -2em;
-    }
-    to {
-        opacity:1;
-        top:0;
-    }
-}
-
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-        top: 0;
-    }
-    to {
-        opacity: 0;
-        z-index: -5;
-        top: -5em;
-    }
-}
-
-/* Add some spacing between the questions on the calculator */
-
-p.query {
-    margin-top: 1em;
+/* Remove animations for the tooltip. */
+.tooltip.fade {
+    transition: none;
 }
