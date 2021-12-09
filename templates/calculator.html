@@ -9,112 +9,166 @@
 {% endblock %}
 
 {% block content %}
+    <div class="tab-container">
 
-      <div class="form-container container has-text-centered">
+        <ul class="nav nav-tabs" id="calculatorTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a
+                        class="nav-link active"
+                        id="travel-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#travel"
+                        type="button"
+                        role="tab"
+                        aria-controls="travel"
+                        aria-selected="true"
+                >Travel</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a
+                        class="nav-link"
+                        id="home-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#home"
+                        type="button"
+                        role="tab"
+                        aria-controls="home"
+                        aria-selected="false"
+                >Home utilities</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a
+                        class="nav-link"
+                        id="food-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#food"
+                        type="button"
+                        role="tab"
+                        aria-controls="food"
+                        aria-selected="false"
+                >Food Shopping</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a
+                        class="nav-link"
+                        id="other-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#other"
+                        type="button"
+                        role="tab"
+                        aria-controls="other"
+                        aria-selected="false"
+                >Travel</a>
+            </li>
+        </ul>
 
-        <div class="tab-container container">
-            <div class="tabs is-centered is-boxed">
-                <ul id="ul-tab-container">
-                    <li class="is-active" onclick="openTab(event, 'travel')">
-                        <a class="tab-link">Travel</a>
-                    </li>
-                    <li onclick="openTab(event, 'home')">
-                        <a class="tab-link">Home utilities</a>
-                    </li>
-                    <li onclick="openTab(event, 'food')">
-                        <a class="tab-link">Food shopping</a>
-                    </li>
-                    <li onclick="openTab(event, 'other')">
-                        <a class="tab-link">Other expenses</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-
-        <div class="container content-container">
+        <div class="tab-content" id="calculatorTabContent">
             {{ form.csrf_token() }}
-            <div id="travel" class="content-tab active">
-                <p>How much money did you spend on..?</p>
+            <div id="travel"
+                 class="tab-pane fade show active"
+                 role="tabpanel"
+                 aria-labelledby="home-tab">
+                <p><b>How much money did you spend on..?</b></p>
+
                 <div class="input-container">
                     <p class="query">1. Vehicle fuel</p>
-                    <p class="input-field">{{ form.vehicle_fuel(class="input") }}</p>
+                    <p class="input-field">{{ form.vehicle_fuel(class="form-control") }}</p>
+
                 </div>
                 <div class="input-container">
                     <p class="query">1.1. Vehicle type</p>
-                    <p class="input-field">{{ form.vehicle_type(class="input") }}</p>
+                    <p class="input-field">{{ form.vehicle_type(class="form-control") }}</p>
                 </div>
+
                 <div class="input-container">
                     <p class="query">1.2. Maintenance of your vehicle</p>
-                    <p class="input-field">{{ form.vehicle_upkeep(class="input") }}</p>
+                    <p class="input-field">{{ form.vehicle_upkeep(class="form-control") }}</p>
                 </div>
+
                 <div class="input-container">
                     <p class="query">2. Public transport</p>
-                    <p class="input-field">{{ form.public_transport(class="input") }}</p>
+                    <p class="input-field">{{ form.public_transport(class="form-control") }}</p>
                 </div>
+
                 <div class="input-container">
                     <p class="query">3. Air travel</p>
-                    <p class="input-field">{{ form.air_travel(class="input") }}</p>
+                    <p class="input-field">{{ form.air_travel(class="form-control") }}</p>
                 </div>
             </div>
-            <div id="home" class="content-tab inactive">
-                <p>How much money did you spend on..?</p>
+            <div id="home"
+                    class="tab-pane fade"
+                    role="tabpanel"
+                    aria-labelledby="home-tab">
+
+                <p><b>How much money did you spend on..?</b></p>
+
                 <div class="input-container">
                     <p class="query">1. Electricity</p>
-                    <p class="input-field">{{ form.electricity(class="input") }}</p>
+                    <p class="input-field">{{ form.electricity(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
                     <p class="query">1.1. How much of that was from clean sources?</p>
-                    <p class="input-field">{{ form.clean_electricity_factor(class="input") }}</p>
+                    {{ form.clean_electricity_factor(class="form-range") }}
+
+
                 </div>
                 <div class="input-container">
                     <p class="query">2. Natural gases</p>
-                    <p class="input-field">{{ form.gas(class="input") }}</p>
+                    <p class="input-field">{{ form.gas(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
                     <p class="query">3. Kerosene heating oil</p>
-                    <p class="input-field">{{ form.heating_oil(class="input") }}</p>
+                    <p class="input-field">{{ form.heating_oil(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
                     <p class="query">4. Water</p>
-                    <p class="input-field">{{ form.water(class="input") }}</p>
+                    <p class="input-field">{{ form.water(class="form-control") }}</p>
                 </div>
             </div>
-            <div id="food" class="content-tab inactive">
-                <p>How much money did you spend on..?</p>
+            <div id="food"
+                    class="tab-pane fade"
+                    role="tabpanel"
+                    aria-labelledby="food-tab">
+
+                <p><b>How much money did you spend on..?</b></p>
+
                 <div class="input-container">
                     <p class="query">1. Meat</p>
-                    <p class="input-field">{{ form.meat(class="input") }}</p>
+                    <p class="input-field">{{ form.meat(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
                     <p class="query">2. Fruit and vegetables</p>
-                    <p class="input-field">{{ form.fruit_vegetables(class="input") }}</p>
+                    <p class="input-field">{{ form.fruit_vegetables(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
                     <p class="query">3. Dairy products</p>
-                    <p class="input-field">{{ form.dairy(class="input") }}</p>
+                    <p class="input-field">{{ form.dairy(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
                     <p class="query">4. Grains/baked goods</p>
-                    <p class="input-field">{{ form.grains(class="input") }}</p>
+                    <p class="input-field">{{ form.grains(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
                     <p class="query">5. Snacks/drinks</p>
-                    <p class="input-field">{{ form.snacks(class="input") }}</p>
+                    <p class="input-field">{{ form.snacks(class="form-control") }}</p>
                 </div>
             </div>
-            <div id="other" class="content-tab inactive">
-                <p>How much money did you spend on..?</p>
+            <div id="other"
+                    class="tab-pane fade"
+                    role="tabpanel"
+                    aria-labelledby="other-tab">
+
+                <p><b>How much money did you spend on..?</b></p>
+
                 <div class="input-container">
                     <p class="query">1. Goods</p>
-                    <p class="input-field">{{ form.goods(class="input") }}</p>
+                    <p class="input-field">{{ form.goods(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
                     <p class="query">2. Services</p>
-                    <p class="input-field">{{ form.services(class="input") }}</p>
+                    <p class="input-field">{{ form.services(class="form-control") }}</p>
                 </div>
             </div>
         </div>
     </div>
-
 {% endblock %}
