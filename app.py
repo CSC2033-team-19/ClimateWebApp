@@ -57,7 +57,22 @@ def requires_roles(*roles):
     return wrapper
 
 
-# LOGGING TODO
+# LOGGING
+class SecurityFilter(logging.Filter):
+    def filter(self, record):
+        return "SECURITY" in record.getMessage()
+
+
+fh = logging.FileHandler('climatewebapp.log', 'w')
+fh.setLevel(logging.WARNING)
+fh.addFilter(SecurityFilter())
+formatter = logging.Formatter('%(asctime)s : %(message)s', '%m/%d/%Y %I:%M:%S %p')
+fh.setFormatter(formatter)
+
+logger = logging.getLogger('')
+logger.propagate = False
+logger.addHandler(fh)
+
 
 # initialise database TODO
 db = SQLAlchemy(app)
