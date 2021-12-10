@@ -63,15 +63,18 @@ class SecurityFilter(logging.Filter):
         return "SECURITY" in record.getMessage()
 
 
+# create file handler to log security messages to file
 fh = logging.FileHandler('climatewebapp.log', 'w')
 fh.setLevel(logging.WARNING)
 fh.addFilter(SecurityFilter())
 formatter = logging.Formatter('%(asctime)s : %(message)s', '%m/%d/%Y %I:%M:%S %p')
 fh.setFormatter(formatter)
 
+# add handler to root logger
 logger = logging.getLogger('')
-logger.propagate = False
 logger.addHandler(fh)
+# stop handler messages being sent to root logger
+logger.propagate = False
 
 
 # initialise database TODO
@@ -122,14 +125,15 @@ if __name__ == '__main__':
     free_socket.close()
 
     # LOGIN MANAGER
-
+    # create instance of LoginManager to hold the settings used for logging in
     login_manager = LoginManager()
+    # page users will be redirected to if trying to access a page that they need to be logged in to access
     login_manager.login_view = 'users.login'
     login_manager.init_app(app)
 
     from models import User
 
-
+    # queries the database and returns the user object which the matching ID
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
