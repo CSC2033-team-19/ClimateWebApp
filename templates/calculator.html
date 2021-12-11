@@ -58,116 +58,172 @@
                         role="tab"
                         aria-controls="other"
                         aria-selected="false"
-                >Travel</a>
+                >Other Goods/Services</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a
+                        class="nav-link"
+                        id="submit-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#submit"
+                        type="button"
+                        role="tab"
+                        aria-controls="submit"
+                        aria-selected="false"
+                >Submit</a>
             </li>
         </ul>
 
         <div class="tab-content" id="calculatorTabContent">
             {{ form.csrf_token() }}
-            <div id="travel"
-                 class="tab-pane fade show active"
-                 role="tabpanel"
-                 aria-labelledby="home-tab">
+            <div id="travel" class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
                 <p><b>How much money did you spend on..?</b></p>
 
                 <div class="input-container">
+                    {% for error in form.vehicle_fuel.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">1. Vehicle fuel</p>
                     <p class="input-field">{{ form.vehicle_fuel(class="form-control") }}</p>
 
                 </div>
                 <div class="input-container">
+                    {% for error in form.vehicle_type.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">1.1. Vehicle type</p>
                     <p class="input-field">{{ form.vehicle_type(class="form-control") }}</p>
                 </div>
 
                 <div class="input-container">
+                    {% for error in form.vehicle_upkeep.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">1.2. Maintenance of your vehicle</p>
                     <p class="input-field">{{ form.vehicle_upkeep(class="form-control") }}</p>
                 </div>
 
                 <div class="input-container">
+                    {% for error in form.public_transport.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">2. Public transport</p>
                     <p class="input-field">{{ form.public_transport(class="form-control") }}</p>
                 </div>
 
                 <div class="input-container">
+                    {% for error in form.air_travel.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">3. Air travel</p>
                     <p class="input-field">{{ form.air_travel(class="form-control") }}</p>
                 </div>
             </div>
-            <div id="home"
-                    class="tab-pane fade"
-                    role="tabpanel"
-                    aria-labelledby="home-tab">
+            <div id="home" class="tab-pane fade" role="tabpanel" aria-labelledby="home-tab">
 
                 <p><b>How much money did you spend on..?</b></p>
 
                 <div class="input-container">
+                    {% for error in form.electricity.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">1. Electricity</p>
                     <p class="input-field">{{ form.electricity(class="form-control") }}</p>
                 </div>
+
                 <div class="input-container">
+                    {% for error in form.clean_electricity_factor.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">1.1. How much of that was from clean sources?</p>
                     {{ form.clean_electricity_factor(class="form-range") }}
-
-
                 </div>
+
                 <div class="input-container">
+                    {% for error in form.gas.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">2. Natural gases</p>
                     <p class="input-field">{{ form.gas(class="form-control") }}</p>
                 </div>
+
                 <div class="input-container">
+                    {% for error in form.heating_oil.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">3. Kerosene heating oil</p>
                     <p class="input-field">{{ form.heating_oil(class="form-control") }}</p>
                 </div>
+
                 <div class="input-container">
+                    {% for error in form.water.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">4. Water</p>
                     <p class="input-field">{{ form.water(class="form-control") }}</p>
                 </div>
             </div>
-            <div id="food"
-                    class="tab-pane fade"
-                    role="tabpanel"
-                    aria-labelledby="food-tab">
+            <div id="food" class="tab-pane fade" role="tabpanel" aria-labelledby="food-tab">
 
                 <p><b>How much money did you spend on..?</b></p>
 
                 <div class="input-container">
+                    {% for error in form.meat.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">1. Meat</p>
                     <p class="input-field">{{ form.meat(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
+                    {% for error in form.fruit_vegetables.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">2. Fruit and vegetables</p>
                     <p class="input-field">{{ form.fruit_vegetables(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
+                    {% for error in form.dairy.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">3. Dairy products</p>
                     <p class="input-field">{{ form.dairy(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
+                    {% for error in form.grains.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">4. Grains/baked goods</p>
                     <p class="input-field">{{ form.grains(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
+                    {% for error in form.snacks.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">5. Snacks/drinks</p>
                     <p class="input-field">{{ form.snacks(class="form-control") }}</p>
                 </div>
             </div>
-            <div id="other"
-                    class="tab-pane fade"
-                    role="tabpanel"
-                    aria-labelledby="other-tab">
+            <div id="other" class="tab-pane fade" role="tabpanel" aria-labelledby="other-tab">
 
                 <p><b>How much money did you spend on..?</b></p>
 
                 <div class="input-container">
+                    {% for error in form.goods.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">1. Goods</p>
                     <p class="input-field">{{ form.goods(class="form-control") }}</p>
                 </div>
                 <div class="input-container">
+                    {% for error in form.services.errors %}
+                        {{ error }}
+                    {% endfor %}
                     <p class="query">2. Services</p>
                     <p class="input-field">{{ form.services(class="form-control") }}</p>
                 </div>
+            </div>
+            <div id="submit" class="tab-pane fade" role="tabpanel" aria-labelledby="submit-tab">
+                {{ form.submit(class="") }}
             </div>
         </div>
     </div>
