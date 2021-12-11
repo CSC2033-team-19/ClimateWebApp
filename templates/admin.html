@@ -2,7 +2,7 @@
 
 {% block content %}
     <script type="text/javascript" src="{{ url_for('static', filename='rng.js') }}"></script>
-    <h3 class="title is-3">Greenify Admin
+    <h3 class="title is-3">Admin
     </h3>
     <h4 class="subtitle is-4">
         Welcome, {{ name }}
@@ -47,34 +47,6 @@
             <form method="POST" action="/view_all_users">
                 <div>
                     <button class="button is-info is-centered">View All Users</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="column is-6 is-offset-3">
-        <h3 class="title is-3">Create Challenge</h3>
-        <div class="box">
-            <form method="POST">
-                <div class="field">
-                    {{ form.csrf_token() }}
-                    <div class="control">
-                        {{ form.title(class="input", placeholder="Title") }}
-                        {% for error in form.title.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        {{ form.body(class="textarea", placeholder="Body") }}
-                        {% for error in form.body.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div>
-                    {{ form.submit(class="button is-info is-centered") }}
                 </div>
             </form>
         </div>
