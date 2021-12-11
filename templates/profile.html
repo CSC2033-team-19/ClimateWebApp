@@ -2,6 +2,36 @@
 
 {% block content %}
 
-  <h1 class="title">Profile</h1>
+    <h1 class="title">Welcome, {{ name }}</h1>
+
+    <div class="column is-6 is-offset-3">
+        <h3 class="title">Your Account</h3>
+        <div class="box">
+            <table class="table">
+            <tbody>
+                <tr>
+                    <th>User ID</th>
+                    <th>{{ id }}</th>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <th>{{ email }}</th>
+                </tr>
+                <tr>
+                    <th>First Name</th>
+                    <th>{{ firstname }}</th>
+                </tr>
+                <tr>
+                    <th>Last Name</th>
+                    <th>{{ lastname }}</th>
+                </tr>
+                <tr>
+                    <th>Phone Number</th>
+                    <th>{{ phone }}</th>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
 
 {% endblock %}

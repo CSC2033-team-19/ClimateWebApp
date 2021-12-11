@@ -13,7 +13,8 @@ admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 @login_required
 @requires_roles('admin')
 def admin():
-    return render_template('admin.html')
+    return render_template('admin.html',
+                           name=current_user.firstname,)
 
 
 # view all registered users

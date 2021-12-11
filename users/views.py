@@ -142,7 +142,8 @@ def login():
 @login_required
 def profile():
     return render_template('profile.html',
-                           acc_no=current_user.id,
+                           name=current_user.firstname,
+                           id=current_user.id,
                            email=current_user.email,
                            firstname=current_user.firstname,
                            lastname=current_user.lastname,
