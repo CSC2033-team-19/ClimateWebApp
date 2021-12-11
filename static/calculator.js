@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", (doc_event) => {
+
+$(function() {
     // get the range slider element.
     let electricity_factor_input = document.getElementById("clean_electricity_factor");
 
@@ -18,4 +19,25 @@ document.addEventListener("DOMContentLoaded", (doc_event) => {
     electricity_factor_input.addEventListener("mouseleave", (_) => {
         electricity_factor_input_tooltip.hide();
     })
+
+
+    // Add a listener for when the submit tab is opened
+    $("#submit-tab").click((event) => {
+        var emission_values = {}
+        document.querySelectorAll(".input-container input").forEach((element) => {
+            emission_values[element.id] = element.value && !isNaN(element.value) ? element.value : element.placeholder;
+        });
+        var vehicle_type = $("#vehicle_type")
+        emission_values["vehicle_type"] = vehicle_type.value ? vehicle_type.value : "Other";
+
+        $.ajax({
+            url: "/calculator/preview_values.json",
+            type: "get",
+            data: emission_values,
+            success: (result) => {
+                console.log(result);
+            }
+        })
+    })
 })
+

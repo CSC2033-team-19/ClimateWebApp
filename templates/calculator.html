@@ -3,6 +3,9 @@
 {% block head %}
     {{ super() }}
 
+    {#  Import jQuery to make use of the AJAX query in calculator.js #}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <link rel="stylesheet" href="/static/calculator.css" />
     <script type="text/javascript" src="/static/calculator.js"></script>
 

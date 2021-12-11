@@ -2,14 +2,14 @@
 from calculator.forms import CalculatorForm
 from flask import Blueprint, render_template, request, flash
 from flask_login import current_user, login_required
-
+from json import dumps
 
 # Config
 calculator_blueprint = Blueprint("calculator", __name__, template_folder="templates")
 
 # Define constants
 EMISSION_FACTORS = {
-    # Data available at (UKGovmt 2018, https://bit.ly/32XfQpo)
+    # Data available at (UKGovt 2018, https://bit.ly/32XfQpo)
 
     # TODO review data to find better values
     # Travel data
@@ -17,7 +17,7 @@ EMISSION_FACTORS = {
     "public_transport": 0.09,
     "petrol": 4.39,
     "diesel": 0.918,
-    "other_fuel": 0.918,
+    "other": 0.918,
     "vehicle_upkeep": 0.519,
 
     # Home utilities
@@ -41,7 +41,7 @@ EMISSION_FACTORS = {
 
 # Views
 @calculator_blueprint.route("/calculator", methods=["GET", "POST"])
-@login_required
+# @login_required
 def calculator():
     form = CalculatorForm()
 
@@ -81,6 +81,38 @@ def calculator():
     return render_template("calculator.html", form=form)
 
 
+@calculator_blueprint.route("/calculator/preview_values.json", methods=["GET"])
+def preview_results():
+    """
+    Show the user a preview of their results.
+    """
+
+    emission_preview = {"travel": get_travel_emissions(
+        float(request.args.get("public_transport")),
+        float(request.args.get("air_travel")),
+        float(request.args.get("vehicle_fuel")),
+        request.args.get("vehicle_type"),
+        float(request.args.get("vehicle_upkeep")),
+    ), "home": get_home_emissions(
+        float(request.args.get("electricity")),
+        float(request.args.get("clean_electricity_factor")),
+        float(request.args.get("gas")),
+        float(request.args.get("heating_oil")),
+        float(request.args.get("water")),
+    ), "food": get_food_emissions(
+        float(request.args.get("meat")),
+        float(request.args.get("grains")),
+        float(request.args.get("fruit_vegetables")),
+        float(request.args.get("dairy")),
+        float(request.args.get("snacks")),
+    ), "other": get_shopping_emissions(
+        float(request.args.get("goods")),
+        float(request.args.get("services"))
+    )}
+
+    return dumps(emission_preview)
+
+
 # Functions for calculating emissions
 def get_travel_emissions(public_transport, air_travel, vehicle_fuel, vehicle_type, vehicle_upkeep):
     """
@@ -94,7 +126,7 @@ def get_travel_emissions(public_transport, air_travel, vehicle_fuel, vehicle_typ
     """
     return (EMISSION_FACTORS["public_transport"] * public_transport) \
         + (EMISSION_FACTORS["aviation"] * air_travel) \
-        + (EMISSION_FACTORS[vehicle_type] * vehicle_fuel) \
+        + (EMISSION_FACTORS[vehicle_type.lower()] * vehicle_fuel) \
         + (EMISSION_FACTORS["vehicle_upkeep"] * vehicle_upkeep)
 
 
