@@ -1,0 +1,42 @@
+:root {
+    /* Set up colour schemes */
+    --navbar-bg-colour: #96ff94;
+    --body-background-colour: #cbfcca;
+    --text-colour-navbar: #3a3a3a;
+    --text-colour-body: #3a3a3a;
+
+}
+
+nav.bg-color-navbar {
+    background-color: var(--navbar-bg-colour);
+}
+
+nav.bg-color-navbar .navbar-brand {
+    color: var(--text-colour-navbar);
+    font-weight: bolder;
+}
+
+nav.bg-color-navbar .nav-link {
+    justify-self: right;
+    color: var(--text-colour-navbar);
+}
+
+button.navbar-toggler i {
+    color: var(--text-colour-navbar);
+}
+
+div.body-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--body-background-colour);
+    color: var(--text-colour-body);
+
+
+    /* Center all elements in the body */
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    text-justify: inter-word;
+}
