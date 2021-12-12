@@ -4,7 +4,7 @@ import socket
 from functools import wraps
 
 import stripe
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect
 from flask_login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -84,6 +84,66 @@ def get_publishable_key():
       'unitAmount': price['unit_amount'],
       'currency': price['currency']
     })
+
+# Fetch the Checkout Session to display the JSON result on the success page
+@app.route('/checkout-session', methods=['GET'])
+def get_checkout_session():
+    id = request.args.get('sessionId')
+    checkout_session = stripe.checkout.Session.retrieve(id)
+    return jsonify(checkout_session)
+
+
+@app.route('/create-checkout-session', methods=['POST'])
+def create_checkout_session():
+    quantity = request.form.get('quantity', 1)
+    domain_url = os.getenv('DOMAIN')
+
+    try:
+        # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+        checkout_session = stripe.checkout.Session.create(
+            success_url=domain_url + '/success.html?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url=domain_url + '/canceled.html',
+            payment_method_types= os.getenv('PAYMENT_METHOD_TYPES').split(','),
+            mode='payment',
+            # automatic_tax={'enabled': True},
+            line_items=[{
+                'price': os.getenv('PRICE'),
+                'quantity': quantity,
+            }]
+        )
+        return redirect(checkout_session.url, code=303)
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+
+
+@app.route('/webhook', methods=['POST'])
+def webhook_received():
+    # Webhooks to receive information about asynchronous payment events.
+    webhook_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
+    request_data = json.loads(request.data)
+
+    if webhook_secret:
+        # Retrieve the event by verifying the signature using the raw body and secret if webhook signing is configured.
+        signature = request.headers.get('stripe-signature')
+        try:
+            event = stripe.Webhook.construct_event(
+                payload=request.data, sig_header=signature, secret=webhook_secret)
+            data = event['data']
+        except Exception as e:
+            return e
+        # Get the type of webhook event sent - used to check the status of PaymentIntents.
+        event_type = event['type']
+    else:
+        data = request_data['data']
+        event_type = request_data['type']
+    data_object = data['object']
+
+    print('event ' + event_type)
+
+    if event_type == 'checkout.session.completed':
+        print('🔔 Payment succeeded!')
+
+    return jsonify({'status': 'success'})
 
 
 # FUNCTIONS
