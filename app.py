@@ -4,7 +4,7 @@ import socket
 from functools import wraps
 
 import stripe
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -55,6 +55,35 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///greenify.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+@app.route('/create-customer', methods=['POST'])
+def create_customer():
+    # Reads application/json and returns a response
+    data = json.loads(request.data)
+    try:
+        # Create a new customer object
+        customer = stripe.Customer.create(email=data['email'])
+
+        # Associate the ID of the Customer object with
+        # internal representation of a customer.
+        resp = jsonify(customer=customer)
+
+        # We're simulating authentication here by storing the ID of the customer
+        # in a cookie.
+        resp.set_cookie('customer', customer.id)
+
+        return resp
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+
+@app.route('/config', methods=['GET'])
+def get_publishable_key():
+    price = stripe.Price.retrieve(os.getenv('PRICE'))
+    return jsonify({
+      'publicKey': os.getenv('STRIPE_PUBLISHABLE_KEY'),
+      'unitAmount': price['unit_amount'],
+      'currency': price['currency']
+    })
 
 
 # FUNCTIONS
