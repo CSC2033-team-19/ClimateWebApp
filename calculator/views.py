@@ -1,8 +1,8 @@
 # Import modules
 from calculator.forms import CalculatorForm
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import current_user, login_required
-from json import dumps
+from calculator.forms import PLACEHOLDER_VALUES
 
 # Config
 calculator_blueprint = Blueprint("calculator", __name__, template_folder="templates")
@@ -87,32 +87,46 @@ def preview_results():
     Show the user a preview of their results.
     """
 
-    #TODO error handling
+    handle_input = {}
 
+    # Get rid of the submit button
+
+    for argument in request.args:
+        # argument does not need to be tested if it is of vehicle type, and should not be included if it
+
+        if argument != "vehicle_type" and argument != "submit":
+            try:
+                # If the value is valid, use the given value
+                handle_input[argument] = float(request.args.get(argument))
+            except ValueError:
+                # If the value is invalid, then use the mean value for the emission factor
+                handle_input[argument] = PLACEHOLDER_VALUES[argument]
+
+    # Set the values to be returned
     emission_preview = {"travel": get_travel_emissions(
-        float(request.args.get("public_transport")),
-        float(request.args.get("air_travel")),
-        float(request.args.get("vehicle_fuel")),
+        handle_input["public_transport"],
+        handle_input["air_travel"],
+        handle_input["vehicle_fuel"],
         request.args.get("vehicle_type"),
-        float(request.args.get("vehicle_upkeep")),
+        handle_input["vehicle_upkeep"],
     ), "home": get_home_emissions(
-        float(request.args.get("electricity")),
-        float(request.args.get("clean_electricity_factor")) / 100,
-        float(request.args.get("gas")),
-        float(request.args.get("heating_oil")),
-        float(request.args.get("water")),
+        handle_input["electricity"],
+        handle_input["clean_electricity_factor"] / 100,
+        handle_input["gas"],
+        handle_input["heating_oil"],
+        handle_input["water"],
     ), "food": get_food_emissions(
-        float(request.args.get("meat")),
-        float(request.args.get("grains")),
-        float(request.args.get("fruit_vegetables")),
-        float(request.args.get("dairy")),
-        float(request.args.get("snacks")),
+        handle_input["meat"],
+        handle_input["grains"],
+        handle_input["fruit_vegetables"],
+        handle_input["dairy"],
+        handle_input["snacks"],
     ), "other": get_shopping_emissions(
-        float(request.args.get("goods")),
-        float(request.args.get("services"))
+        handle_input["goods"],
+        handle_input["services"]
     )}
 
-    return dumps(emission_preview)
+    return jsonify(emission_preview)
 
 
 # Functions for calculating emissions

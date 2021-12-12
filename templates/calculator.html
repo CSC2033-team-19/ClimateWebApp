@@ -6,6 +6,10 @@
     {#  Import jQuery to make use of the AJAX query in calculator.js #}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+    {# Import Chart.js to create a chart to preview the user's data #}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"></script>
+
+    {# Import local styles #}
     <link rel="stylesheet" href="/static/calculator.css" />
     <script type="text/javascript" src="/static/calculator.js"></script>
 
@@ -236,6 +240,10 @@
                 <button class="btn btn-lg btn-next">Next</button>
             </div>
             <div id="submit" class="tab-pane fade" role="tabpanel" aria-labelledby="submit-tab">
+                <div class="input-container">
+                    <canvas id="preview-chart" height="75"></canvas>
+                </div>
+
                 <div class="input-container">
                     {{ form.submit(class="btn btn-lg btn-primary") }}
                 </div>
