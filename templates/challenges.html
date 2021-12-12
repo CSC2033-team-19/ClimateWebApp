@@ -2,34 +2,76 @@
 
 {% block content %}
 
+    <style>
+        body {
+          font-family: Arial;
+          padding: 20px;
+          background: #f1f1f1;
+        }
+
+        /* Header/Blog Title */
+        .header {
+          padding: 30px;
+          font-size: 40px;
+          text-align: center;
+          background: white;
+        }
+
+        /* Create two unequal columns that floats next to each other */
+        /* Left column */
+        .leftcolumn {
+          float: left;
+          width: 75%;
+        }
+
+        /* Right column */
+        .rightcolumn {
+          float: left;
+          width: 25%;
+          padding-left: 20px;
+        }
+
+        /* Add a card effect for articles */
+        .card {
+          background-color: white;
+          padding: 20px;
+          margin-top: 20px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 800px) {
+          .leftcolumn, .rightcolumn {
+            width: 100%;
+            padding: 0;
+          }
+        }
+    </style>
+
     <div class="column is-6 is-offset-3">
         <h1 class="title is-1">Challenges</h1>
         <div class="box">
             {% for challenge in challenges %}
-                <article class="media">
-                    <div class="media-content">
-                        <div class="content">
-                            <h1>{{ challenge.title }}</h1>
-                            <p>
-                                <small>{{ challenge.created.strftime('%d-%m-%Y') }}</small>
-                                <br>
-                                {{ challenge.body }}
-                                <br>
-                            {% if challenge.username == current_user.username %}
+                <div class="leftcolumn">
+                    <div class="card">
+                        <h2>{{ challenge.title }}</h2>
+                        <h5>{{ challenge.created.strftime('%d-%m-%Y') }}</h5>
+                        <p>{{ challenge.body }}</p>
+                        {% if challenge.username == current_user.username %}
                             <div class="btn-group btn-group-justified">
-                              <div class="btn-group">
-                                <button type="button" class="btn btn-primary" href="{{ url_for('challenges.update', id=challenge.id) }}">Update</button>
-                              </div>
-                              <div class="btn-group">
-                                <button type="button" class="btn btn-danger" href="{{ url_for('challenges.delete', id=challenge.id) }}">Delete</button>
-                              </div>
+                                <button type="button" class="btn btn-outline-primary" href="{{ url_for('challenges.update', id=challenge.id) }}">Update</button>
+                                <button type="button" class="btn btn-outline-danger" href="{{ url_for('challenges.delete', id=challenge.id) }}">Delete</button>
                             </div>
-                            {% endif %}
-                            <button class="button is-info is-centered btn btn-success btn-block">Join Challenge</button>
-                            </p>
-                        </div>
+                            <br>
+                            <button class="button is-info is-centered btn btn-outline-success btn-block">Join Challenge</button>
+                        {% endif %}
                     </div>
-                </article>
             {% endfor %}
         </div>
     </div>
