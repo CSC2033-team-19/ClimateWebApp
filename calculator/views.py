@@ -87,6 +87,8 @@ def preview_results():
     Show the user a preview of their results.
     """
 
+    #TODO error handling
+
     emission_preview = {"travel": get_travel_emissions(
         float(request.args.get("public_transport")),
         float(request.args.get("air_travel")),
@@ -95,7 +97,7 @@ def preview_results():
         float(request.args.get("vehicle_upkeep")),
     ), "home": get_home_emissions(
         float(request.args.get("electricity")),
-        float(request.args.get("clean_electricity_factor")),
+        float(request.args.get("clean_electricity_factor")) / 100,
         float(request.args.get("gas")),
         float(request.args.get("heating_oil")),
         float(request.args.get("water")),

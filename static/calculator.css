@@ -14,3 +14,32 @@
 .tooltip.fade {
     transition: none;
 }
+
+/* Style btnnext and btnprev */
+
+#calculatorTabContent {
+    position: relative;
+}
+
+.tab-container div.active {
+    padding-bottom: 3em;
+}
+
+
+button.btn-next {
+    position:absolute;
+    right:0;
+    bottom:0;
+    margin: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+button.btn-prev {
+    position:absolute;
+    left:0;
+    bottom:0;
+    margin: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}

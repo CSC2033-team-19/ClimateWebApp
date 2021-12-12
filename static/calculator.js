@@ -38,6 +38,14 @@ $(function() {
                 console.log(result);
             }
         })
+    });
+
+    $(".btn-next").click((event) => {
+        $(".nav-item:has(a.active)").next("li").find("a").tab("show");
+    });
+
+    $(".btn-prev").click((event) => {
+        $(".nav-item:has(a.active)").prev("li").find("a").tab("show");
     })
 })
 

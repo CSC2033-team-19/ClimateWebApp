@@ -121,6 +121,8 @@
                     <p class="query">3. Air travel</p>
                     <p class="input-field">{{ form.air_travel(class="form-control") }}</p>
                 </div>
+
+                <button class="btn btn-lg btn-next">Next</button>
             </div>
             <div id="home" class="tab-pane fade" role="tabpanel" aria-labelledby="home-tab">
 
@@ -165,6 +167,9 @@
                     <p class="query">4. Water</p>
                     <p class="input-field">{{ form.water(class="form-control") }}</p>
                 </div>
+
+                <button class="btn btn-lg btn-prev">Previous</button>
+                <button class="btn btn-lg btn-next">Next</button>
             </div>
             <div id="food" class="tab-pane fade" role="tabpanel" aria-labelledby="food-tab">
 
@@ -205,6 +210,9 @@
                     <p class="query">5. Snacks/drinks</p>
                     <p class="input-field">{{ form.snacks(class="form-control") }}</p>
                 </div>
+
+                <button class="btn btn-lg btn-prev">Previous</button>
+                <button class="btn btn-lg btn-next">Next</button>
             </div>
             <div id="other" class="tab-pane fade" role="tabpanel" aria-labelledby="other-tab">
 
@@ -224,9 +232,14 @@
                     <p class="query">2. Services</p>
                     <p class="input-field">{{ form.services(class="form-control") }}</p>
                 </div>
+                <button class="btn btn-lg btn-prev">Previous</button>
+                <button class="btn btn-lg btn-next">Next</button>
             </div>
             <div id="submit" class="tab-pane fade" role="tabpanel" aria-labelledby="submit-tab">
-                {{ form.submit(class="") }}
+                <div class="input-container">
+                    {{ form.submit(class="btn btn-lg btn-primary") }}
+                </div>
+                <button class="btn btn-lg btn-prev">Previous</button>
             </div>
         </div>
     </div>
