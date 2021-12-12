@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +48,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mariadb" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -115,6 +117,13 @@
       <workItem from="1638811442971" duration="4182000" />
       <workItem from="1638825767083" duration="1386000" />
       <workItem from="1638827272785" duration="54000" />
+      <workItem from="1638887398460" duration="168000" />
+      <workItem from="1638888245041" duration="833000" />
+      <workItem from="1638894049821" duration="1304000" />
+      <workItem from="1638977777877" duration="220000" />
+      <workItem from="1639061056494" duration="1080000" />
+      <workItem from="1639190000215" duration="176000" />
+      <workItem from="1639332734689" duration="848000" />
     </task>
     <task id="LOCAL-00001" summary="Added requires_role">
       <created>1638816757735</created>
@@ -137,7 +146,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638827130953</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="changed blog to feed">
+      <created>1638887522843</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638887522844</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,9 +163,10 @@
     <MESSAGE value="Added requires_role" />
     <MESSAGE value="Added all login / sign up functionality, still need to apply log in from home screen and access control." />
     <MESSAGE value="corrected comment" />
-    <option name="LAST_COMMIT_MESSAGE" value="corrected comment" />
+    <MESSAGE value="changed blog to feed" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed blog to feed" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1638827311348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1638977894284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

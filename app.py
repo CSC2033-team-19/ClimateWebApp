@@ -3,11 +3,31 @@ import logging
 import socket
 from functools import wraps
 
+import stripe
 from flask import Flask, render_template, request
 from flask_login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
 import os
+from dotenv import load_dotenv, find_dotenv
 import sshtunnel
+
+# Setup Stripe python client library.
+load_dotenv(find_dotenv())
+
+# Ensure environment variables are set.
+price = os.getenv('PRICE')
+if price is None or price == 'price_12345' or price == '':
+    print('You must set a Price ID in .env. Please see the README.')
+    exit(0)
+
+# For sample support and debugging, not required for production:
+stripe.set_app_info(
+    'stripe-samples/checkout-one-time-payments',
+    version='0.0.1',
+    url='https://github.com/stripe-samples/checkout-one-time-payments')
+
+stripe.api_version = '2020-08-27'
+stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
 # Set up SSH tunnel to connect to the database.
 # tunnel = sshtunnel.SSHTunnelForwarder(
