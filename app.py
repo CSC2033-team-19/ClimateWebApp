@@ -2,7 +2,6 @@
 import logging
 import socket
 from functools import wraps
-
 import stripe
 from flask import Flask, render_template, request, jsonify, redirect
 from flask_login import LoginManager, current_user
@@ -12,6 +11,8 @@ from dotenv import load_dotenv, find_dotenv
 import sshtunnel
 
 # Setup Stripe python client library.
+from itsdangerous import json
+
 load_dotenv(find_dotenv())
 
 # Ensure environment variables are set.
@@ -76,6 +77,7 @@ def create_customer():
     except Exception as e:
         return jsonify(error=str(e)), 403
 
+# configuration for stripe
 @app.route('/config', methods=['GET'])
 def get_publishable_key():
     price = stripe.Price.retrieve(os.getenv('PRICE'))
@@ -92,7 +94,7 @@ def get_checkout_session():
     checkout_session = stripe.checkout.Session.retrieve(id)
     return jsonify(checkout_session)
 
-
+# Create checkout session
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     quantity = request.form.get('quantity', 1)
@@ -115,7 +117,7 @@ def create_checkout_session():
     except Exception as e:
         return jsonify(error=str(e)), 403
 
-
+# Webhook for stripe payment events
 @app.route('/webhook', methods=['POST'])
 def webhook_received():
     # Webhooks to receive information about asynchronous payment events.
