@@ -27,7 +27,8 @@ button.navbar-toggler i {
 div.body-container {
     /* Set up container to contain 100% of the page outside of the navbar */
     position: absolute;
-    height: calc(100% - 56px);
+    height: 95%;
+    overflow:hidden;
     width:100%;
     background-color: var(--body-background-colour);
     color: var(--body-text-colour);
