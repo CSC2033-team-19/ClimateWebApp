@@ -30,12 +30,14 @@
                             {% endfor %}
                         </div>
                     </div>
+                    {% if session['logins'] > 0 %}
                         <div>
                             {{ form.recaptcha }}
                             {% for error in form.recaptcha.errors %}
                                 {{ error }}
                             {% endfor %}
                         </div>
+                    {% endif %}
                     <div>
                         {{ form.submit(class="btn btn-lg btn-primary") }}
                     </div>

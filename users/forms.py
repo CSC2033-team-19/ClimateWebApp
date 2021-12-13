@@ -1,7 +1,8 @@
 # IMPORTS
 import re
 import phonenumbers
-from flask_wtf import FlaskForm, RecaptchaField
+from flask import session
+from flask_wtf import FlaskForm, RecaptchaField, Recaptcha
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import InputRequired, Email, ValidationError, Length, EqualTo, Optional
 
@@ -33,6 +34,17 @@ def validate_phone(self, phone):
         raise ValidationError('Please enter a valid phone number including country code')
 
 
+# custom validator that makes captcha required after x incorrect login attempts
+class RequiredIf(Recaptcha, Optional):
+
+    def __call__(self, form, field):
+
+        if session['logins'] < 1:
+            Optional().__call__(form, field)
+        else:
+            Recaptcha().__call__(form, field)
+
+
 # register form class
 class RegisterForm(FlaskForm):
     email = StringField(validators=[InputRequired(), Email()])
@@ -54,5 +66,5 @@ class LoginForm(FlaskForm):
 
     # for now recaptcha is optional (for convenience while testing),
     # it will be changed to be displayed only after a few incorrect login attempts
-    recaptcha = RecaptchaField(validators=[Optional()])
+    recaptcha = RecaptchaField(validators=[RequiredIf()])
     submit = SubmitField()
