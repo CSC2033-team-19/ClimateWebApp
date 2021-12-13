@@ -11,7 +11,7 @@
                     </div>
                 {% endif %}
             {% endwith %}
-            {% if not session['logins'] or session['logins'] < 3 %}
+            {% if not session['logins'] or session['logins'] < 6 %}
                 <form method="POST">
                     <div class="field">
                         {{ form.csrf_token() }}
@@ -30,6 +30,14 @@
                             {% endfor %}
                         </div>
                     </div>
+                    {% if session['logins'] > 2 %}
+                        <div>
+                            {{ form.recaptcha }}
+                            {% for error in form.recaptcha.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     <div>
                         {{ form.submit(class="btn btn-lg btn-primary") }}
                     </div>
