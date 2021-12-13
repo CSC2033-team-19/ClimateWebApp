@@ -41,7 +41,7 @@ class RegisterForm(FlaskForm):
     phone = StringField(validators=[InputRequired(), validate_phone])  # TODO add country code selection
     password = PasswordField(
         validators=[InputRequired(), validate_password,
-                    Length(min=6, max=12, message="Password must be between 6 and 12 characters in length.")])
+                    Length(min=8, message="Password must be at least 8 characters in length.")])
     confirm_password = PasswordField(validators=[InputRequired(),
                                                  EqualTo('password', message="Both password fields must be equal.")])
     submit = SubmitField()
