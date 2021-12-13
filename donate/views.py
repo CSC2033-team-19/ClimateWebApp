@@ -9,4 +9,4 @@ donate_blueprint = Blueprint("donate", __name__, template_folder="templates")
 # view feed homepage
 @donate_blueprint.route('/donate')
 def donate():
-    return render_template('donate.html')
+    return render_template('html/index.html')
