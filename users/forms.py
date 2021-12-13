@@ -1,9 +1,9 @@
 # IMPORTS
 import re
 import phonenumbers
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import InputRequired, Email, ValidationError, Length, EqualTo
+from wtforms.validators import InputRequired, Email, ValidationError, Length, EqualTo, Optional
 
 
 # checks that the input field does not contain the following special characters: *?!'^+%&/()=}][{$#@<>1234567890
@@ -51,4 +51,8 @@ class RegisterForm(FlaskForm):
 class LoginForm(FlaskForm):
     email = StringField(validators=[InputRequired(), Email()])
     password = PasswordField(validators=[InputRequired()])
+
+    # for now recaptcha is optional (for convenience while testing),
+    # it will be changed to be displayed only after a few incorrect login attempts
+    recaptcha = RecaptchaField(validators=[Optional()])
     submit = SubmitField()
