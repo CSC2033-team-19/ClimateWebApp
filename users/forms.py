@@ -34,12 +34,12 @@ def validate_phone(self, phone):
         raise ValidationError('Please enter a valid phone number including country code')
 
 
-# custom validator that makes captcha required after x incorrect login attempts
+# custom validator that makes captcha required after 3 incorrect login attempts
 class RequiredIf(Recaptcha, Optional):
 
     def __call__(self, form, field):
 
-        if session['logins'] < 1:
+        if session['logins'] < 3:
             Optional().__call__(form, field)
         else:
             Recaptcha().__call__(form, field)
@@ -63,8 +63,5 @@ class RegisterForm(FlaskForm):
 class LoginForm(FlaskForm):
     email = StringField(validators=[InputRequired(), Email()])
     password = PasswordField(validators=[InputRequired()])
-
-    # for now recaptcha is optional (for convenience while testing),
-    # it will be changed to be displayed only after a few incorrect login attempts
     recaptcha = RecaptchaField(validators=[RequiredIf()])
     submit = SubmitField()

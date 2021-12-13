@@ -62,8 +62,8 @@ def login():
     if not session.get('logins'):
         session['logins'] = 0
 
-    # if login attempts is 3 or more create an error message
-    elif session.get('logins') >= 3:
+    # if login attempts is 6 or more create an error message
+    elif session.get('logins') >= 6:
         flash('Number of incorrect logins exceeded')
 
     # create login form object
@@ -81,29 +81,22 @@ def login():
         if not user or not check_password_hash(user.password, form.password.data):
 
             # if no match create appropriate error message based on login attempts
-            # if login attempt equals 3 create error message
-            if session['logins'] == 3:
+            # if login attempt equals 6 create error message
+            if session['logins'] == 6:
                 flash('Number of incorrect logins exceeded')
 
                 # logging call for when users exceeded login attempts
                 logging.warning('SECURITY - Invalid Logins Attempts Exceeded [%s, %s, %s]', user.id, user.email,
                                 request.remote_addr)
 
-            # if login attempt equals 2 create error message
-            elif session['logins'] == 2:
-                flash('Please check your login details and try again. 1 login attempt remaining')
-
-                # logging call for when user login info is invalid
-                logging.warning('SECURITY - Invalid Login Attempt 2 [%s, %s, %s]', user.id, user.email,
-                                request.remote_addr)
-
-            # if login attempt equals 1 create error message
+            # if login attempt is between 1 and 5 create error message
             else:
-                flash('Please check your login details and try again. 2 login attempts remaining')
+                flash('Please check your login details and try again. '
+                      '{} login attempt(s) remaining'.format(6 - session['logins']))
 
                 # logging call for when user login info is invalid
-                logging.warning('SECURITY - Invalid Login Attempt 1 [%s, %s, %s]', user.id, user.email,
-                                request.remote_addr)
+                logging.warning('SECURITY - Invalid Login Attempt {} [%s, %s, %s]'.format(session['logins']),
+                                user.id, user.email, request.remote_addr)
 
             # re-render login page
             return render_template('login.html', form=form)
