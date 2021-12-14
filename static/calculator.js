@@ -67,20 +67,22 @@ function create_chart(result) {
     preview_data_chart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Travel', 'Home Utilities', 'Food Shopping', 'Other Expenses'],
+            labels: ['Travel', 'Home Utilities', 'Food Shopping', 'Other Expenses', "Total Emissions"],
             datasets: [{
-                labels: ['Travel', 'Home Utilities', 'Food Shopping', 'Other Expenses'],
-                data: [result.travel, result.home, result.food, result.other],
+                labels: ['Travel', 'Home Utilities', 'Food Shopping', 'Other Expenses', "Total Emissions"],
+                data: [result.travel, result.home, result.food, result.other, result.total],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
                     'rgba(75, 192, 192, 0.2)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
                     'rgba(75, 192, 192, 1)'
                 ],
                 borderWidth: 1

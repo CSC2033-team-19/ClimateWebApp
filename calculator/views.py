@@ -126,6 +126,8 @@ def preview_results():
         handle_input["services"]
     )}
 
+    emission_preview["total"] = sum(emission_preview.values())
+
     return jsonify(emission_preview)
 
 
