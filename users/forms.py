@@ -1,9 +1,10 @@
 # IMPORTS
 import re
 import phonenumbers
-from flask_wtf import FlaskForm
+from flask import session
+from flask_wtf import FlaskForm, RecaptchaField, Recaptcha
 from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import InputRequired, Email, ValidationError, Length, EqualTo
+from wtforms.validators import InputRequired, Email, ValidationError, Length, EqualTo, Optional
 
 
 # checks that the input field does not contain the following special characters: *?!'^+%&/()=}][{$#@<>1234567890
@@ -33,6 +34,17 @@ def validate_phone(self, phone):
         raise ValidationError('Please enter a valid phone number including country code')
 
 
+# custom validator that makes captcha required after 3 incorrect login attempts
+class RequiredIf(Recaptcha, Optional):
+
+    def __call__(self, form, field):
+
+        if session['logins'] < 3:
+            Optional().__call__(form, field)
+        else:
+            Recaptcha().__call__(form, field)
+
+
 # register form class
 class RegisterForm(FlaskForm):
     email = StringField(validators=[InputRequired(), Email()])
@@ -41,7 +53,7 @@ class RegisterForm(FlaskForm):
     phone = StringField(validators=[InputRequired(), validate_phone])  # TODO add country code selection
     password = PasswordField(
         validators=[InputRequired(), validate_password,
-                    Length(min=6, max=12, message="Password must be between 6 and 12 characters in length.")])
+                    Length(min=8, message="Password must be at least 8 characters in length.")])
     confirm_password = PasswordField(validators=[InputRequired(),
                                                  EqualTo('password', message="Both password fields must be equal.")])
     submit = SubmitField()
@@ -51,4 +63,5 @@ class RegisterForm(FlaskForm):
 class LoginForm(FlaskForm):
     email = StringField(validators=[InputRequired(), Email()])
     password = PasswordField(validators=[InputRequired()])
+    recaptcha = RecaptchaField(validators=[RequiredIf()])
     submit = SubmitField()
