@@ -26,7 +26,7 @@
 }
 
 
-button.btn-next {
+.btn-next {
     position:absolute;
     right:0;
     bottom:0;
@@ -35,7 +35,7 @@ button.btn-next {
     cursor: pointer;
 }
 
-button.btn-prev {
+.btn-prev {
     position:absolute;
     left:0;
     bottom:0;

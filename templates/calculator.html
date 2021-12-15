@@ -101,7 +101,7 @@
 
                     <div class="input-container">
                         {% for error in form.vehicle_fuel.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">1. Vehicle fuel</p>
                         <p class="input-field">{{ form.vehicle_fuel(class="form-control") }}</p>
@@ -109,7 +109,7 @@
 
                     <div class="input-container">
                         {% for error in form.vehicle_type.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">1.1. Vehicle type</p>
                         <p class="input-field">{{ form.vehicle_type(class="form-control") }}</p>
@@ -117,7 +117,7 @@
 
                     <div class="input-container">
                         {% for error in form.vehicle_upkeep.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">1.2. Maintenance of your vehicle</p>
                         <p class="input-field">{{ form.vehicle_upkeep(class="form-control") }}</p>
@@ -125,7 +125,7 @@
 
                     <div class="input-container">
                         {% for error in form.public_transport.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">2. Public transport</p>
                         <p class="input-field">{{ form.public_transport(class="form-control") }}</p>
@@ -133,13 +133,13 @@
 
                     <div class="input-container">
                         {% for error in form.air_travel.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">3. Air travel</p>
                         <p class="input-field">{{ form.air_travel(class="form-control") }}</p>
                     </div>
 
-                    <button class="btn btn-lg btn-next">Next</button>
+                    <a class="btn btn-lg btn-next">Next</a>
                 </div>
                 <div id="home" class="tab-pane fade" role="tabpanel" aria-labelledby="home-tab">
 
@@ -147,7 +147,7 @@
 
                     <div class="input-container">
                         {% for error in form.electricity.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">1. Electricity</p>
                         <p class="input-field">{{ form.electricity(class="form-control") }}</p>
@@ -155,7 +155,7 @@
 
                     <div class="input-container">
                         {% for error in form.clean_electricity_factor.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">1.1. How much of that was from clean sources?</p>
                         {{ form.clean_electricity_factor(class="form-range") }}
@@ -163,7 +163,7 @@
 
                     <div class="input-container">
                         {% for error in form.gas.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">2. Natural gases</p>
                         <p class="input-field">{{ form.gas(class="form-control") }}</p>
@@ -171,7 +171,7 @@
 
                     <div class="input-container">
                         {% for error in form.heating_oil.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">3. Kerosene heating oil</p>
                         <p class="input-field">{{ form.heating_oil(class="form-control") }}</p>
@@ -179,14 +179,14 @@
 
                     <div class="input-container">
                         {% for error in form.water.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">4. Water</p>
                         <p class="input-field">{{ form.water(class="form-control") }}</p>
                     </div>
 
-                    <button class="btn btn-lg btn-prev">Previous</button>
-                    <button class="btn btn-lg btn-next">Next</button>
+                    <a class="btn btn-lg btn-prev">Previous</a>
+                    <a class="btn btn-lg btn-next">Next</a>
                 </div>
                 <div id="food" class="tab-pane fade" role="tabpanel" aria-labelledby="food-tab">
 
@@ -194,7 +194,7 @@
 
                     <div class="input-container">
                         {% for error in form.meat.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">1. Meat</p>
                         <p class="input-field">{{ form.meat(class="form-control") }}</p>
@@ -202,7 +202,7 @@
 
                     <div class="input-container">
                         {% for error in form.fruit_vegetables.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">2. Fruit and vegetables</p>
                         <p class="input-field">{{ form.fruit_vegetables(class="form-control") }}</p>
@@ -210,7 +210,7 @@
 
                     <div class="input-container">
                         {% for error in form.dairy.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">3. Dairy products</p>
                         <p class="input-field">{{ form.dairy(class="form-control") }}</p>
@@ -218,7 +218,7 @@
 
                     <div class="input-container">
                         {% for error in form.grains.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">4. Grains/baked goods</p>
                         <p class="input-field">{{ form.grains(class="form-control") }}</p>
@@ -226,14 +226,14 @@
 
                     <div class="input-container">
                         {% for error in form.snacks.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">5. Snacks/drinks</p>
                         <p class="input-field">{{ form.snacks(class="form-control") }}</p>
                     </div>
 
-                    <button class="btn btn-lg btn-prev">Previous</button>
-                    <button class="btn btn-lg btn-next">Next</button>
+                    <a class="btn btn-lg btn-prev">Previous</a>
+                    <a class="btn btn-lg btn-next">Next</a>
                 </div>
                 <div id="other" class="tab-pane fade" role="tabpanel" aria-labelledby="other-tab">
 
@@ -241,7 +241,7 @@
 
                     <div class="input-container">
                         {% for error in form.goods.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">1. Goods</p>
                         <p class="input-field">{{ form.goods(class="form-control") }}</p>
@@ -249,14 +249,14 @@
 
                     <div class="input-container">
                         {% for error in form.services.errors %}
-                            {{ error }}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
                         <p class="query">2. Services</p>
                         <p class="input-field">{{ form.services(class="form-control") }}</p>
                     </div>
 
-                    <button class="btn btn-lg btn-prev">Previous</button>
-                    <button class="btn btn-lg btn-success btn-next">Submit</button>
+                    <a class="btn btn-lg btn-prev">Previous</a>
+                    <a class="btn btn-lg btn-next">Next</a>
                 </div>
                 <div id="preview" class="tab-pane fade" role="tabpanel" aria-labelledby="preview-tab">
 
@@ -268,7 +268,7 @@
                         {{ form.submit(class="btn btn-lg btn-primary") }}
                     </div>
 
-                    <button class="btn btn-lg btn-prev">Previous</button>
+                    <a class="btn btn-lg btn-prev">Previous</a>
                 </div>
             </div>
         </form>

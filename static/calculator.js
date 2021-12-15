@@ -21,7 +21,7 @@ $(function() {
 
 
     // Add a listener for when the submit tab is opened
-    $("#preview-tab, #other button.btn-next").click((event) => {
+    $("#preview-tab, #other a.btn-next").click((event) => {
         // Set up variables for function
         var emission_values = {}
         const vehicle_type = $("#vehicle_type")
