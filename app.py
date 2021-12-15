@@ -56,6 +56,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///greenify.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['RECAPTCHA_PUBLIC_KEY'] = "6Leg-5wdAAAAAAs7FQBG-GzvllDhnGUCEAZOpj6C"
+app.config['RECAPTCHA_PRIVATE_KEY'] = "6Leg-5wdAAAAAJMdYCe4qxf5xZxt-qmJxGxgyySn"
 
 @app.route('/create-customer', methods=['POST'])
 def create_customer():

@@ -30,7 +30,7 @@ div.body-container {
     height: 95%;
     overflow:hidden;
     width:100%;
-    background-color: var(--body-background-colour);
+    background-color: white;
     color: var(--body-text-colour);
 
     /* Center all elements in the body */

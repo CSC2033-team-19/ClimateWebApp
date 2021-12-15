@@ -4,48 +4,58 @@
 
     <style>
         body {
-          font-family: Arial;
-          padding: 20px;
-          background: #f1f1f1;
+            padding: 20px;
         }
 
-        /* Header/Blog Title */
         .header {
-          padding: 30px;
-          font-size: 40px;
-          text-align: center;
-          background: white;
+            padding: 30px;
+            font-size: 40px;
+            text-align: center;
+        }
+
+        /* Add a card effect for articles */
+        .card {
+            padding: 20px;
+            margin-top: 20px;
+            align-content: space-evenly;
         }
 
         /* Create two unequal columns that floats next to each other */
         /* Left column */
         .leftcolumn {
-          float: left;
-          width: 75%;
+            float: left;
+            width: 75%;
         }
 
         /* Right column */
         .rightcolumn {
-          float: left;
-          width: 25%;
-          padding-left: 20px;
-        }
-
-        /* Add a card effect for articles */
-        .card {
-          background-color: white;
-          padding: 20px;
-          margin-top: 20px;
+            float: right;
+            width: 25%;
+            padding-left: 30px;
         }
 
         /* Clear floats after the columns */
         .row:after {
-          content: "";
-          display: table;
-          clear: both;
+            content: "";
+            display: table;
+            clear: both;
         }
 
-        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+        .blog-post {
+            margin-bottom: 4rem;
+        }
+        .blog-post-title {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .blog-post-meta {
+            color: #727272;
+            text-align: left;
+        }
+        .blog-post-content{
+            text-align: justify;
+        }
+
         @media screen and (max-width: 800px) {
           .leftcolumn, .rightcolumn {
             width: 100%;
@@ -55,14 +65,14 @@
     </style>
 
     <div class="column is-6 is-offset-3">
-        <h1 class="title is-1">Challenges</h1>
-        <div class="box">
+        <h1 class="title is-1 header">CHALLENGES</h1>
+        <div class="box row">
             {% for challenge in challenges %}
                 <div class="leftcolumn">
-                    <div class="card">
-                        <h2>{{ challenge.title }}</h2>
-                        <h5>{{ challenge.created.strftime('%d-%m-%Y') }}</h5>
-                        <p>{{ challenge.body }}</p>
+                    <div class="card blog-post">
+                        <h2 class="blog-post-title">{{ challenge.title }}</h2>
+                        <h5 class="blog-post-meta text-muted">{{ challenge.created.strftime('%d-%m-%Y') }}</h5>
+                        <p class="blog-post-content">{{ challenge.body }}</p>
                         {% if challenge.username == current_user.username %}
                             <div class="btn-group btn-group-justified">
                                 <button type="button" class="btn btn-outline-primary" href="{{ url_for('challenges.update', id=challenge.id) }}">Update</button>
@@ -72,6 +82,24 @@
                             <button class="button is-info is-centered btn btn-outline-success btn-block">Join Challenge</button>
                         {% endif %}
                     </div>
+                </div>
+                <div class="rightcolumn">
+                    <div class="card">
+                        <h2>About Me</h2>
+                        <div class="fakeimg" style="height:100px;">Image</div>
+                        <p>Some text...</p>
+                    </div>
+                    <div class="card">
+                        <h3>Popular Post</h3>
+                        <div class="fakeimg">{{ challenge.title }}</div><br>
+                        <div class="fakeimg">Image</div><br>
+                        <div class="fakeimg">Image</div>
+                    </div>
+                    <div class="card">
+                        <h3>Follow Me</h3>
+                        <p>Some text..</p>
+                    </div>
+                </div>
             {% endfor %}
         </div>
     </div>
