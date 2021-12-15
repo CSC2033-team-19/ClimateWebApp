@@ -1,8 +1,11 @@
 # Import modules
+from app import db
 from calculator.forms import CalculatorForm
+from calculator.forms import PLACEHOLDER_VALUES
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import current_user, login_required
-from calculator.forms import PLACEHOLDER_VALUES
+import logging
+from models import CarbonData
 
 # Config
 calculator_blueprint = Blueprint("calculator", __name__, template_folder="templates")
@@ -41,9 +44,11 @@ EMISSION_FACTORS = {
 
 # Views
 @calculator_blueprint.route("/calculator", methods=["GET", "POST"])
-# @login_required
+@login_required
 def calculator():
     form = CalculatorForm()
+
+    print(request.method)
 
     if form.validate_on_submit():
 
@@ -76,7 +81,30 @@ def calculator():
         # Given the emissions from all the sources, calculate the total emissions
         total_emissions = travel + home + food + other_shopping
 
-        # TODO Pass this to the database and re-render the page
+        # Get the current user
+        user = current_user
+
+        new_carbon_data = CarbonData(user,
+                                           total_emissions,
+                                           travel,
+                                           home,
+                                           food,
+                                           other_shopping)
+
+        # Add the new data into the database.
+        db.session.add(new_carbon_data)
+        db.session.commit()
+
+        # Report new data entry using logging.
+
+        logging.warning(f"SECURITY - Carbon data committed to database [{user.id, request.remote_addr}]")
+
+        print("success")
+
+        return render_template("calculator.html",
+                               form=form,
+                               success=True,
+                               toast_body="Successfully saved your carbon footprint data!")
 
     return render_template("calculator.html", form=form)
 
@@ -142,10 +170,10 @@ def get_travel_emissions(public_transport, air_travel, vehicle_fuel, vehicle_typ
     :param vehicle_upkeep: The monthly expenditure on maintenance
     :return: returns the total emissions from travel per month
     """
-    return (EMISSION_FACTORS["public_transport"] * public_transport) \
-        + (EMISSION_FACTORS["aviation"] * air_travel) \
-        + (EMISSION_FACTORS[vehicle_type.lower()] * vehicle_fuel) \
-        + (EMISSION_FACTORS["vehicle_upkeep"] * vehicle_upkeep)
+    return (EMISSION_FACTORS["public_transport"] * float(public_transport)) \
+        + (EMISSION_FACTORS["aviation"] * float(air_travel)) \
+        + (EMISSION_FACTORS[vehicle_type.lower()] * float(vehicle_fuel)) \
+        + (EMISSION_FACTORS["vehicle_upkeep"] * float(vehicle_upkeep))
 
 
 def get_home_emissions(electricity, clean_electricity_factor, gas, heating, water):
@@ -158,10 +186,10 @@ def get_home_emissions(electricity, clean_electricity_factor, gas, heating, wate
     :param water: The monthly expenditure on water costs
     :return: returns the total emissions from household utilities per month
     """
-    return (EMISSION_FACTORS["electricity"] * electricity * (1 - clean_electricity_factor)) \
-        + (EMISSION_FACTORS["gas"] * gas) \
-        + (EMISSION_FACTORS["heating"] * heating) \
-        + (EMISSION_FACTORS["water"] * water)
+    return (EMISSION_FACTORS["electricity"] * float(electricity) * (1 - float(clean_electricity_factor))) \
+        + (EMISSION_FACTORS["gas"] * float(gas)) \
+        + (EMISSION_FACTORS["heating"] * float(heating)) \
+        + (EMISSION_FACTORS["water"] * float(water))
 
 
 def get_food_emissions(meat, grains, fruit_vegetables, dairy, snacks_drinks):
@@ -174,11 +202,11 @@ def get_food_emissions(meat, grains, fruit_vegetables, dairy, snacks_drinks):
     :param snacks_drinks: Average monthly expenditure on snacks/drinks
     :return: returns the total emissions from food per month
     """
-    return (EMISSION_FACTORS["meat"] * meat) \
-        + (EMISSION_FACTORS["grains"] * grains) \
-        + (EMISSION_FACTORS["fruit_vegetables"] * fruit_vegetables) \
-        + (EMISSION_FACTORS["dairy"] * dairy) \
-        + (EMISSION_FACTORS["snacks_drinks"] * snacks_drinks)
+    return (EMISSION_FACTORS["meat"] * float(meat)) \
+        + (EMISSION_FACTORS["grains"] * float(grains)) \
+        + (EMISSION_FACTORS["fruit_vegetables"] * float(fruit_vegetables)) \
+        + (EMISSION_FACTORS["dairy"] * float(dairy)) \
+        + (EMISSION_FACTORS["snacks_drinks"] * float(snacks_drinks))
 
 
 def get_shopping_emissions(goods, services):
@@ -188,5 +216,5 @@ def get_shopping_emissions(goods, services):
     :param services: Non-tangible things/experiences. IE, medical expenses, vet expenses, consultancy expenses etc.
     :return: returns the total emissions from other expenditures per month
     """
-    return (EMISSION_FACTORS["goods"] * goods) \
-        + (EMISSION_FACTORS["services"] * services)
+    return (EMISSION_FACTORS["goods"] * float(goods)) \
+        + (EMISSION_FACTORS["services"] * float(services))

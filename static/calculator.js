@@ -21,7 +21,7 @@ $(function() {
 
 
     // Add a listener for when the submit tab is opened
-    $("#submit-tab, #other button.btn-next").click((event) => {
+    $("#preview-tab, #other button.btn-next").click((event) => {
         // Set up variables for function
         var emission_values = {}
         const vehicle_type = $("#vehicle_type")
@@ -52,6 +52,14 @@ $(function() {
     $(".btn-prev").click((event) => {
         $(".nav-item:has(a.active)").prev("li").find("a").tab("show");
     })
+
+    // Set up toasts to confirm whether the data was saved or not
+    var toast_element = $("#confirm-success");
+    if (toast_element.length) {
+        var toast = new bootstrap.Toast(toast_element);
+        toast.show();
+    }
+
 })
 
 // Create dummy chart so that the program can regenerate a new chart each time the data is changed.
@@ -71,19 +79,20 @@ function create_chart(result) {
             datasets: [{
                 labels: ['Travel', 'Home Utilities', 'Food Shopping', 'Other Expenses', "Total Emissions"],
                 data: [result.travel, result.home, result.food, result.other, result.total],
+                // Colour scheme from coolors.co
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
+                    'rgba(23, 48, 28, 0.2)',
+                    'rgba(55, 147, 146, 0.2)',
+                    'rgba(79, 176, 198, 0.2)',
+                    'rgba(79, 134, 198, 0.2)',
+                    'rgba(116, 79, 198, 0.2)'
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(75, 192, 192, 1)'
+                    'rgba(23, 48, 28, 1)',
+                    'rgba(55, 147, 146, 1)',
+                    'rgba(79, 176, 198, 1)',
+                    'rgba(79, 134, 198, 1)',
+                    'rgba(116, 79, 198, 1)'
                 ],
                 borderWidth: 1
             }]

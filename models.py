@@ -50,6 +50,7 @@ class User(db.Model, UserMixin):
 
     posts = db.relationship('Post')
     challenges = db.relationship('Challenge')
+    carbon_data = db.relationship('CarbonData')
 
     def __init__(self, email, firstname, lastname, phone, password, role):
         self.email = email
@@ -116,6 +117,29 @@ class Challenge(db.Model):
     def view_challenge(self, postkey):
         self.title = decrypt(self.title, postkey)
         self.body = decrypt(self.body, postkey)
+
+
+class CarbonData(db.Model):
+    __tablename__ = "carbon_footprint_data"
+
+    # Initialise the columns of the table
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
+    total_emissions = db.Column(db.Float, nullable=False)
+    travel = db.Column(db.Float, nullable=False)
+    home = db.Column(db.Float, nullable=False)
+    food = db.Column(db.Float, nullable=False)
+    goods = db.Column(db.Float, nullable=False)
+    date_taken = db.Column(db.DateTime, nullable=False)
+
+    def __init__(self, user, total, _travel, _home, _food, _goods):
+        self.username = user.id
+        self.total_emissions = total
+        self.travel = _travel
+        self.home = _home
+        self.food = _food
+        self.goods = _goods
+        self.date_taken = datetime.utcnow().date()
 
 
 def init_db():
