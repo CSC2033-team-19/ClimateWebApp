@@ -9,7 +9,16 @@
                 <div class="field">
                     {{ form.csrf_token() }}
                     <div class="control">
-                        {{ form.reason(class="input", placeholder="Reason") }}
+                        {{ form.title(class="textarea", placeholder="Title") }}
+                        {% for error in form.title.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="field">
+                    {{ form.csrf_token() }}
+                    <div class="control">
+                        {{ form.reason(class="textarea", placeholder="Reason") }}
                         {% for error in form.reason.errors %}
                             {{ error }}
                         {% endfor %}
@@ -17,8 +26,16 @@
                 </div>
                 <div class="field">
                     <div class="control">
-                        {{ form.amount(class="textarea", placeholder="Amount") }}
+                        {{ form.amount(class="input", placeholder="Amount") }}
                         {% for error in form.amount.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        {{ form.status(class="textarea", placeholder="Status") }}
+                        {% for error in form.status.errors %}
                             {{ error }}
                         {% endfor %}
                     </div>

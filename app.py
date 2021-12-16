@@ -89,35 +89,45 @@ def get_publishable_key():
       'currency': price['currency']
     })
 
-# Fetch the Checkout Session to display the JSON result on the success page
-@app.route('/checkout-session', methods=['GET'])
-def get_checkout_session():
-    id = request.args.get('sessionId')
-    checkout_session = stripe.checkout.Session.retrieve(id)
-    return jsonify(checkout_session)
+'''
+    # creating sessions
+    @app.route('/create-session', methods=['POST'])
+    def create_session():
 
-# Create checkout session
-@app.route('/create-checkout-session', methods=['POST'])
-def create_checkout_session():
-    quantity = request.form.get('quantity', 1)
-    domain_url = os.getenv('DOMAIN')
-
-    try:
-        # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
-        checkout_session = stripe.checkout.Session.create(
-            success_url=domain_url + '/success.html?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url=domain_url + '/canceled.html',
-            payment_method_types= os.getenv('PAYMENT_METHOD_TYPES').split(','),
-            mode='payment',
-            # automatic_tax={'enabled': True},
+        domain_url = os.getenv('DOMAIN')
+        data = json.loads(request.data)
+        session = stripe.checkout.Session.create(
+            success_url=domain_url + '/success?id={CHECKOUT_SESSION_ID}',
+            cancel_url=domain_url + '/cancel',
+            submit_type='donate',
+            payment_method_types=['card'],
             line_items=[{
-                'price': os.getenv('PRICE'),
-                'quantity': quantity,
-            }]
+                'amount': data['amount'],
+                'name': 'Donation',
+                'currency': 'USD',
+                'quantity': 1
+            }],
+            payment_intent_data={
+                'metadata': {
+                    'cause': data['cause'],
+                },
+            },
+            metadata={
+                'cause': data['cause'],
+            }
         )
-        return redirect(checkout_session.url, code=303)
-    except Exception as e:
-        return jsonify(error=str(e)), 403
+        return jsonify(session)
+    
+    # retrieving sessions
+    @app.route('/retrieve-session')
+    def retrieve_session():
+        session = stripe.checkout.Session.retrieve(
+            request.args['id'],
+            expand=['payment_intent'],
+        )
+        return jsonify(session)
+'''
+
 
 # Webhook for stripe payment events
 @app.route('/webhook', methods=['POST'])
@@ -228,15 +238,24 @@ def internal_error(error):
 def page_forbidden(error):
     return render_template('503.html'), 503
 
+@app.route('/success')
+def success():
+    return render_template('success.html')
+
+@app.route('/cancel')
+def cancel():
+    return render_template('cancel.html')
+
 
 if __name__ == '__main__':
     my_host = "127.0.0.1"
+    '''
     free_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     free_socket.bind((my_host, 0))
     free_socket.listen(5)
     free_port = free_socket.getsockname()[1]
     free_socket.close()
-
+    '''
     # LOGIN MANAGER
     # create instance of LoginManager to hold the settings used for logging in
     login_manager = LoginManager()
@@ -268,5 +287,5 @@ if __name__ == '__main__':
     app.register_blueprint(posts_blueprint)
     app.register_blueprint(calculator_blueprint)
     app.register_blueprint(donate_blueprint)
-
-    app.run(host=my_host, port=free_port, debug=True)
+    #free_port
+    app.run(host=my_host, port=55757, debug=True)

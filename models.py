@@ -95,6 +95,7 @@ class Donations(db.Model):
     __tablename__ = 'donations'
 
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.Text)
     email = db.Column(db.String(100), db.ForeignKey(User.email), nullable=True)
     created = db.Column(db.DateTime, nullable=False)
     reason = db.Column(db.Text, nullable=False, default=False)
@@ -102,7 +103,11 @@ class Donations(db.Model):
     amount = db.Column(db.Integer, nullable=False, default=False)
     status = db.Column(db.Text,nullable=False,default="In Progress")
 
-    def __init__(self, email, reason, donated, amount):
+    # image = db.Column(db.Blob)
+
+    def __init__(self, title, email, status, reason, donated, amount):
+        self.title = title
+        self.status = status
         self.email = email
         self.created = datetime.now()
         self.reason = reason
@@ -110,12 +115,22 @@ class Donations(db.Model):
         self.amount = amount
         db.session.commit()
 
-    def update_donation(self, reason, donated, amount,status):
+    # update donation
+    def update_donation(self, title, reason, donated, amount, status):
+        self.title = title
         self.reason = reason
         self.donated = donated
         self.amount = amount
         self.status = status
         db.session.commit()
+
+    # Function to see if the donation is complete
+    def add_donation(self, donated):
+        self.donated = self.donated + donated
+        if self.donated >= self.amount:
+            self.status = 'Completed'
+        db.session.commit()
+
 # Challenge model class
 class Challenge(db.Model):
     __tablename__ = 'challenges'

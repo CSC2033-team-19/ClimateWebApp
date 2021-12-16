@@ -1,10 +1,14 @@
 import copy
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify, request, redirect
 from flask_login import login_required, current_user
 from sqlalchemy import desc
+import stripe
 from app import db, requires_roles
 from donate.forms import DonationForm
 from models import Donations
+from itsdangerous import json
+import os
+from dotenv import load_dotenv, find_dotenv
 
 # CONFIG
 donate_blueprint = Blueprint("donate", __name__, template_folder="templates")
@@ -33,7 +37,9 @@ def create():
     # if form valid
     if form.validate_on_submit():
         # create a new post with the form data
-        new_donation = Donations(email=current_user.email, reason=form.reason.data, amount=form.amount.data, donated=0)
+        new_donation = \
+            Donations(title=form.title.data, email=current_user.email, reason=form.reason.data,
+                      amount=form.amount.data, donated=0, status=form.status.data)
         # add the new post to the database
         db.session.add(new_donation)
         db.session.commit()
@@ -62,7 +68,8 @@ def update(id):
     # if form valid
     if form.validate_on_submit():
         # update old post data with the new form data and commit it to database
-        donation.update_post(form.reason.data, form.amount.data)
+        donation.update_donation(form.title.data, form.reason.data, form.donated.data, form.amount.data,
+                                 form.status.data)
         db.session.commit()
         # send admin to posts page
         return donate()
@@ -71,6 +78,7 @@ def update(id):
     donation_copy = copy.deepcopy(donation)
 
     # set update form with title and body of copied post object
+    form.title.data = donation_copy.title
     form.reason.data = donation_copy.reason
     form.amount.data = donation_copy.amount
 
@@ -87,3 +95,50 @@ def delete(id):
     Donations.query.filter_by(id=id).delete()
     db.session.commit()
     return donate()
+
+
+@donate_blueprint.route('/<int:id>/create-session', methods=['POST'])
+@login_required
+def create_session(id):
+    domain_url = os.getenv('DOMAIN')
+    # data = json.loads(request.data)
+    donation = Donations.query.filter_by(id=id).first()
+    # print(data)
+    print(donation.reason)
+    amount = request.form['amount']
+    session = stripe.checkout.Session.create(
+        success_url=domain_url + '/success?id={CHECKOUT_SESSION_ID}',
+        cancel_url=domain_url + '/cancel',
+        submit_type='donate',
+        payment_method_types=['card'],
+        line_items=[{
+            'amount': amount,
+            'name': 'Donation',
+            'currency': 'GBP',
+            'quantity': 1
+        }],
+        payment_intent_data={
+            'metadata': {
+                'cause': donation.reason,
+                'donation_by': current_user.email
+            },
+        },
+        metadata={
+            'cause': donation.reason,
+            'donation_by': current_user.email
+
+        }
+    )
+    donation.add_donation(int(amount))
+    return redirect(session['url'])
+
+
+# retrieving sessions
+@donate_blueprint.route('/retrieve_session', methods=['POST'])
+@login_required
+def retrieve_session():
+    session = stripe.checkout.Session.retrieve(
+        request.args['id'],
+        expand=['payment_intent'],
+    )
+    return jsonify(session)
