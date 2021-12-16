@@ -90,7 +90,32 @@ class Post(db.Model):
         self.title = decrypt(self.title, postkey)
         self.body = decrypt(self.body, postkey)
 
+# Donation model class
+class Donations(db.Model):
+    __tablename__ = 'donations'
 
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), db.ForeignKey(User.email), nullable=True)
+    created = db.Column(db.DateTime, nullable=False)
+    reason = db.Column(db.Text, nullable=False, default=False)
+    donated = db.Column(db.Integer, nullable=False, default=False)
+    amount = db.Column(db.Integer, nullable=False, default=False)
+    status = db.Column(db.Text,nullable=False,default="In Progress")
+
+    def __init__(self, email, reason, donated, amount):
+        self.email = email
+        self.created = datetime.now()
+        self.reason = reason
+        self.donated = donated
+        self.amount = amount
+        db.session.commit()
+
+    def update_donation(self, reason, donated, amount,status):
+        self.reason = reason
+        self.donated = donated
+        self.amount = amount
+        self.status = status
+        db.session.commit()
 # Challenge model class
 class Challenge(db.Model):
     __tablename__ = 'challenges'

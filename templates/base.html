@@ -59,6 +59,9 @@
                             <li><a class="dropdown-item" href="{{ url_for("posts.create") }}">New Post</a></li>
                             {% endif %}
                             <li><a class="dropdown-item" href="{{ url_for("posts.posts") }}">Posts</a></li>
+                            {% if current_user.role == "admin" %}
+                            <li><a class="dropdown-item" href="{{ url_for("donate.create") }}">New Donation</a></li>
+                            {% endif %}
                         </ul>
                     </li>
                     <li class="nav-item">

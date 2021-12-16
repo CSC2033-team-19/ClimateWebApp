@@ -77,4 +77,49 @@
         </div>
     </div>
 
+    <div class="column is-12 is-offset-1">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="notification is-danger">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+
+        <h4 class="title is-4">Donations</h4>
+        <div class="box">
+            {% if donations %}
+                <div class="field">
+                    <table class="table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Email</th>
+                            <th>Reason</th>
+                            <th>Amount</th>
+                            <th>Donated</th>
+                            <th>Status</th>
+                        </tr>
+                        {% for donation in donations %}
+                            <tr>
+                                <td>{{ donation.id }}</td>
+                                <td>{{ donation.email }}</td>
+                                <td>{{ donation.reason }}</td>
+                                <td>{{ donation.amount }}</td>
+                                <td>{{ donation.donated }}</td>
+                                <td>{{ donation.status }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+            <form method="POST" action="/view_all_donations">
+                <div>
+                    <button class="button is-info is-centered">View All Donations</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
 {% endblock %}
