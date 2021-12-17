@@ -8,6 +8,7 @@
 
     {# Import Chart.js to create a chart to preview the user's data #}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 
     {# Import local styles #}
     <link rel="stylesheet" href="/static/calculator.css" />
@@ -89,6 +90,18 @@
                         aria-controls="preview"
                         aria-selected="false"
                 >Preview</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a
+                        class="nav-link"
+                        id="historical-data-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#historical-data"
+                        type="button"
+                        role="tab"
+                        aria-controls="historical-data"
+                        aria-selected="false"
+                >View your historical data</a>
             </li>
         </ul>
         <form method="POST">
@@ -269,6 +282,17 @@
                     </div>
 
                     <a class="btn btn-lg btn-prev">Previous</a>
+                    <a class="btn btn-lg btn-next">Next</a>
+
+
+                </div>
+                <div id="historical-data" class="tab-pane fade" role="tabpanel" aria-labelledby="historical-data-tab">
+                    <div class="input-container">
+                        <canvas id="historical-data-chart" height="100"></canvas>
+
+                        <a class="btn btn-lg btn-prev">Previous</a>
+
+                    </div>
                 </div>
             </div>
         </form>

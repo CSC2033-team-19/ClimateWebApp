@@ -1,6 +1,7 @@
 # imports
 import base64
 from datetime import datetime
+
 from Crypto.Protocol.KDF import scrypt
 from Crypto.Random import get_random_bytes
 from flask_login import UserMixin
@@ -133,14 +134,13 @@ class CarbonData(db.Model):
     date_taken = db.Column(db.DateTime, nullable=False)
 
     def __init__(self, user, total, _travel, _home, _food, _goods):
-        self.username = user.id
+        self.user_id = user.id
         self.total_emissions = total
         self.travel = _travel
         self.home = _home
         self.food = _food
         self.goods = _goods
-        self.date_taken = datetime.utcnow().date()
-
+        self.date_taken = datetime.utcnow()
 
 def init_db():
     db.drop_all()

@@ -1,6 +1,8 @@
 // Setup global variable preview_data_chart.
 let preview_data_chart;
-let ctx;
+let preview_ctx;
+let historical_data_chart;
+let historical_ctx;
 
 $(function() {
     // get the range slider element.
@@ -25,7 +27,7 @@ $(function() {
 
 
     // Add a listener for when the submit tab is opened
-    $("#preview-tab, #other a.btn-next").click((event) => {
+    $("#preview-tab").on("shown.bs.tab", (event) => {
         // Set up variables for function
         var emission_values = {}
         const vehicle_type = $("#vehicle_type")
@@ -43,10 +45,18 @@ $(function() {
             url: "/calculator/preview_values.json",
             type: "get",
             data: emission_values,
-            success: create_chart
+            success: create_preview
+
         })
     });
 
+    $("#historical-data-tab").on("shown.bs.tab", (event) => {
+        $.ajax({
+            url: "/calculator/historical_values.json",
+            type: "get",
+            success: create_historical_chart
+        })
+    })
 
     // Set up buttons to change which tab is active
     $(".btn-next").click((event) => {
@@ -66,26 +76,25 @@ $(function() {
 
 
     // Setup charts
-    ctx = document.getElementById("preview-chart").getContext("2d");
-    preview_data_chart = new Chart(ctx);
+    preview_ctx = document.getElementById("preview-chart").getContext("2d");
+    preview_data_chart = new Chart(preview_ctx);
+
+    historical_ctx = document.getElementById("historical-data-chart").getContext("2d");
+    historical_data_chart = new Chart(historical_ctx);
 
 })
 
-// Create dummy chart so that the program can regenerate a new chart each time the data is changed.
-function create_chart(result) {
+function create_preview(result) {
     // Destroy chart so that the new chart can be created in its place.
     preview_data_chart.destroy();
 
-    // Create new chart with the data from the last page.
-    preview_data_chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Travel', 'Home Utilities', 'Food Shopping', 'Other Expenses', "Total Emissions"],
-            datasets: [{
-                labels: ['Travel', 'Home Utilities', 'Food Shopping', 'Other Expenses', "Total Emissions"],
-                data: [result.travel, result.home, result.food, result.other, result.total],
-                // Colour scheme from coolors.co
-                backgroundColor: [
+    const data = {
+        labels: result.labels,
+        datasets: [{
+            labels: result.labels,
+            data: result.data,
+            // Colour scheme from coolors.io
+            backgroundColor: [
                     'rgba(23, 48, 28, 0.2)',
                     'rgba(55, 147, 146, 0.2)',
                     'rgba(79, 176, 198, 0.2)',
@@ -100,8 +109,13 @@ function create_chart(result) {
                     'rgba(116, 79, 198, 1)'
                 ],
                 borderWidth: 1
-            }]
-        },
+
+        }]
+    }
+
+    const config = {
+        type: "bar",
+        data: data,
         options: {
             scales: {
                 y: {
@@ -114,5 +128,56 @@ function create_chart(result) {
                 }
             }
         }
-    })
+    }
+
+    // Create new chart with the data from the last page.
+    preview_data_chart = new Chart(preview_ctx, config)
 }
+
+function create_historical_chart(result) {
+    // Destroy old chart so that the new chart can be created,
+    historical_data_chart.destroy();
+
+    const data = {
+        labels: result.labels,
+        datasets: [{
+            label: "Your emissions",
+            data: result.data,
+            fill: false,
+            birderColor: "rgb(75, 192, 192)",
+            tension: 0.1
+        }]
+    }
+
+    const config = {
+        type: "line",
+        data: data,
+        options: {
+            scales: {
+                x: {
+                    type: "time",
+                    time: {
+                        unit: "day"
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        text: "Emissions (kgCO2e/month)"
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    }
+
+    // Create new chart with the user's data
+    historical_data_chart = new Chart(historical_ctx, config)
+
+    console.log(historical_data_chart.data);
+}
+

@@ -83,11 +83,11 @@ def calculator():
         user = current_user
 
         new_carbon_data = CarbonData(user,
-                                           total_emissions,
-                                           travel,
-                                           home,
-                                           food,
-                                           other_shopping)
+                                     total_emissions,
+                                     travel,
+                                     home,
+                                     food,
+                                     other_shopping)
 
         # Add the new data into the database.
         db.session.add(new_carbon_data)
@@ -108,12 +108,17 @@ def calculator():
 
 
 @calculator_blueprint.route("/calculator/preview_values.json", methods=["GET"])
+@login_required
 def preview_results():
     """
     Show the user a preview of their results.
     """
 
     handle_input = {}
+
+    # Set the label values
+    emission_preview = {"labels": ["Travel", "Home Utilities", "Food Shopping", "Other Expenses", "Total Data"],
+                        "data": []}
 
     # Get rid of the submit button
 
@@ -128,33 +133,72 @@ def preview_results():
                 # If the value is invalid, then use the mean value for the emission factor
                 handle_input[argument] = PLACEHOLDER_VALUES[argument]
 
-    # Set the values to be returned
-    emission_preview = {"travel": get_travel_emissions(
-        handle_input["public_transport"],
-        handle_input["air_travel"],
-        handle_input["vehicle_fuel"],
-        request.args.get("vehicle_type"),
-        handle_input["vehicle_upkeep"],
-    ), "home": get_home_emissions(
-        handle_input["electricity"],
-        handle_input["clean_electricity_factor"] / 100,
-        handle_input["gas"],
-        handle_input["heating_oil"],
-        handle_input["water"],
-    ), "food": get_food_emissions(
-        handle_input["meat"],
-        handle_input["grains"],
-        handle_input["fruit_vegetables"],
-        handle_input["dairy"],
-        handle_input["snacks"],
-    ), "other": get_shopping_emissions(
-        handle_input["goods"],
-        handle_input["services"]
-    )}
 
-    emission_preview["total"] = sum(emission_preview.values())
+    # Add the travel emissions to the dataset
+    emission_preview["data"].append(
+        get_travel_emissions(
+            handle_input["public_transport"],
+            handle_input["air_travel"],
+            handle_input["vehicle_fuel"],
+            request.args.get("vehicle_type"),
+            handle_input["vehicle_upkeep"]
+        )
+    )
+
+    # Add the home emissions to the dataset
+    emission_preview["data"].append(
+        get_home_emissions(
+            handle_input["electricity"],
+            handle_input["clean_electricity_factor"] / 100,
+            handle_input["gas"],
+            handle_input["heating_oil"],
+            handle_input["water"],
+        )
+    )
+
+    # Add the food shopping emissions to the dataset.
+    emission_preview["data"].append(
+        get_food_emissions(
+            handle_input["meat"],
+            handle_input["grains"],
+            handle_input["fruit_vegetables"],
+            handle_input["dairy"],
+            handle_input["snacks"],
+        )
+    )
+
+    # Add the other goods/services emissions to the dataset.
+    emission_preview["data"].append(
+        get_shopping_emissions(
+            handle_input["goods"],
+            handle_input["services"]
+        )
+    )
+
+    # Add the total emissions to the dataset.
+    emission_preview["data"].append(sum(emission_preview["data"]))
+
 
     return jsonify(emission_preview)
+
+
+@calculator_blueprint.route("/calculator/historical_values.json", methods=["GET"])
+@login_required
+def historical_results():
+    """
+    Show the user their historical results
+    """
+    return_object = {"labels": [], "data": []}
+
+    # Get all data
+    data = CarbonData.query.filter_by(user_id=current_user.id).all()
+
+    for i in data:
+        # Add the piece of data to the return object
+        return_object["labels"].append(i.date_taken.strftime("%Y-%m-%d"))
+        return_object["data"].append(i.total_emissions)
+
+    return jsonify(return_object)
 
 
 # Functions for calculating emissions
