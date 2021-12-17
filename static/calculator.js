@@ -118,8 +118,24 @@ function create_preview(result) {
         data: data,
         options: {
             scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: "Type of emission",
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: "Emissions (kgCO2e/month)",
+                        font: {
+                            size: 14
+                        }
+                    }
                 }
             },
             plugins: {
@@ -158,12 +174,23 @@ function create_historical_chart(result) {
                     type: "time",
                     time: {
                         unit: "day"
+                    },
+                    title: {
+                        display: true,
+                        text: "Date Recorded",
+                        font: {
+                            size: 14
+                        }
                     }
                 },
                 y: {
                     beginAtZero: true,
                     title: {
-                        text: "Emissions (kgCO2e/month)"
+                        display: true,
+                        text: "Total Emissions (kgCO2e/month)",
+                        font: {
+                            size: 14
+                        }
                     }
                 }
             },
@@ -177,7 +204,5 @@ function create_historical_chart(result) {
 
     // Create new chart with the user's data
     historical_data_chart = new Chart(historical_ctx, config)
-
-    console.log(historical_data_chart.data);
 }
 
