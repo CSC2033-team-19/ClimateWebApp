@@ -186,7 +186,7 @@ def get_home_emissions(electricity, clean_electricity_factor, gas, heating, wate
     :param water: The monthly expenditure on water costs
     :return: returns the total emissions from household utilities per month
     """
-    return (EMISSION_FACTORS["electricity"] * float(electricity) * (1 - float(clean_electricity_factor))) \
+    return (EMISSION_FACTORS["electricity"] * float(electricity) * (1 - float(clean_electricity_factor / 100))) \
         + (EMISSION_FACTORS["gas"] * float(gas)) \
         + (EMISSION_FACTORS["heating"] * float(heating)) \
         + (EMISSION_FACTORS["water"] * float(water))

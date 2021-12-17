@@ -124,7 +124,7 @@ class CarbonData(db.Model):
 
     # Initialise the columns of the table
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
     total_emissions = db.Column(db.Float, nullable=False)
     travel = db.Column(db.Float, nullable=False)
     home = db.Column(db.Float, nullable=False)
