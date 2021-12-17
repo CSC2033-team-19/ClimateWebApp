@@ -1,3 +1,7 @@
+// Setup global variable preview_data_chart.
+let preview_data_chart;
+let ctx;
+
 $(function() {
     // get the range slider element.
     let electricity_factor_input = document.getElementById("clean_electricity_factor");
@@ -60,14 +64,15 @@ $(function() {
         toast.show();
     }
 
+
+    // Setup charts
+    ctx = document.getElementById("preview-chart").getContext("2d");
+    preview_data_chart = new Chart(ctx);
+
 })
 
 // Create dummy chart so that the program can regenerate a new chart each time the data is changed.
-let preview_data_chart = new Chart();
 function create_chart(result) {
-    // Get the context for the chart.
-    const ctx = document.getElementById("preview-chart").getContext('2d');
-
     // Destroy chart so that the new chart can be created in its place.
     preview_data_chart.destroy();
 

@@ -48,8 +48,6 @@ EMISSION_FACTORS = {
 def calculator():
     form = CalculatorForm()
 
-    print(request.method)
-
     if form.validate_on_submit():
 
         # Calculate the emissions given the user's budget inputs
