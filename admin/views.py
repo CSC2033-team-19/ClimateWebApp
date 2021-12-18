@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from app import requires_roles
-from models import User
+from models import User, JoinChallenge
 from models import User, Donations
 
 # CONFIG
@@ -25,12 +25,22 @@ def admin():
 def view_all_users():
     return render_template('admin.html', name=current_user.firstname, current_users=User.query.all())
 
+
+# view all challenges joined by registered users
+@admin_blueprint.route('/view_all_joined_challenges', methods=['POST'])
+@login_required
+@requires_roles('admin')
+def view_all_joined_challenges():
+    return render_template('admin.html', name=current_user.firstname, joined_challenges=JoinChallenge.query.all())
+
+
 # view all registered users
 @admin_blueprint.route('/view_all_donations', methods=['POST'])
 @login_required
 @requires_roles('admin')
 def view_all_donations():
     return render_template('admin.html', name=current_user.firstname, donations=Donations.query.all())
+
 
 # view last 10 log entries
 @admin_blueprint.route('/logs', methods=['POST'])
