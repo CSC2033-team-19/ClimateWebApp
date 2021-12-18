@@ -50,6 +50,7 @@ class User(db.Model, UserMixin):
 
     posts = db.relationship('Post')
     challenges = db.relationship('Challenge')
+    join_challenge = db.relationship('JoinChallenge')
 
     def __init__(self, email, firstname, lastname, phone, password, role):
         self.email = email
@@ -89,6 +90,7 @@ class Post(db.Model):
     def view_post(self, postkey):
         self.title = decrypt(self.title, postkey)
         self.body = decrypt(self.body, postkey)
+
 
 # Donation model class
 class Donations(db.Model):
@@ -131,6 +133,7 @@ class Donations(db.Model):
             self.status = 'Completed'
         db.session.commit()
 
+
 # Challenge model class
 class Challenge(db.Model):
     __tablename__ = 'challenges'
@@ -140,6 +143,8 @@ class Challenge(db.Model):
     created = db.Column(db.DateTime, nullable=False)
     title = db.Column(db.Text, nullable=False, default=False)
     body = db.Column(db.Text, nullable=False, default=False)
+
+    join_challenge = db.relationship('JoinChallenge')
 
     def __init__(self, email, title, body, postkey):
         self.email = email
@@ -156,6 +161,22 @@ class Challenge(db.Model):
     def view_challenge(self, postkey):
         self.title = decrypt(self.title, postkey)
         self.body = decrypt(self.body, postkey)
+
+
+# Join Challenge model class
+class JoinChallenge(db.Model):
+    __tablename__ = 'join_challenge'
+
+    id = db.Column(db.Integer, primary_key=True)
+    challenge_id = db.Column(db.Integer, db.ForeignKey(Challenge.id), nullable=False)
+    user_email = db.Column(db.String(100), db.ForeignKey(User.email), nullable=False)
+    date_joined = db.Column(db.DateTime, nullable=False)
+
+    def __init__(self, challenge_id, email):
+        self.challenge_id = challenge_id
+        self.user_email = email
+        self.date_joined = datetime.now()
+        db.session.commit()
 
 
 def init_db():

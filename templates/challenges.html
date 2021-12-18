@@ -79,7 +79,7 @@
                                 <a type="button" class="btn btn-outline-danger" href="{{ url_for('challenges.delete', id=challenge.id) }}" role="button">Delete</a>
                             </div>
                             <br>
-                            <a type="button" class="btn btn-outline-success btn-block" role="button">Join Challenge</a>
+                            <a type="button" class="btn btn-outline-success btn-block" href="{{ url_for('challenges.join', id=challenge.id) }}" role="button">Join Challenge</a>
                         {% endif %}
                     </div>
                 </div>

@@ -1,10 +1,10 @@
 import copy
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, flash
 from flask_login import login_required, current_user
 from sqlalchemy import desc
 from app import db, requires_roles
 from challenges.forms import ChallengeForm
-from models import User, Challenge
+from models import User, Challenge, JoinChallenge
 
 # CONFIG
 challenges_blueprint = Blueprint('challenges', __name__, template_folder='templates')
@@ -104,3 +104,21 @@ def delete(id):
     db.session.commit()
 
     return challenges()
+
+
+# join a challenge
+@challenges_blueprint.route('/<int:id>/join_challenge', methods=('GET', 'POST'))
+@login_required
+def join(id):
+    # get challenge with the matching id
+    challenge = Challenge.query.filter_by(id=id).first()
+    # create a new row with the data
+    new_join = JoinChallenge(challenge_id=challenge.id, email=current_user.email)
+
+    db.session.add(new_join)
+    db.session.commit()
+
+    flash('Joined Challenge')
+
+    return challenges()
+
