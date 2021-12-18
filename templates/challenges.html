@@ -75,11 +75,11 @@
                         <p class="blog-post-content">{{ challenge.body }}</p>
                         {% if challenge.username == current_user.username %}
                             <div class="btn-group btn-group-justified">
-                                <button type="button" class="btn btn-outline-primary" href="{{ url_for('challenges.update', id=challenge.id) }}">Update</button>
-                                <button type="button" class="btn btn-outline-danger" href="{{ url_for('challenges.delete', id=challenge.id) }}">Delete</button>
+                                <a type="button" class="btn btn-outline-primary" href="{{ url_for('challenges.update', id=challenge.id) }}" role="button">Update</a>
+                                <a type="button" class="btn btn-outline-danger" href="{{ url_for('challenges.delete', id=challenge.id) }}" role="button">Delete</a>
                             </div>
                             <br>
-                            <button class="button is-info is-centered btn btn-outline-success btn-block">Join Challenge</button>
+                            <a type="button" class="btn btn-outline-success btn-block" role="button">Join Challenge</a>
                         {% endif %}
                     </div>
                 </div>

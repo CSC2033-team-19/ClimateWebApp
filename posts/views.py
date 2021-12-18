@@ -97,7 +97,7 @@ def update(id):
 
 
 # delete a post
-@posts_blueprint.route('/<int:id>/delete')
+@posts_blueprint.route('/<int:id>/delete_post')
 @login_required
 @requires_roles('admin')
 def delete(id):

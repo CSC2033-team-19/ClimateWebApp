@@ -74,8 +74,8 @@
                         <p class="blog-post-content">{{ post.body }}</p>
                         {% if post.username == current_user.username %}
                             <div class="btn-group btn-group-justified">
-                                <button type="button" class="btn btn-outline-primary" href="{{ url_for('posts.update', id=post.id) }}">Update</button>
-                                <button type="button" class="btn btn-outline-danger" href="{{ url_for('posts.delete', id=post.id) }}">Delete</button>
+                                <a type="button" class="btn btn-outline-primary" href="{{ url_for('posts.update', id=post.id) }}" role="button">Update</a>
+                                <a type="button" class="btn btn-outline-danger" href="{{ url_for('posts.delete', id=post.id) }}" role="button">Delete</a>
                             </div>
                         {% endif %}
                     </div>

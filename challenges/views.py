@@ -95,7 +95,7 @@ def update(id):
 
 
 # delete a challenge
-@challenges_blueprint.route('/<int:id>/delete')
+@challenges_blueprint.route('/<int:id>/delete_challenge')
 @login_required
 @requires_roles('admin')
 def delete(id):
