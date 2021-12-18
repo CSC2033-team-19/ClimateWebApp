@@ -34,4 +34,33 @@
         </div>
     </div>
 
+    <h4 class="title is-4">Challenges Joined</h4>
+        <div class="box">
+            {% if joined_challenges %}
+                <div class="field">
+                    <table class="table">
+                        <tr>
+                            <th>Join ID</th>
+                            <th>User Email</th>
+                            <th>Challenge ID</th>
+                            <th>Date Joined</th>
+                        </tr>
+                        {% for challenge in joined_challenges %}
+                            <tr>
+                                <td>{{ challenge.id }}</td>
+                                <td>{{ challenge.user_email }}</td>
+                                <td>{{ challenge.challenge_id }}</td>
+                                <td>{{ challenge.date_joined.strftime('%d-%m-%Y') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+            <form method="POST" action="/view_joined_challenges">
+                <div>
+                    <button class="button is-info is-centered">View Challenges Joined</button>
+                </div>
+            </form>
+        </div>
+
 {% endblock %}

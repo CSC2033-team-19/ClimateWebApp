@@ -5,7 +5,7 @@ import pyotp
 from flask import render_template, flash, redirect, url_for, session, Blueprint, request
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
-from models import User
+from models import User, JoinChallenge
 from users.forms import RegisterForm, LoginForm
 from app import db
 
@@ -140,6 +140,19 @@ def profile():
                            firstname=current_user.firstname,
                            lastname=current_user.lastname,
                            phone=current_user.phone)
+
+
+# view all challenges joined by current user
+@users_blueprint.route('/view_joined_challenges', methods=['POST'])
+@login_required
+def view_joined_challenges():
+    return render_template('profile.html', name=current_user.firstname,
+                           id=current_user.id,
+                           email=current_user.email,
+                           firstname=current_user.firstname,
+                           lastname=current_user.lastname,
+                           phone=current_user.phone,
+                           joined_challenges=JoinChallenge.query.filter_by(user_email=current_user.email))
 
 
 # view user logout
