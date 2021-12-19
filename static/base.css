@@ -12,10 +12,7 @@ nav.bg-color-navbar {
 
 nav.bg-color-navbar .navbar-brand {
     color: var(--navbar-text-colour);
-    img: "image.png"
-
-
-
+    background-image: url("/static/logo.svg");
 }
 
 nav.bg-color-navbar .nav-link {
