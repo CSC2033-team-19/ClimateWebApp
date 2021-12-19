@@ -28,10 +28,11 @@ button.navbar-toggler i {
 div.body-container {
     /* Set up container to contain 100% of the page outside of the navbar */
     position: absolute;
-    height: 95%;
+    height: 100%;
     overflow: hidden;
     width: 100%;
     color: white;
+
 
     /* Center all elements in the body */
     display: flex;
@@ -42,9 +43,6 @@ div.body-container {
     font-family: Geneva;
 }
 
-div.body-container {
-
-}
 
 
 /* Set up input for login forms */
