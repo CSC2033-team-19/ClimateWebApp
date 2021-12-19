@@ -4,27 +4,31 @@
 
     <div class="column is-6 is-offset-3">
         <h3 class="title is-3">Create Post</h3>
+        <br>
+        <br>
         <div class="box">
             <form method="POST">
                 <div class="field">
                     {{ form.csrf_token() }}
                     <div class="control">
-                        {{ form.title(class="input", placeholder="Title") }}
+                        {{ form.title(class="input form-control", placeholder="Title") }}
                         {% for error in form.title.errors %}
                             {{ error }}
                         {% endfor %}
                     </div>
                 </div>
+                <br>
                 <div class="field">
                     <div class="control">
-                        {{ form.body(class="textarea", placeholder="Body") }}
+                        {{ form.body(class="textarea form-control", placeholder="Body") }}
                         {% for error in form.body.errors %}
                             {{ error }}
                         {% endfor %}
                     </div>
                 </div>
+                <br>
                 <div>
-                    {{ form.submit(class="button is-info is-centered") }}
+                    {{ form.submit(type="button", class="btn btn-primary d-grid gap-2 col-6 mx-auto", role="button") }}
                 </div>
             </form>
         </div>
