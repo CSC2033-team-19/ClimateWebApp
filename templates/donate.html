@@ -4,22 +4,26 @@
 
 <style>
   body {
-    font-family: Arial;
-    background: #f1f1f1;
+    font-family: sans-serif;
+    background: moccasin;
+
+
+
   }
 
   /* Header/Blog Title */
-  .header {
-    padding: 30px;
-    font-size: 40px;
+  .card-title {
+    padding: 20px;
+    font-size: 35px;
+      font-color: black;
     text-align: center;
-    background: white;
   }
 
   /* Add a card effect for articles */
   .card {
     background-color: white;
-    margin: 20px;
+    margin: 50px;
+      font-size: 20px
   }
 
   .flex-container {
@@ -38,7 +42,7 @@
     <div class="card-body">
       <h5 class="card-title">{{ donation.title}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">Amount: {{ donation.amount}} </h6>
-      <h6 class="card-subtitle mb-2 text-muted">Donated: {{ donation.donated }}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">Donated: £{{ donation.donated }}</h6>
       <h6 class="card-subtitle mb-2 text-muted">{{ donation.created.strftime('%d-%m-%Y') }}</h6>
       
       <p class="card-text">{{ donation.reason }}</p>

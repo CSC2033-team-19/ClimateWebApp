@@ -1,8 +1,8 @@
 :root {
     /* Set up colour schemes */
-    --navbar-bg-colour: #96ff94;
+    --navbar-bg-colour: white;
     --body-background-colour: #cbfcca;
-    --navbar-text-colour: #3a3a3a;
+    --navbar-text-colour: black;
     --body-text-colour: #3a3a3a;
 }
 
@@ -12,7 +12,10 @@ nav.bg-color-navbar {
 
 nav.bg-color-navbar .navbar-brand {
     color: var(--navbar-text-colour);
-    font-weight: bolder;
+    img: "image.png"
+
+
+
 }
 
 nav.bg-color-navbar .nav-link {
@@ -33,12 +36,14 @@ div.body-container {
     background-color: white;
     color: var(--body-text-colour);
 
+
     /* Center all elements in the body */
     display: flex;
     align-items: center;
     justify-items: center;
     text-align: center;
     text-justify: inter-word;
+    font-family: Geneva
 }
 
 /* Set up input for login forms */

@@ -7,10 +7,10 @@
           <h1>Success!</h1>
 
           <p>
-          Thanks so much for donating <strong id="amount"></strong> to <strong id="cause"></strong>
+          Thanks so much for donating with Greenify<strong id="amount"></strong> to <strong id="cause"></strong>
           </p>
 
-          <a href="/">Donate More?!</a>
+          <a href="/">Donate More?</a>
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
   .then((response) => response.json())
   .then((session) => {
     cause.innerText = session.metadata.cause;
-    amount.innerText = formatter.format(session.payment_intent.amount / 100);
+    amount.innerText = formatter.format(session.payment_intent.amount / 1000);
   })
   .catch((error) => {
     console.error('Error:', error);

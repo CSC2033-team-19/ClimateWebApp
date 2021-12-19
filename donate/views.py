@@ -131,7 +131,7 @@ def create_session(id):
     )
     donation.add_donation(int(amount))
     return redirect(session['url'])
-
+3
 
 # retrieving sessions
 @donate_blueprint.route('/retrieve_session', methods=['POST'])
