@@ -28,8 +28,8 @@ button.navbar-toggler i {
 div.body-container {
     /* Set up container to contain 100% of the page outside of the navbar */
     position: absolute;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
+    overflow-x: hidden;
     width: 100%;
     color: black;
 
@@ -40,7 +40,7 @@ div.body-container {
     justify-items: center;
     text-align: center;
     text-justify: inter-word;
-    font-family: Geneva;
+    font-family: Geneva, sans-serif;
 }
 
 
@@ -48,4 +48,14 @@ div.body-container {
 /* Set up input for login forms */
 form div.field {
     padding: 5px 25%;
+}
+
+.navbar-nav {
+    justify-content: space-between;
+    padding: 0 2.5%;
+    width: 100%;
+}
+
+.navbar-nav li a:hover {
+    color: #1abc9c;
 }
