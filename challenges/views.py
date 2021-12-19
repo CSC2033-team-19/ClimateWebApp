@@ -109,6 +109,7 @@ def delete(id):
 # join a challenge
 @challenges_blueprint.route('/<int:id>/join_challenge', methods=('GET', 'POST'))
 @login_required
+@requires_roles('user')
 def join(id):
     # get challenge with the matching id
     challenge = Challenge.query.filter_by(id=id).first()
