@@ -22,17 +22,16 @@ nav.bg-color-navbar .nav-link {
 
 button.navbar-toggler i {
     color: var(--navbar-text-colour);
+      position: absolute;
 }
 
 div.body-container {
     /* Set up container to contain 100% of the page outside of the navbar */
     position: absolute;
     height: 95%;
-    overflow:hidden;
-    width:100%;
-    background-color: white;
-    color: var(--body-text-colour);
-
+    overflow: hidden;
+    width: 100%;
+    color: white;
 
     /* Center all elements in the body */
     display: flex;
@@ -40,8 +39,13 @@ div.body-container {
     justify-items: center;
     text-align: center;
     text-justify: inter-word;
-    font-family: Geneva
+    font-family: Geneva;
 }
+
+div.body-container {
+
+}
+
 
 /* Set up input for login forms */
 form div.field {

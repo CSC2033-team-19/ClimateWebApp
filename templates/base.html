@@ -44,7 +44,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-color-navbar">
         <div class="container-fluid">
-            <img src="/static/logo.svg" width="100" height="50" alt="Greenify logo">
+            <img src="/static/logo.svg" width="300" height="70" alt="Greenify logo">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-align-justify"></i>
                 </button>
@@ -118,6 +118,9 @@
     </nav>
 
     <div class="body-container">
+     <video autoplay muted loop id="myVideo">
+  <source src="../static/video.mp4" type="video/mp4">
+    </video>
         <div class="container content-block">
             {% block content %}
             {% endblock %}
