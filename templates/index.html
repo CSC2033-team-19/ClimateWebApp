@@ -2,6 +2,7 @@
 
 {% block content %}
 
+    {% if not current_user.is_authenticated %}
     <div class="top-content">
         <div class="container">
             <div class="row">
@@ -20,14 +21,18 @@
         </div>
 
     </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.1.18/jquery.backstretch.min.js"></script>
+
+                <script>
+                    $('.top-content').backstretch([
+                        { url: "/static/video.mp4", duration: 6000, mute: true, alignY: 0, isVideo: true }]);
+                </script>
+
 </div>
 
-<div class="services-container section-container">
- <div class="container">
-     <div class="row">
-         <video width="2000" height="900" autoplay muted loop id="myVideo">
-  <source src="/static/video.mp4" type="video/mp4">
-    </video>
+
+{% endif %}
 
 
 <div class="services-container section-container">
@@ -129,6 +134,7 @@
                             collaborate into making a positive impact.  </p>
         </div>
     </div>
+
 </div>
 
 
