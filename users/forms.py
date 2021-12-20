@@ -28,10 +28,10 @@ def validate_password(self, password):
 def validate_phone(self, phone):
     try:
         if not (phonenumbers.is_valid_number(phonenumbers.parse(self.phone.data))):
-            raise ValidationError("Please enter a valid phone number including country code")
+            raise ValidationError("Please enter a valid phone number including country code.")
 
     except:
-        raise ValidationError('Please enter a valid phone number including country code')
+        raise ValidationError('Please enter a valid phone number including country code.')
 
 
 # custom validator that makes captcha required after 3 incorrect login attempts
