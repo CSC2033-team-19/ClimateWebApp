@@ -4,7 +4,10 @@
     <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/climatewebapp.log" beforeDir="false" afterPath="$PROJECT_DIR$/climatewebapp.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/greenify.db" beforeDir="false" afterPath="$PROJECT_DIR$/greenify.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/scripts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +166,8 @@
       <workItem from="1639620152294" duration="243000" />
       <workItem from="1639675955077" duration="6362000" />
       <workItem from="1639916294138" duration="8142000" />
-      <workItem from="1639926268782" duration="6278000" />
+      <workItem from="1639926268782" duration="6928000" />
+      <workItem from="1640003938185" duration="10428000" />
     </task>
     <task id="LOCAL-00001" summary="Added requires_role">
       <created>1638816757735</created>
@@ -305,7 +309,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639932215074</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="text back to black">
+      <created>1639933025487</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1639933025487</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,9 +346,10 @@
     <MESSAGE value="Changed CSS and fixed success page error for donate" />
     <MESSAGE value="Added greenify logo img to base.css" />
     <MESSAGE value="Added video to the home page, working on scale / layers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added video to the home page, working on scale / layers" />
+    <MESSAGE value="text back to black" />
+    <option name="LAST_COMMIT_MESSAGE" value="text back to black" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1639926657282" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1640012367446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
