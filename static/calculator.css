@@ -1,0 +1,58 @@
+/* Align the tabs to the center of the page. */
+.tab-container {
+    align-self: center;
+    margin-top: 15%;
+}
+
+/* Set up border for the tabs */
+.tab-pane {
+    border: 1px solid rgb(222, 226, 230);
+    padding: 20px;
+    border-radius: 0 0 5px 5px;
+}
+
+/* Round the border of tab-container */
+
+.tab-container {
+    border-radius: 5px;
+}
+
+/* Remove animations for the tooltip. */
+.tooltip.fade {
+    transition: none;
+}
+
+/* Style btnnext and btnprev */
+
+#calculatorTabContent {
+    position: relative;
+}
+
+.tab-container div.active {
+    padding-bottom: 3em;
+}
+
+
+.btn-next {
+    position:absolute;
+    right:0;
+    bottom:0;
+    margin: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btn-prev {
+    position:absolute;
+    left:0;
+    bottom:0;
+    margin: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Style historical tab away from others */
+
+#align-right {
+    margin-left: auto;
+}

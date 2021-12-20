@@ -1,6 +1,7 @@
 # imports
 import base64
 from datetime import datetime
+
 from Crypto.Protocol.KDF import scrypt
 from Crypto.Random import get_random_bytes
 from flask_login import UserMixin
@@ -50,6 +51,7 @@ class User(db.Model, UserMixin):
 
     posts = db.relationship('Post')
     challenges = db.relationship('Challenge')
+    carbon_data = db.relationship('CarbonData')
     join_challenge = db.relationship('JoinChallenge')
 
     def __init__(self, email, firstname, lastname, phone, password, role):
@@ -162,6 +164,29 @@ class Challenge(db.Model):
         self.title = decrypt(self.title, postkey)
         self.body = decrypt(self.body, postkey)
 
+
+# Carbon footprint data class
+class CarbonData(db.Model):
+    __tablename__ = "carbon_footprint_data"
+
+    # Initialise the columns of the table
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
+    total_emissions = db.Column(db.Float, nullable=False)
+    travel = db.Column(db.Float, nullable=False)
+    home = db.Column(db.Float, nullable=False)
+    food = db.Column(db.Float, nullable=False)
+    goods = db.Column(db.Float, nullable=False)
+    date_taken = db.Column(db.DateTime, nullable=False)
+
+    def __init__(self, user, total, _travel, _home, _food, _goods):
+        self.user_id = user.id
+        self.total_emissions = total
+        self.travel = _travel
+        self.home = _home
+        self.food = _food
+        self.goods = _goods
+        self.date_taken = datetime.utcnow()
 
 # Join Challenge model class
 class JoinChallenge(db.Model):

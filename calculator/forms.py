@@ -1,7 +1,69 @@
 # Import flask modules
+import decimal
+
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, FloatField, DecimalRangeField, SelectField
-from wtforms.validators import DataRequired
+from wtforms import SubmitField, DecimalField, DecimalRangeField, SelectField
+from wtforms.validators import DataRequired, ValidationError, NumberRange
+
+PRETTY_NAMES = {
+    # VEHICLES
+    "public_transport": "Public transport",
+    "air_travel": "Air travel",
+    "vehicle_fuel": "Vehicle fuel",
+    "vehicle_upkeep": "Vehicle upkeep",
+
+    # HOME UTILITIES
+    "electricity": "Electricity",
+    "gas": "Natural gas",
+    "heating_oil": "Heating oil",
+    "water": "Water",
+
+    # FOOD
+    "meat": "Meat",
+    "fruit_vegetables": "Fruit & vegetables",
+    "dairy": "Dairy products",
+    "grains": "Grains & baked products",
+    "snacks": "Snacks and drinks",
+
+    # OTHER
+    "goods": "Goods",
+    "services": "Services"
+}
+
+PLACEHOLDER_VALUES = {
+    # VEHICLES
+    "public_transport": 94,
+    "air_travel": 55,
+    "vehicle_fuel": 97,
+    "vehicle_upkeep": 108,
+
+    # HOME UTILITIES
+    "electricity": 97,
+    "gas": 95,
+    "heating_oil": 55,
+    "water": 33,
+
+    # FOOD
+    "meat": 27,
+    "fruit_vegetables": 40,
+    "dairy": 24,
+    "grains": 46,
+    "snacks_drinks": 37,
+
+    # OTHER
+    "goods": 733,
+    "services": 1000
+}
+
+
+# Validators
+def validate_positive(form, field):
+    print(f"{field.id}: {field.data}")
+    if type(field.data) != decimal.Decimal:
+        raise ValidationError(f"{PRETTY_NAMES[field.id]} must contain a number.")
+
+    if field.data < 0:
+        raise ValidationError(f"{PRETTY_NAMES[field.id]} must contain a positive value.")
 
 
 class CalculatorForm(FlaskForm):
@@ -12,29 +74,50 @@ class CalculatorForm(FlaskForm):
     """
 
     # Transportation
-    public_transport = FloatField(validators=[DataRequired()], render_kw={"placeholder": 94})
-    air_travel = FloatField(validators=[DataRequired()], render_kw={"placeholder": 55})
-    vehicle_fuel = FloatField(validators=[DataRequired()], render_kw={"placeholder": 1164})
-    vehicle_type = SelectField(validators=[DataRequired()], label="Fuel", choices=["Diesel", "Petrol", "Other"])
-    vehicle_upkeep = FloatField(validators=[DataRequired()], render_kw={"placeholder": 108})
+    public_transport = DecimalField(validators=[DataRequired(), validate_positive],
+                                    render_kw={"placeholder": PLACEHOLDER_VALUES["public_transport"]})
+    air_travel = DecimalField(validators=[DataRequired(), validate_positive],
+                              render_kw={"placeholder": PLACEHOLDER_VALUES["air_travel"]})
+    vehicle_fuel = DecimalField(validators=[DataRequired(), validate_positive],
+                                render_kw={"placeholder": PLACEHOLDER_VALUES["vehicle_fuel"]})
+    vehicle_type = SelectField(validators=[DataRequired()],
+                               label="Fuel", choices=["Diesel", "Petrol", "Other"])
+    vehicle_upkeep = DecimalField(validators=[DataRequired(), validate_positive],
+                                  render_kw={"placeholder": PLACEHOLDER_VALUES["vehicle_upkeep"]})
 
     # Home utilities
-    electricity = FloatField(validators=[DataRequired()], render_kw={"placeholder": 97})
-    clean_electricity_factor = DecimalRangeField(default=0, validators=[DataRequired()])
-    gas = FloatField(validators=[DataRequired()], render_kw={"placeholder": 95})
-    heating_oil = FloatField(validators=[DataRequired()], render_kw={"placeholder": 55})
-    water = FloatField(validators=[DataRequired()], render_kw={"placeholder": 33})
+    electricity = DecimalField(validators=[DataRequired(), validate_positive],
+                               render_kw={"placeholder": PLACEHOLDER_VALUES["electricity"]})
+    clean_electricity_factor = DecimalRangeField(default=0, validators=[DataRequired(), NumberRange(1, 100)],
+                                                 render_kw={"step": 1,
+                                                            "data-bs-toggle": "tooltip",
+                                                            "data-bs-placement": "top",
+                                                            "data-bs-animation": False
+                                                            })
+    gas = DecimalField(validators=[DataRequired(), validate_positive],
+                       render_kw={"placeholder": PLACEHOLDER_VALUES["gas"]})
+    heating_oil = DecimalField(validators=[DataRequired(), validate_positive],
+                               render_kw={"placeholder": PLACEHOLDER_VALUES["heating_oil"]})
+    water = DecimalField(validators=[DataRequired(), validate_positive],
+                         render_kw={"placeholder": PLACEHOLDER_VALUES["water"]})
 
     # Food shopping
-    meat = FloatField(validators=[DataRequired()], render_kw={"placeholder": 27})
-    fruit_vegetables = FloatField(validators=[DataRequired()], render_kw={"placeholder": 40})
-    dairy = FloatField(validators=[DataRequired()], render_kw={"placeholder": 24})
-    grains = FloatField(validators=[DataRequired()], render_kw={"placeholder": 46})
-    snacks = FloatField(validators=[DataRequired()], render_kw={"placeholder": 37})
+    meat = DecimalField(validators=[DataRequired(), validate_positive],
+                        render_kw={"placeholder": PLACEHOLDER_VALUES["meat"]})
+    fruit_vegetables = DecimalField(validators=[DataRequired(), validate_positive],
+                                    render_kw={"placeholder": PLACEHOLDER_VALUES["fruit_vegetables"]})
+    dairy = DecimalField(validators=[DataRequired(), validate_positive],
+                         render_kw={"placeholder": PLACEHOLDER_VALUES["dairy"]})
+    grains = DecimalField(validators=[DataRequired(), validate_positive],
+                          render_kw={"placeholder": PLACEHOLDER_VALUES["grains"]})
+    snacks = DecimalField(validators=[DataRequired(), validate_positive],
+                          render_kw={"placeholder": PLACEHOLDER_VALUES["snacks_drinks"]})
 
     # Other expenditures
-    goods = FloatField(validators=[DataRequired()], render_kw={"placeholder": 733})
-    services = FloatField(validators=[DataRequired()], render_kw={"placeholder": 1000})
+    goods = DecimalField(validators=[DataRequired(), validate_positive],
+                         render_kw={"placeholder": PLACEHOLDER_VALUES["goods"]})
+    services = DecimalField(validators=[DataRequired(), validate_positive],
+                            render_kw={"placeholder": PLACEHOLDER_VALUES["services"]})
 
     # Submit field
     submit = SubmitField()

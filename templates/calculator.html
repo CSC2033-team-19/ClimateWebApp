@@ -3,112 +3,300 @@
 {% block head %}
     {{ super() }}
 
-    <script type="application/javascript" src="/static/calculator.js"></script>
+    {#  Import jQuery to make use of the AJAX query in calculator.js #}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <style>
+    {# Import Chart.js to create a chart to preview the user's data #}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 
-        {# Add in stylings for the tabs #}
-
-        .content-tab {
-            border: 1px solid #eeeeee;
-            position: absolute;
-            width: 100%;
-            padding: 10px;
-        }
-
-        div.tabs {
-            margin-top: 15%;
-            border-bottom: 1px solid #eeeeee;
-        }
-
-        .tab-container {
-            z-index: 1;
-            background-color: white;
-        }
-
-        {# Add in active and inactive states, as well as the transition between the two. #}
-
-        .active {
-            animation: fadeIn 1s;
-            background-color: white;
-        }
-
-        .fading {
-            animation:fadeOut 0.4s;
-        }
-
-        .inactive {
-            visibility: hidden;
-        }
-
-        {# Add in animations #}
-
-        @keyframes fadeIn {
-            from {
-                opacity:0;
-                top: -1em;
-            }
-            to {
-                opacity:1;
-                top:0%;
-            }
-        }
-
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-                top: 0%;
-            }
-            to {
-                opacity: 0;
-                top: -1em;
-            }
-        }
-    </style>
+    {# Import local styles #}
+    <link rel="stylesheet" href="/static/calculator.css" />
+    <script type="text/javascript" src="/static/calculator.js"></script>
 
 {% endblock %}
 
 {% block content %}
-    <div class="tab-container container">
-        <div class="tabs is-centered is-boxed">
-            <ul>
-                {# Travel tab #}
-                <li class="is-active" onclick="openTab(event, 'travel')">
-                    <a class="tab-link">Travel</a>
-                </li>
-                {# Home utilties tab #}
-                <li class="is-active" onclick="openTab(event, 'home')">
-                    <a class="tab-link">Home utilities</a>
-                </li>
-                {# Food shopping #}
-                <li class="is-active" onclick="openTab(event, 'home')">
-                    <a class="tab-link">Food shopping</a>
-                </li>
-                {# Other expenses e.g. goods, services #}
-                <li class="is-active" onclick="openTab(event, 'home')">
-                    <a class="tab-link">Other expenses</a>
-                </li>
-            </ul>
+    {% if success %}
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="confirm-success" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Carbon Footprint Data</strong>
+                </div>
+                <div class="toast-body">
+                    {{ toast_body }}
+                </div>
+            </div>
         </div>
-    </div>
+    {% endif %}
+    <div class="tab-container">
+        <ul class="nav nav-tabs justify-content-end" id="calculatorTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a
+                        class="nav-link active"
+                        id="travel-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#travel"
+                        type="button"
+                        role="tab"
+                        aria-controls="travel"
+                        aria-selected="true"
+                >Travel</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a
+                        class="nav-link"
+                        id="home-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#home"
+                        type="button"
+                        role="tab"
+                        aria-controls="home"
+                        aria-selected="false"
+                >Home utilities</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a
+                        class="nav-link"
+                        id="food-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#food"
+                        type="button"
+                        role="tab"
+                        aria-controls="food"
+                        aria-selected="false"
+                >Food Shopping</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a
+                        class="nav-link"
+                        id="other-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#other"
+                        type="button"
+                        role="tab"
+                        aria-controls="other"
+                        aria-selected="false"
+                >Other Goods/Services</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a
+                        class="nav-link"
+                        id="preview-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#preview"
+                        type="button"
+                        role="tab"
+                        aria-controls="preview"
+                        aria-selected="false"
+                >Preview</a>
+            </li>
+            <li id="align-right" class="nav-item" role="presentation">
+                <a
+                        class="nav-link"
+                        id="historical-data-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#historical-data"
+                        type="button"
+                        role="tab"
+                        aria-controls="historical-data"
+                        aria-selected="false"
+                >View your historical data</a>
+            </li>
+        </ul>
+        <form method="POST">
 
-    <div class="container content-container">
-        {# Tab content which will show when the travel tab is open #}
-        <div id="travel" class="content-tab active">
-            Travel
-        </div>
-        {# Tab content which will show when the travel tab is open #}
-        <div id="home" class="content-tab inactive">
-            Home
-        </div>
-        {# Tab content which will show when the travel tab is open #}
-        <div id="food" class="content-tab inactive">
-            Food
-        </div>
-        {# Tab content which will show when the travel tab is open #}
-        <div id="other" class="content-tab inactive">
-            Other
-        </div>
+            <div class="tab-content" id="calculatorTabContent">
+                {{ form.csrf_token() }}
+                <div id="travel" class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+
+                    <p><b>How much money did you spend on..?</b></p>
+
+                    <div class="input-container">
+                        {% for error in form.vehicle_fuel.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">1. Vehicle fuel</p>
+                        <p class="input-field">{{ form.vehicle_fuel(class="form-control") }}</p>
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.vehicle_type.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">1.1. Vehicle type</p>
+                        <p class="input-field">{{ form.vehicle_type(class="form-control") }}</p>
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.vehicle_upkeep.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">1.2. Maintenance of your vehicle</p>
+                        <p class="input-field">{{ form.vehicle_upkeep(class="form-control") }}</p>
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.public_transport.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">2. Public transport</p>
+                        <p class="input-field">{{ form.public_transport(class="form-control") }}</p>
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.air_travel.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">3. Air travel</p>
+                        <p class="input-field">{{ form.air_travel(class="form-control") }}</p>
+                    </div>
+
+                    <a class="btn btn-lg btn-next">Next</a>
+                </div>
+                <div id="home" class="tab-pane fade" role="tabpanel" aria-labelledby="home-tab">
+
+                    <p><b>How much money did you spend on..?</b></p>
+
+                    <div class="input-container">
+                        {% for error in form.electricity.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">1. Electricity</p>
+                        <p class="input-field">{{ form.electricity(class="form-control") }}</p>
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.clean_electricity_factor.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">1.1. How much of that was from clean sources?</p>
+                        {{ form.clean_electricity_factor(class="form-range") }}
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.gas.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">2. Natural gases</p>
+                        <p class="input-field">{{ form.gas(class="form-control") }}</p>
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.heating_oil.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">3. Kerosene heating oil</p>
+                        <p class="input-field">{{ form.heating_oil(class="form-control") }}</p>
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.water.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">4. Water</p>
+                        <p class="input-field">{{ form.water(class="form-control") }}</p>
+                    </div>
+
+                    <a class="btn btn-lg btn-prev">Previous</a>
+                    <a class="btn btn-lg btn-next">Next</a>
+                </div>
+                <div id="food" class="tab-pane fade" role="tabpanel" aria-labelledby="food-tab">
+
+                    <p><b>How much money did you spend on..?</b></p>
+
+                    <div class="input-container">
+                        {% for error in form.meat.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">1. Meat</p>
+                        <p class="input-field">{{ form.meat(class="form-control") }}</p>
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.fruit_vegetables.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">2. Fruit and vegetables</p>
+                        <p class="input-field">{{ form.fruit_vegetables(class="form-control") }}</p>
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.dairy.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">3. Dairy products</p>
+                        <p class="input-field">{{ form.dairy(class="form-control") }}</p>
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.grains.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">4. Grains/baked goods</p>
+                        <p class="input-field">{{ form.grains(class="form-control") }}</p>
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.snacks.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">5. Snacks/drinks</p>
+                        <p class="input-field">{{ form.snacks(class="form-control") }}</p>
+                    </div>
+
+                    <a class="btn btn-lg btn-prev">Previous</a>
+                    <a class="btn btn-lg btn-next">Next</a>
+                </div>
+                <div id="other" class="tab-pane fade" role="tabpanel" aria-labelledby="other-tab">
+
+                    <p><b>How much money did you spend on..?</b></p>
+
+                    <div class="input-container">
+                        {% for error in form.goods.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">1. Goods</p>
+                        <p class="input-field">{{ form.goods(class="form-control") }}</p>
+                    </div>
+
+                    <div class="input-container">
+                        {% for error in form.services.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                        <p class="query">2. Services</p>
+                        <p class="input-field">{{ form.services(class="form-control") }}</p>
+                    </div>
+
+                    <a class="btn btn-lg btn-prev">Previous</a>
+                    <a class="btn btn-lg btn-next">Next</a>
+                </div>
+                <div id="preview" class="tab-pane fade" role="tabpanel" aria-labelledby="preview-tab">
+
+                    <div class="input-container">
+                        <canvas id="preview-chart" height="75"></canvas>
+                    </div>
+
+                    <div class="input-container">
+                        {{ form.submit(class="btn btn-lg btn-primary") }}
+                    </div>
+
+                    <a class="btn btn-lg btn-prev">Previous</a>
+                    <a class="btn btn-lg btn-next">Next</a>
+
+
+                </div>
+                <div id="historical-data" class="tab-pane fade" role="tabpanel" aria-labelledby="historical-data-tab">
+                    <div class="input-container">
+                        <canvas id="historical-data-chart" height="100"></canvas>
+
+                        <a class="btn btn-lg btn-prev">Previous</a>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
 
     </div>
 {% endblock %}
