@@ -26,7 +26,7 @@ $(function() {
     })
 
 
-    // Add a listener for when the submit tab is opened
+    // Add an event listener to create a chart when the preview tab is opened
     $("#preview-tab").on("shown.bs.tab", (event) => {
         // Set up variables for function
         var emission_values = {}
@@ -50,6 +50,7 @@ $(function() {
         })
     });
 
+    // Add an event listener to create a chart when the historical data tab is opened
     $("#historical-data-tab").on("shown.bs.tab", (event) => {
         $.ajax({
             url: "/calculator/historical_values.json",
@@ -58,11 +59,12 @@ $(function() {
         })
     })
 
-    // Set up buttons to change which tab is active
+    // Set up the "next" buttons to move the user to the next available tab
     $(".btn-next").click((event) => {
         $(".nav-item:has(a.active)").next("li").find("a").tab("show");
     });
 
+    // Set up the "previous" buttons to move the user to the previous tab in the list.
     $(".btn-prev").click((event) => {
         $(".nav-item:has(a.active)").prev("li").find("a").tab("show");
     })
@@ -73,7 +75,6 @@ $(function() {
         var toast = new bootstrap.Toast(toast_element);
         toast.show();
     }
-
 
     // Setup charts
     preview_ctx = document.getElementById("preview-chart").getContext("2d");
@@ -154,17 +155,20 @@ function create_historical_chart(result) {
     // Destroy old chart so that the new chart can be created,
     historical_data_chart.destroy();
 
+    // Set up data parameter for chart given the result of the AJAX query
     const data = {
         labels: result.labels,
         datasets: [{
             label: "Your emissions",
             data: result.data,
-            fill: false,
-            birderColor: "rgb(75, 192, 192)",
+            fill: true,
+            borderColor: "rgb(55, 147, 146)",
+            backgroundColor: "rgba(55, 147, 146, 0.2)",
             tension: 0.1
         }]
     }
 
+    // Configure the visuals of the chart
     const config = {
         type: "line",
         data: data,
