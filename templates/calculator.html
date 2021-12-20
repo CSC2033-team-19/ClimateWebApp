@@ -277,21 +277,14 @@
                         <canvas id="preview-chart" height="75"></canvas>
                     </div>
 
-                    <div class="input-container">
-                        {{ form.submit(class="btn btn-lg btn-primary") }}
-                    </div>
-
                     <a class="btn btn-lg btn-prev">Previous</a>
-                    <a class="btn btn-lg btn-next">Next</a>
+                    {{ form.submit(class="btn btn-lg btn-success btn-submit") }}
 
 
                 </div>
                 <div id="historical-data" class="tab-pane fade" role="tabpanel" aria-labelledby="historical-data-tab">
                     <div class="input-container">
                         <canvas id="historical-data-chart" height="100"></canvas>
-
-                        <a class="btn btn-lg btn-prev">Previous</a>
-
                     </div>
                 </div>
             </div>

@@ -51,6 +51,14 @@
     cursor: pointer;
 }
 
+.btn-submit {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 10px;
+    text-decoration: underline;
+}
+
 /* Style historical tab away from others */
 
 #align-right {

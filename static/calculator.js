@@ -5,6 +5,17 @@ let historical_data_chart;
 let historical_ctx;
 
 $(function() {
+    // Destroy historical data tab if there is no data to display.
+    $.ajax({
+            url: "/calculator/historical_values.json",
+            type: "get",
+            success: (result) => {
+                if (result.data.length === 0) {
+                    $("#historical-data-tab").remove();
+                }
+            }
+        })
+
     // get the range slider element.
     let electricity_factor_input = document.getElementById("clean_electricity_factor");
 
