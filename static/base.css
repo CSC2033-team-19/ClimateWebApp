@@ -1,0 +1,61 @@
+:root {
+    /* Set up colour schemes */
+    --navbar-bg-colour: white;
+    --body-background-colour: #cbfcca;
+    --navbar-text-colour: black;
+    --body-text-colour: #3a3a3a;
+}
+
+nav.bg-color-navbar {
+    background-color: var(--navbar-bg-colour);
+}
+
+nav.bg-color-navbar .navbar-brand {
+    color: var(--navbar-text-colour);
+    background-image: url("/static/logo.svg");
+}
+
+nav.bg-color-navbar .nav-link {
+    justify-self: right;
+    color: var(--navbar-text-colour);
+}
+
+button.navbar-toggler i {
+    color: var(--navbar-text-colour);
+      position: absolute;
+}
+
+div.body-container {
+    /* Set up container to contain 100% of the page outside of the navbar */
+    position: absolute;
+    min-height: 100%;
+    overflow-x: hidden;
+    width: 100%;
+    color: black;
+
+
+    /* Center all elements in the body */
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    text-justify: inter-word;
+    font-family: Geneva, sans-serif;
+}
+
+
+
+/* Set up input for login forms */
+form div.field {
+    padding: 5px 25%;
+}
+
+.navbar-nav {
+    justify-content: space-between;
+    padding: 0 2.5%;
+    width: 100%;
+}
+
+.navbar-nav li a:hover {
+    color: #1abc9c;
+}

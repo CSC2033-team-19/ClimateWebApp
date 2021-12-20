@@ -52,6 +52,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post')
     challenges = db.relationship('Challenge')
     carbon_data = db.relationship('CarbonData')
+    join_challenge = db.relationship('JoinChallenge')
 
     def __init__(self, email, firstname, lastname, phone, password, role):
         self.email = email
@@ -93,6 +94,48 @@ class Post(db.Model):
         self.body = decrypt(self.body, postkey)
 
 
+# Donation model class
+class Donations(db.Model):
+    __tablename__ = 'donations'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.Text)
+    email = db.Column(db.String(100), db.ForeignKey(User.email), nullable=True)
+    created = db.Column(db.DateTime, nullable=False)
+    reason = db.Column(db.Text, nullable=False, default=False)
+    donated = db.Column(db.Integer, nullable=False, default=False)
+    amount = db.Column(db.Integer, nullable=False, default=False)
+    status = db.Column(db.Text,nullable=False,default="In Progress")
+
+    # image = db.Column(db.Blob)
+
+    def __init__(self, title, email, status, reason, donated, amount):
+        self.title = title
+        self.status = status
+        self.email = email
+        self.created = datetime.now()
+        self.reason = reason
+        self.donated = donated
+        self.amount = amount
+        db.session.commit()
+
+    # update donation
+    def update_donation(self, title, reason, donated, amount, status):
+        self.title = title
+        self.reason = reason
+        self.donated = donated
+        self.amount = amount
+        self.status = status
+        db.session.commit()
+
+    # Function to see if the donation is complete
+    def add_donation(self, donated):
+        self.donated = self.donated + donated
+        if self.donated >= self.amount:
+            self.status = 'Completed'
+        db.session.commit()
+
+
 # Challenge model class
 class Challenge(db.Model):
     __tablename__ = 'challenges'
@@ -102,6 +145,8 @@ class Challenge(db.Model):
     created = db.Column(db.DateTime, nullable=False)
     title = db.Column(db.Text, nullable=False, default=False)
     body = db.Column(db.Text, nullable=False, default=False)
+
+    join_challenge = db.relationship('JoinChallenge')
 
     def __init__(self, email, title, body, postkey):
         self.email = email
@@ -120,6 +165,7 @@ class Challenge(db.Model):
         self.body = decrypt(self.body, postkey)
 
 
+# Carbon footprint data class
 class CarbonData(db.Model):
     __tablename__ = "carbon_footprint_data"
 
@@ -141,6 +187,22 @@ class CarbonData(db.Model):
         self.food = _food
         self.goods = _goods
         self.date_taken = datetime.utcnow()
+
+# Join Challenge model class
+class JoinChallenge(db.Model):
+    __tablename__ = 'join_challenge'
+
+    id = db.Column(db.Integer, primary_key=True)
+    challenge_id = db.Column(db.Integer, db.ForeignKey(Challenge.id), nullable=False)
+    user_email = db.Column(db.String(100), db.ForeignKey(User.email), nullable=False)
+    date_joined = db.Column(db.DateTime, nullable=False)
+
+    def __init__(self, challenge_id, email):
+        self.challenge_id = challenge_id
+        self.user_email = email
+        self.date_joined = datetime.now()
+        db.session.commit()
+
 
 def init_db():
     db.drop_all()

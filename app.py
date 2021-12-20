@@ -2,12 +2,33 @@
 import logging
 import socket
 from functools import wraps
-
-from flask import Flask, render_template, request
+import stripe
+from flask import Flask, render_template, request, jsonify, redirect
 from flask_login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
 import os
+from dotenv import load_dotenv, find_dotenv
 import sshtunnel
+
+# Setup Stripe python client library.
+from itsdangerous import json
+
+load_dotenv(find_dotenv())
+
+# Ensure environment variables are set.
+price = os.getenv('PRICE')
+if price is None or price == 'price_12345' or price == '':
+    print('You must set a Price ID in .env. Please see the README.')
+    exit(0)
+
+# For sample support and debugging, not required for production:
+stripe.set_app_info(
+    'stripe-samples/checkout-one-time-payments',
+    version='0.0.1',
+    url='https://github.com/stripe-samples/checkout-one-time-payments')
+
+stripe.api_version = '2020-08-27'
+stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
 # Set up SSH tunnel to connect to the database.
 # tunnel = sshtunnel.SSHTunnelForwarder(
@@ -35,6 +56,108 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///greenify.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['RECAPTCHA_PUBLIC_KEY'] = "6Leg-5wdAAAAAAs7FQBG-GzvllDhnGUCEAZOpj6C"
+app.config['RECAPTCHA_PRIVATE_KEY'] = "6Leg-5wdAAAAAJMdYCe4qxf5xZxt-qmJxGxgyySn"
+
+@app.route('/create-customer', methods=['POST'])
+def create_customer():
+    # Reads application/json and returns a response
+    data = json.loads(request.data)
+    try:
+        # Create a new customer object
+        customer = stripe.Customer.create(email=data['email'])
+
+        # Associate the ID of the Customer object with
+        # internal representation of a customer.
+        resp = jsonify(customer=customer)
+
+        # We're simulating authentication here by storing the ID of the customer
+        # in a cookie.
+        resp.set_cookie('customer', customer.id)
+
+        return resp
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+
+# configuration for stripe
+@app.route('/config', methods=['GET'])
+def get_publishable_key():
+    price = stripe.Price.retrieve(os.getenv('PRICE'))
+    return jsonify({
+      'publicKey': os.getenv('STRIPE_PUBLISHABLE_KEY'),
+      'unitAmount': price['unit_amount'],
+      'currency': price['currency']
+    })
+
+'''
+    # creating sessions
+    @app.route('/create-session', methods=['POST'])
+    def create_session():
+
+        domain_url = os.getenv('DOMAIN')
+        data = json.loads(request.data)
+        session = stripe.checkout.Session.create(
+            success_url=domain_url + '/success?id={CHECKOUT_SESSION_ID}',
+            cancel_url=domain_url + '/cancel',
+            submit_type='donate',
+            payment_method_types=['card'],
+            line_items=[{
+                'amount': data['amount'],
+                'name': 'Donation',
+                'currency': 'USD',
+                'quantity': 1
+            }],
+            payment_intent_data={
+                'metadata': {
+                    'cause': data['cause'],
+                },
+            },
+            metadata={
+                'cause': data['cause'],
+            }
+        )
+        return jsonify(session)
+    
+    # retrieving sessions
+    @app.route('/retrieve-session')
+    def retrieve_session():
+        session = stripe.checkout.Session.retrieve(
+            request.args['id'],
+            expand=['payment_intent'],
+        )
+        return jsonify(session)
+'''
+
+
+# Webhook for stripe payment events
+@app.route('/webhook', methods=['POST'])
+def webhook_received():
+    # Webhooks to receive information about asynchronous payment events.
+    webhook_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
+    request_data = json.loads(request.data)
+
+    if webhook_secret:
+        # Retrieve the event by verifying the signature using the raw body and secret if webhook signing is configured.
+        signature = request.headers.get('stripe-signature')
+        try:
+            event = stripe.Webhook.construct_event(
+                payload=request.data, sig_header=signature, secret=webhook_secret)
+            data = event['data']
+        except Exception as e:
+            return e
+        # Get the type of webhook event sent - used to check the status of PaymentIntents.
+        event_type = event['type']
+    else:
+        data = request_data['data']
+        event_type = request_data['type']
+    data_object = data['object']
+
+    print('event ' + event_type)
+
+    if event_type == 'checkout.session.completed':
+        print('🔔 Payment succeeded!')
+
+    return jsonify({'status': 'success'})
 
 
 # FUNCTIONS
@@ -57,7 +180,25 @@ def requires_roles(*roles):
     return wrapper
 
 
-# LOGGING TODO
+# LOGGING
+class SecurityFilter(logging.Filter):
+    def filter(self, record):
+        return "SECURITY" in record.getMessage()
+
+
+# create file handler to log security messages to file
+fh = logging.FileHandler('climatewebapp.log', 'w')
+fh.setLevel(logging.WARNING)
+fh.addFilter(SecurityFilter())
+formatter = logging.Formatter('%(asctime)s : %(message)s', '%m/%d/%Y %I:%M:%S %p')
+fh.setFormatter(formatter)
+
+# add handler to root logger
+logger = logging.getLogger('')
+logger.addHandler(fh)
+# stop handler messages being sent to root logger
+logger.propagate = False
+
 
 # initialise database TODO
 db = SQLAlchemy(app)
@@ -97,24 +238,34 @@ def internal_error(error):
 def page_forbidden(error):
     return render_template('503.html'), 503
 
+@app.route('/success')
+def success():
+    return render_template('success.html')
+
+@app.route('/cancel')
+def cancel():
+    return render_template('cancel.html')
+
 
 if __name__ == '__main__':
     my_host = "127.0.0.1"
+    '''
     free_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     free_socket.bind((my_host, 0))
     free_socket.listen(5)
     free_port = free_socket.getsockname()[1]
     free_socket.close()
-
+    '''
     # LOGIN MANAGER
-
+    # create instance of LoginManager to hold the settings used for logging in
     login_manager = LoginManager()
+    # page users will be redirected to if trying to access a page that they need to be logged in to access
     login_manager.login_view = 'users.login'
     login_manager.init_app(app)
 
     from models import User
 
-
+    # queries the database and returns the user object which the matching ID
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
@@ -136,5 +287,5 @@ if __name__ == '__main__':
     app.register_blueprint(posts_blueprint)
     app.register_blueprint(calculator_blueprint)
     app.register_blueprint(donate_blueprint)
-
-    app.run(host=my_host, port=free_port, debug=True)
+    #free_port
+    app.run(host=my_host, port=55757, debug=True)

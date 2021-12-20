@@ -2,33 +2,67 @@
 
 {% block content %}
 
-    <div class="column is-6 is-offset-3">
-        <h1 class="title is-1">Challenges</h1>
-        <div class="box">
-            {% for challenge in challenges %}
-                <article class="media">
-                    <div class="media-content">
-                        <div class="content">
-                            <h1>{{ challenge.title }}</h1>
-                            <p>
-                                <small>{{ challenge.created.strftime('%d-%m-%Y') }}</small>
-                                <br>
-                                {{ challenge.body }}
-                                <br>
-                            {% if challenge.username == current_user.username %}
-                            <div id="navbarMenuHeroA" class="navbar-menu">
-                                <div class="navbar-start">
-                                    <a class="navbar-item" href="{{ url_for('challenges.update', id=challenge.id) }}">Update</a>
-                                    <a class="navbar-item" href="{{ url_for('challenges.delete', id=challenge.id) }}">Delete</a>
-                                </div>
-                            </div>
-                            {% endif %}
-                            </p>
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .header {
+            padding: 30px;
+            font-size: 40px;
+            text-align: center;
+        }
+
+        /* Add a card effect for challenges */
+        .card {
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #eeeeee;
+            border-color: #eeeeee;
+        }
+
+        .card-title {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .card-subtitle {
+            color: #727272;
+            text-align: left;
+        }
+
+        .card-text{
+            text-align: justify;
+        }
+
+        .flex-container {
+            display: block;
+            flex-wrap: wrap;
+        }
+
+    </style>
+
+    <div class="flex-container">
+        <h1 class="title is-1 header">CHALLENGES</h1>
+        {% for challenge in challenges %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-subtitle mb-2 text-muted">{{ challenge.created.strftime("%d %B, %Y") }}</h5>
+                    <h2 class="card-title">{{ challenge.title }}</h2>
+                    <p class="card-text">{{ challenge.body }}</p>
+                    <br>
+                    {% if challenge.username == current_user.username %}
+                        <div class="d-grid gap-2 col-6 mx-auto btn-group" role="group" aria-label="Basic outlined example">
+                            <a type="button" class="btn btn-outline-primary" href="{{ url_for('challenges.update', id=challenge.id) }}" role="button">Update</a>
+                            <a type="button" class="btn btn-outline-danger" href="{{ url_for('challenges.delete', id=challenge.id) }}" role="button">Delete</a>
                         </div>
-                    </div>
-                </article>
-            {% endfor %}
-        </div>
+                    {% endif %}
+                    {% if current_user.role == 'user' %}
+                        <a type="button" class="btn btn-outline-success d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.join', id=challenge.id) }}" role="button">Join Challenge</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
     </div>
 
 {% endblock %}
