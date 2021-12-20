@@ -59,3 +59,103 @@ form div.field {
 .navbar-nav li a:hover {
     color: #1abc9c;
 }
+
+.top-content {
+    padding: 210px 0;
+}
+
+.top-content .text {
+    color: #000000;
+}
+
+.top-content .text h1 {
+    margin-top: 25px;
+    color: #000000;
+}
+
+.top-content .description {
+    margin: 30px 0 10px 0;
+}
+
+.top-content .description p {
+    opacity: 0.8;
+}
+
+.top-content .top-big-link {
+    margin-top: 45px;
+}
+
+/* log in / sign up buttons on home page */
+
+.btn-link-1 {
+    display: inline-block;
+    height: 50px;
+    margin: 0 5px;
+    padding: 0 28px;
+    background: rgb(89, 182, 97);
+    border: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 48px;
+    color: #fff;
+    border-radius: 4px;
+    transition: all .3s;
+}
+ .btn-link-2 {
+     display: inline-block;
+    height: 50px;
+    margin: 0 5px;
+    padding: 0 28px;
+    background: rgb(89, 182, 97);
+    border: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 48px;
+    color: #fff;
+    border-radius: 4px;
+    transition: all .3s;
+ }
+
+.btn-link-1:hover {
+    background: rgb(140, 231, 118);
+    outline: 0;
+    color: #fff;
+    box-shadow: none;
+}
+
+.btn-link-2:hover {
+    background: rgb(140, 231, 118);
+    outline: 0;
+    color: #fff;
+    box-shadow: none;
+}
+
+/* About us */
+
+.services {
+    padding-top: 50px;
+}
+.services-explain{
+    padding-top: 30px;
+}
+.services-box {
+    padding-top: 50px;
+    text-align: left;
+}
+
+.services-box .services-box-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    font-size: 40px;
+    color: #fff;
+    line-height: 80px;
+    text-align: center;
+    border-radius: 28px;
+    background: -webkit-linear-gradient(top, #8ce776 0%, #558846 100%);
+}
+
+.services-box h3 {
+    margin-top: 0;
+    padding: 0 0 10px 0;
+}
