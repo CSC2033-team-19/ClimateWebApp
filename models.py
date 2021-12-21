@@ -197,14 +197,14 @@ class Events(db.Model):
     # Initialise columns of the table
     id = db.Column(db.Integer, primary_key=True)
     head = db.Column(db.String)
-    body = db.column(db.String)
-    capacity = db.column(db.Integer)
+    body = db.Column(db.String)
+    capacity = db.Column(db.Integer)
 
     # Time and place
     time = db.Column(db.DateTime)
-    lat = db.column(db.Float)
-    lng = db.column(db.Float)
-    address = db.column(db.String)
+    lat = db.Column(db.Float)
+    lng = db.Column(db.Float)
+    address = db.Column(db.String)
 
     # Create *..* relationship with users
     users = db.relationship('JoinEvent')
