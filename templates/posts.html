@@ -13,12 +13,14 @@
             text-align: center;
         }
 
-        /* Add a card effect for posts */
+        /* Ccard effect for challenges */
         .card {
+            font-family: Arial, serif;
             padding: 20px;
             margin-top: 20px;
-            background-color: #eeeeee;
-            border-color: #eeeeee;
+            background-color: white;
+            border: 2px solid #59886f;
+            border-radius: 15px;
         }
 
         .card-title {
@@ -38,7 +40,7 @@
     </style>
 
     <div class="container">
-        <h1 class="title is-1 header">POSTS</h1>
+        <h1 class="title is-1 header">Posts</h1>
         <div class="card">
             {% for post in posts %}
                 <div class="card-body">
@@ -46,9 +48,9 @@
                     <h2 class="card-title">{{ post.title }}</h2>
                     <p class="card-text">{{ post.body }}</p>
                     {% if post.username == current_user.username %}
-                        <div class="d-grid gap-2 col-6 mx-auto btn-group" role="group" aria-label="Basic outlined example">
-                            <a type="button" class="btn btn-outline-primary" href="{{ url_for('posts.update', id=post.id) }}" role="button">Update</a>
-                            <a type="button" class="btn btn-outline-danger" href="{{ url_for('posts.delete', id=post.id) }}" role="button">Delete</a>
+                        <div class="d-grid gap-2 d-md-block" role="group" aria-label="Basic outlined example">
+                            <a type="button" class="btn btn-outline-success btn-rounded me-md-2" href="{{ url_for('posts.update', id=post.id) }}" role="button">Update</a>
+                            <a type="button" class="btn btn-outline-danger btn-rounded" href="{{ url_for('posts.delete', id=post.id) }}" role="button">Delete</a>
                         </div>
                     {% endif %}
                 </div>

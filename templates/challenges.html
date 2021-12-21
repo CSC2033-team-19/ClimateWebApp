@@ -13,12 +13,14 @@
             text-align: center;
         }
 
-        /* Add a card effect for challenges */
+        /* Card effect for challenges */
         .card {
+            font-family: Arial, serif;
             padding: 20px;
             margin-top: 20px;
-            background-color: #eeeeee;
-            border-color: #eeeeee;
+            background-color: white;
+            border: 2px solid #59886f;
+            border-radius: 15px;
         }
 
         .card-title {
@@ -43,7 +45,7 @@
     </style>
 
     <div class="flex-container">
-        <h1 class="title is-1 header">CHALLENGES</h1>
+        <h1 class="title is-1 header">Challenges</h1>
         {% for challenge in challenges %}
             <div class="card">
                 <div class="card-body">
@@ -52,13 +54,13 @@
                     <p class="card-text">{{ challenge.body }}</p>
                     <br>
                     {% if challenge.username == current_user.username %}
-                        <div class="d-grid gap-2 col-6 mx-auto btn-group" role="group" aria-label="Basic outlined example">
-                            <a type="button" class="btn btn-outline-primary" href="{{ url_for('challenges.update', id=challenge.id) }}" role="button">Update</a>
-                            <a type="button" class="btn btn-outline-danger" href="{{ url_for('challenges.delete', id=challenge.id) }}" role="button">Delete</a>
+                        <div class="d-grid gap-2 d-md-block" role="group" aria-label="Basic outlined example">
+                            <a type="button" class="btn btn-outline-success btn-rounded me-md-2" href="{{ url_for('challenges.update', id=challenge.id) }}" role="button">Update</a>
+                            <a type="button" class="btn btn-outline-danger btn-rounded" href="{{ url_for('challenges.delete', id=challenge.id) }}" role="button">Delete</a>
                         </div>
                     {% endif %}
                     {% if current_user.role == 'user' %}
-                        <a type="button" class="btn btn-outline-success d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.join', id=challenge.id) }}" role="button">Join Challenge</a>
+                        <a type="button" class="btn btn-outline-success btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.join', id=challenge.id) }}" role="button">Join Challenge</a>
                     {% endif %}
                 </div>
             </div>
