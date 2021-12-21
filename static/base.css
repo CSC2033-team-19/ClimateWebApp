@@ -89,6 +89,10 @@ form div.field {
     margin-top: 45px;
 }
 
+.top-content .description2 {
+    font-size: 18px;
+}
+
 /* log in / sign up buttons on home page */
 
 .btn-link-1 {
