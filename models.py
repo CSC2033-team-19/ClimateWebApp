@@ -52,6 +52,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post')
     challenges = db.relationship('Challenge')
     carbon_data = db.relationship('CarbonData')
+    maps = db.relationship('JoinEvent')
     join_challenge = db.relationship('JoinChallenge')
 
     def __init__(self, email, firstname, lastname, phone, password, role):
@@ -187,6 +188,46 @@ class CarbonData(db.Model):
         self.food = _food
         self.goods = _goods
         self.date_taken = datetime.utcnow()
+
+
+# Events class
+class Events(db.Model):
+    __tablename__ = "events"
+
+    # Initialise columns of the table
+    id = db.Column(db.Integer, primary_key=True)
+    head = db.Column(db.String)
+    body = db.column(db.String)
+    capacity = db.column(db.Integer)
+
+    # Time and place
+    time = db.Column(db.DateTime)
+    lat = db.column(db.Float)
+    lng = db.column(db.Float)
+    address = db.column(db.String)
+
+    # Create *..* relationship with users
+    users = db.relationship('JoinEvent')
+
+    def __init__(self, head, body, capacity, time, lat, lng, address):
+        self.head = head
+        self.body = body
+        self.capacity = capacity
+        self.time = time
+        self.lat = lat
+        self.lng = lng
+        self.address = address
+
+
+# Join class Events-Users (registered_for_event)
+class JoinEvent(db.Model):
+    __tablename__ = "join_event"
+
+    # Initialise columns
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id))
+    event_id = db.Column(db.Integer, db.ForeignKey(Events.id))
+
 
 # Join Challenge model class
 class JoinChallenge(db.Model):
