@@ -26,7 +26,35 @@
 
                 <script>
                     $('.top-content').backstretch([
-                        { url: "/static/video.mp4", duration: 6000, mute: true, alignY: 0, isVideo: true }]);
+                        { url: "/static/video.mp4", duration: 6000, mute: true, alignY: 0, isVideo: true, loop: true}]);
+                </script>
+
+</div>
+
+
+{% endif %}
+
+    {% if current_user.is_authenticated %}
+    <div class="top-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 text">
+                <h1 class="wow fadeInLeftBig">Greenify</h1>
+                <div class="description wow fadeInLeftBig">
+                    <p>
+                        Here to help reduce carbon footprints globally and provide environmental expertise
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.1.18/jquery.backstretch.min.js"></script>
+
+                <script>
+                    $('.top-content').backstretch([
+                        { url: "/static/video.mp4", duration: 6000, mute: true, alignY: 0, isVideo: true, loop: true}]);
                 </script>
 
 </div>

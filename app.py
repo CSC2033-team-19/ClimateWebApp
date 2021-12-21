@@ -21,7 +21,7 @@ if price is None or price == 'price_12345' or price == '':
     print('You must set a Price ID in .env. Please see the README.')
     exit(0)
 
-# For sample support and debugging, not required for production:
+# For sample support reference:
 stripe.set_app_info(
     'stripe-samples/checkout-one-time-payments',
     version='0.0.1',
