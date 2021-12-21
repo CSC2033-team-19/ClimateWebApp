@@ -81,7 +81,6 @@ form div.field {
    font-weight: 700;
    text-align: center;
    font-family: 'Source Sans Pro', sans-serif;
-
 }
 /* first video text */
 .top-content .description {
@@ -183,3 +182,17 @@ form div.field {
     left: calc(-50vw + 50%);
     color: #fff;
 }
+.section-description-climate {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.climate-explain {
+    text-align: justify;
+}
+
+/* contact us */
+
+
+
+
+
