@@ -60,7 +60,6 @@
 
 </div>
 
-
 {% endif %}
 
 
@@ -89,7 +88,7 @@
     <div class="container">
         <div class="row">
             <div class="col services section-description wow fadeIn">
-                <h2>What do we provide?</h2>
+                <h2>What we provide</h2>
         <div class="row">
             <div class="col-md-4 services-box wow fadeInUp">
                 <div class="row">
@@ -163,8 +162,64 @@
                             collaborate into making a positive impact.  </p>
         </div>
     </div>
-
 </div>
+             {% if current_user.is_authenticated %}
+    <div class="container">
+        <div class="row">
+            <div class="col services section-description-climate wow fadeIn">
+                <h2>Climate change</h2>
 
+                <div class="divider-1 wow fadeInUp"><span></span></div>
+            </div>
+        </div>
+         <div class="col climate-explain section-description wow fadeIn">
+        <div class="description wow fadeInLeftBig">
+            <p>
+                Climate change has produced a number of threats to wildlife throughout our parks. Rising
+                temperatures lower many species survival rates due to changes that lead to less food,
+                less successful reproduction, and interfering with the environment for native wildlife.
+              <div class="services-container-climate2 section-container">
+            <div class="col services section-description-climate wow fadeIn">
+        </p>
+        </div>
+</div>
+                 <div class="bottom-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 text">
+                <div class="description wow fadeInLeftBig">
+                    <p>
+                              <h2>Climate change leads to a loss of species</h2>
+
+            Our planet is warming faster than at any time in the past 10,000 years. With these changes, species have to adapt to
+            new climate patterns (variations in rainfall; longer, warmer summers etc).
+            <p>
+            <h2>Global warming resulting from human emissions of greenhouse gases.</h2>
+            The consequences include habitat loss; shifts in
+            climatic conditions and in habitats that surpass migration capabilities; altered competitive relationships.
+            <p>
+            <h2>Changes already underway</h2>
+            Evidence suggests that the warming of the past century already has resulted in marked ecological changes, including
+            changes in growing seasons, species ranges, and patterns of seasonal breeding.
+            <p>
+            <h2>Growing need for adaptations</h2>
+            The fate of many species in a rapidly warming world will likely depend on their ability to migrate away from
+            increasingly less favorable climatic conditions to new areas that meet their physical,
+            biological, and climatic needs.
+        </p>
+        </div>
+                    </p>
+                </div>
+                </div>
+            </div>
+                  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.1.18/jquery.backstretch.min.js"></script>
+
+                <script>
+                    $('.bottom-content').backstretch([
+                        { url: "/static/monkey.mp4", duration: 6000, mute: true, alignY: 0, isVideo: true, loop: true}]);
+                </script>
+
+{% endif %}
 
 {% endblock %}

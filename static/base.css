@@ -76,9 +76,10 @@ form div.field {
     margin-top: 25px;
     color: white;
 }
-
+/* first video text */
 .top-content .description {
     margin: 30px 0 10px 0;
+    font-size: 17px
 }
 
 .top-content .description p {
@@ -89,8 +90,10 @@ form div.field {
     margin-top: 45px;
 }
 
+/* second video text */
 .top-content .description2 {
-    font-size: 18px;
+    font-size: 17px;
+    font-style: italic;
 }
 
 /* log in / sign up buttons on home page */
@@ -166,4 +169,13 @@ form div.field {
 .services-box h3 {
     margin-top: 0;
     padding: 0 0 10px 0;
+}
+
+.bottom-content {
+    font-size: 16px;
+    padding: 210px 0;
+    width: 100vw;
+    position: relative;
+    left: calc(-50vw + 50%);
+    color: #fff
 }
