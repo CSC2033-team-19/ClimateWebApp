@@ -103,7 +103,7 @@ form div.field {
     height: 50px;
     margin: 0 5px;
     padding: 0 28px;
-    background: rgb(89, 182, 97);
+    background: rgba(89, 182, 97, 0.7);
     border: 0;
     font-size: 15px;
     font-weight: 600;
@@ -117,7 +117,7 @@ form div.field {
     height: 50px;
     margin: 0 5px;
     padding: 0 28px;
-    background: rgb(89, 182, 97);
+    background: rgba(89, 182, 97, 0.7);
     border: 0;
     font-size: 15px;
     font-weight: 600;
@@ -133,7 +133,6 @@ form div.field {
     color: #fff;
     box-shadow: none;
 }
-
 .btn-link-2:hover {
     background: rgb(140, 231, 118);
     outline: 0;
@@ -153,7 +152,6 @@ form div.field {
     padding-top: 50px;
     text-align: left;
 }
-
 .services-box .services-box-icon {
     width: 80px;
     height: 80px;
@@ -165,17 +163,16 @@ form div.field {
     border-radius: 28px;
     background: -webkit-linear-gradient(top, #8ce776 0%, #558846 100%);
 }
-
 .services-box h3 {
     margin-top: 0;
     padding: 0 0 10px 0;
 }
-
+/* monkey video text */
 .bottom-content {
     font-size: 16px;
     padding: 210px 0;
     width: 100vw;
     position: relative;
     left: calc(-50vw + 50%);
-    color: #fff
+    color: #fff;
 }
