@@ -96,10 +96,11 @@ form div.field {
     margin-top: 45px;
 }
 
-/* second video text */
+/* second video text QUOTE */
 .top-content .description2 {
-    font-size: 17px;
+    font-size: 20px;
     font-style: italic;
+
 }
 
 /* log in / sign up buttons on home page */
@@ -191,6 +192,10 @@ form div.field {
 }
 
 /* contact us */
+.contact-us {
+    text-align: center;
+    margin-top: 40px;
+}
 
 
 

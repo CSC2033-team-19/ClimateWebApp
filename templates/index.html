@@ -223,9 +223,11 @@
                 </script>
                  </div>
 
+                 {% if current_user.is_authenticated %}
                  <div class="contact-us">
-                  <h1>Contact us</h1>
+                  <h2>Contact us</h2>
                      <p>
+                          <div class="contact-details">
                          <span class="Name">
                              <label>
                                  <input type="text" name="Name" value="" size="40" placeholder="Name">
@@ -245,6 +247,7 @@
                      </p>
                  </div>
         </div>
+                     {% endif %}
 
 {% endif %}
 
