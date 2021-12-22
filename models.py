@@ -190,9 +190,9 @@ class CarbonData(db.Model):
         self.date_taken = datetime.utcnow()
 
 
-# Events class
-class Events(db.Model):
-    __tablename__ = "events"
+# Event class
+class Event(db.Model):
+    __tablename__ = "event"
 
     # Initialise columns of the table
     id = db.Column(db.Integer, primary_key=True)
@@ -219,14 +219,14 @@ class Events(db.Model):
         self.address = address
 
 
-# Join class Events-Users (registered_for_event)
+# Join class Event-Users (registered_for_event)
 class JoinEvent(db.Model):
     __tablename__ = "join_event"
 
     # Initialise columns
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
-    event_id = db.Column(db.Integer, db.ForeignKey(Events.id))
+    event_id = db.Column(db.Integer, db.ForeignKey(Event.id))
 
 
 # Join Challenge model class
