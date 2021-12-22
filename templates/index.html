@@ -3,253 +3,241 @@
 {% block content %}
 
     {% if not current_user.is_authenticated %}
-    <div class="top-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2 text">
-                <h1 class="wow fadeInLeftBig">Welcome to Greenify!</h1>
-                <div class="description wow fadeInLeftBig">
-                    <p>
-                        Here to help reduce carbon footprints globally and provide environmental expertise
-                    </p>
-                </div>
-                <div class="top-big-link wow fadeInUp">
-                    <a class="btn btn-primary btn-link-1" href={{ url_for("users.register") }}>Sign up</a>
-                    <a class="btn btn-primary btn-link-2 scroll-link" href={{ url_for("users.login") }}>Log in</a>
+        <div class="top-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 text">
+                        <h1 class="wow fadeInLeftBig">Welcome to Greenify!</h1>
+                        <div class="description wow fadeInLeftBig">
+                            <p>
+                                Here to help reduce carbon footprints globally and provide environmental expertise
+                            </p>
+                        </div>
+                        <div class="top-big-link wow fadeInUp">
+                            <a class="btn btn-primary btn-link-1" href={{ url_for("users.register") }}>Sign up</a>
+                            <a class="btn btn-primary btn-link-2 scroll-link" href={{ url_for("users.login") }}>Log in</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.1.18/jquery.backstretch.min.js"></script>
+
+            <script>
+                $('.top-content').backstretch([
+                    { url: "/static/video.mp4", duration: 6000, mute: true, alignY: 0, isVideo: true, loop: true}]);
+            </script>
+
         </div>
-
-    </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.1.18/jquery.backstretch.min.js"></script>
-
-                <script>
-                    $('.top-content').backstretch([
-                        { url: "/static/video.mp4", duration: 6000, mute: true, alignY: 0, isVideo: true, loop: true}]);
-                </script>
-
-</div>
-
-
-{% endif %}
+    {% endif %}
 
     {% if current_user.is_authenticated %}
-    <div class="top-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2 text">
-                <h1 class="wow fadeInLeftBig">Greenify</h1>
-                <div class="description2 wow fadeInLeftBig">
-                    <p>
-                        "The climate crisis has already been solved. We already have all the facts and solutions. All
-                        we have to do is to wake up and change." ~ Greta Thunberg
-                    </p>
+        <div class="top-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 text">
+                        <h1 class="wow fadeInLeftBig">Greenify</h1>
+                        <div class="description2 wow fadeInLeftBig">
+                            <p>
+                                "The climate crisis has already been solved. We already have all the facts and solutions. All
+                                we have to do is to wake up and change." ~ Greta Thunberg
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.1.18/jquery.backstretch.min.js"></script>
+
+            <script>
+                $('.top-content').backstretch([
+                    { url: "/static/waterfall.mp4", duration: 6000, mute: true, alignY: 0, isVideo: true, loop: true}]);
+            </script>
         </div>
-
-    </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.1.18/jquery.backstretch.min.js"></script>
-
-                <script>
-                    $('.top-content').backstretch([
-                        { url: "/static/waterfall.mp4", duration: 6000, mute: true, alignY: 0, isVideo: true, loop: true}]);
-                </script>
-
-</div>
-
-{% endif %}
+    {% endif %}
 
 
-<div class="services-container section-container">
-    <div class="container">
-        <div class="row">
-            <div class="col services section-description wow fadeIn">
-                <h2>About us</h2>
-
-                <div class="divider-1 wow fadeInUp"><span></span></div>
+    <div class="services-container section-container">
+        <div class="container">
+            <div class="row">
+                <div class="col services section-description wow fadeIn">
+                    <h2>About us</h2>
+                    <div class="divider-1 wow fadeInUp"><span></span></div>
+                </div>
             </div>
-        </div>
-         <div class="col services-explain section-description wow fadeIn">
-        <div class="description wow fadeInLeftBig">
+            <div class="col services-explain section-description wow fadeIn">
+                <div class="description wow fadeInLeftBig">
                     <p>
-
                         Welcome to Greenify, our goal is to raise awareness about climate change and how human activity
                         can has a devastating effect on the planet. We want to offer you the chance to make a
                         difference and help contribute to the overall reduction of greenhouse gas emissions through our
                         range of features including challenges, carbon calculator, the opportunity to donate towards a
                         given project and our collaborative maps feature running on the latest google maps API technology.
-
                     </p>
                 </div>
-             <div class="services-container section-container">
-    <div class="container">
-        <div class="row">
-            <div class="col services section-description wow fadeIn">
-                <h2>What we provide</h2>
-        <div class="row">
-            <div class="col-md-4 services-box wow fadeInUp">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="services-box-icon">
-                            <i class="fas fa-magic"></i>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <h3>Feed</h3>
-                        <p> You will be able to learn more about climate change as well as take part in a variety of
-                            challenges to help reach the UK's goal of cutting down territorial emissions to net zero by
-                            2050. This takes posts page which will be your learning space, where you will find useful
-                            information and fun facts about different aspects related to climate change. On the other
-                            hand, the Challenges page will display a range of challenges related to food, travel, nature
-                            and energy as well as include a button to join in and another one for sharing so that
-                            everyone can feel included and part of the cause. </p>
-                    </div>
-                </div>
             </div>
-            <div class="col-md-4 services-box wow fadeInDown">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="services-box-icon">
-                            <i class="fas fa-cog"></i>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <h3>Donate</h3>
-                        <p> Donation page will display the information about a carbon reducing project to which users
-                            can choose to donate any amount of money they see convenient  in order to make an impact by
-                            helping the given cause. Every month this page will be updated with a new project so we can
-                            make sure we reach all areas affected by global warming and support the maximum number of
-                            different organisations that are making that effort to pull us closer to the goal.
-                            Once again the admin will be the only who will have the ability to change or review any of
-                            the information.
- </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 services-box wow fadeInUp">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="services-box-icon">
-                            <i class="fab fa-google"></i>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <h3>Carbon Calculator</h3>
-                        <p> deliver the service of calculating your own Carbon Footprint by answering a series of
-                            questions. The results will indicate the total amount of greenhouse gases that are generated
-                            by the user’s actions. We believe that this is a crucial service for a more clear and visual
-                            understanding on how our actions affect the planet we live in and how important it is to be
-                            aware of the consequences of the same.
- </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 services-box wow fadeInUp">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="services-box-icon">
-                            <i class="fab fa-google"></i>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <h3>Maps</h3>
-                        <p> The Map tab will show any events related to climate action which are being hosted nearby
-                            the user’s location. The idea behind this service is to offer users a platform where they
-                            can create and announce about any event in order to find more people who would like to
-                            collaborate into making a positive impact.
-                        </p>
         </div>
     </div>
-</div>
-             {% if current_user.is_authenticated %}
+    <div class="services-container section-container">
+        <div class="container">
+            <div class="row">
+                <div class="col services section-description wow fadeIn">
+                    <h2>What we provide</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 services-box wow fadeInUp">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="services-box-icon">
+                                <i class="fas fa-magic"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h3>Feed</h3>
+                            <p> You will be able to learn more about climate change as well as take part in a variety of
+                                challenges to help reach the UK's goal of cutting down territorial emissions to net zero by
+                                2050. This takes posts page which will be your learning space, where you will find useful
+                                information and fun facts about different aspects related to climate change. On the other
+                                hand, the Challenges page will display a range of challenges related to food, travel, nature
+                                and energy as well as include a button to join in and another one for sharing so that
+                                everyone can feel included and part of the cause.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 services-box wow fadeInDown">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="services-box-icon">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h3>Donate</h3>
+                            <p>Donation page will display the information about a carbon reducing project to which users
+                                can choose to donate any amount of money they see convenient  in order to make an impact by
+                                helping the given cause. Every month this page will be updated with a new project so we can
+                                make sure we reach all areas affected by global warming and support the maximum number of
+                                different organisations that are making that effort to pull us closer to the goal.
+                                Once again the admin will be the only who will have the ability to change or review any of
+                                the information.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 services-box wow fadeInUp">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="services-box-icon">
+                                <i class="fab fa-google"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h3>Carbon Calculator</h3>
+                            <p> deliver the service of calculating your own Carbon Footprint by answering a series of
+                                questions. The results will indicate the total amount of greenhouse gases that are generated
+                                by the user’s actions. We believe that this is a crucial service for a more clear and visual
+                                understanding on how our actions affect the planet we live in and how important it is to be
+                                aware of the consequences of the same.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 services-box wow fadeInUp">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="services-box-icon">
+                                <i class="fab fa-google"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h3>Maps</h3>
+                            <p> The Map tab will show any events related to climate action which are being hosted nearby
+                                the user’s location. The idea behind this service is to offer users a platform where they
+                                can create and announce about any event in order to find more people who would like to
+                                collaborate into making a positive impact.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col services section-description-climate wow fadeIn">
                 <h2>Climate change</h2>
-
                 <div class="divider-1 wow fadeInUp"><span></span></div>
             </div>
         </div>
-         <div class="col climate-explain section-description wow fadeIn">
-        <div class="description wow fadeInLeftBig">
-            <p>
-                Climate change has produced a number of threats to wildlife throughout our parks. Rising
-                temperatures lower many species survival rates due to changes that lead to less food,
-                less successful reproduction, and interfering with the environment for native wildlife.
-                Greenify exist to mitigate these impacts with your help.
-              <div class="services-container-climate2 section-container">
-            <div class="col services section-description-climate wow fadeIn">
-        </p>
+        <div class="col climate-explain section-description wow fadeIn">
+            <div class="description wow fadeInLeftBig">
+                <p>
+                    Climate change has produced a number of threats to wildlife throughout our parks. Rising
+                    temperatures lower many species survival rates due to changes that lead to less food,
+                    less successful reproduction, and interfering with the environment for native wildlife.
+                    Greenify exist to mitigate these impacts with your help.
+                <div class="services-container-climate2 section-container"></div>
+                <div class="col services section-description-climate wow fadeIn"></div>
+                </p>
+            </div>
         </div>
-</div>
-                 <div class="bottom-content">
+    </div>
+    <div class="bottom-content">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 offset-md-2 text">
-                <div class="description wow fadeInLeftBig">
-                    <p>
-                              <h2>Climate change leads to a loss of species</h2>
-
-            Our planet is warming faster than at any time in the past 10,000 years. With these changes, species have to adapt to
-            new climate patterns (variations in rainfall; longer, warmer summers etc).
-            <p>
-            <h2>Global warming resulting from human emissions of greenhouse gases.</h2>
-            The consequences include habitat loss; shifts in
-            climatic conditions and in habitats that surpass migration capabilities; altered competitive relationships.
-            <p>
-            <h2>Changes already underway</h2>
-            Evidence suggests that the warming of the past century already has resulted in marked ecological changes, including
-            changes in growing seasons, species ranges, and patterns of seasonal breeding.
-            <p>
-            <h2>Growing need for adaptations</h2>
-            The fate of many species in a rapidly warming world will likely depend on their ability to migrate away from
-            increasingly less favorable climatic conditions to new areas that meet their physical,
-            biological, and climatic needs.
-        </p>
-        </div>
-                    </p>
-                </div>
+                    <div class="description wow fadeInLeftBig"></div>
+                    <h2>Climate change leads to a loss of species</h2>
+                    <p>Our planet is warming faster than at any time in the past 10,000 years. With these changes,
+                        species have to adapt to new climate patterns (variations in rainfall; longer, warmer summers etc).</p>
+                    <h2>Global warming resulting from human emissions of greenhouse gases.</h2>
+                    <p>The consequences include habitat loss; shifts in climatic conditions and in habitats that
+                        surpass migration capabilities; altered competitive relationships.</p>
+                    <h2>Changes already underway</h2>
+                    <p>Evidence suggests that the warming of the past century already has resulted in marked
+                        ecological changes, including changes in growing seasons, species ranges, and patterns of seasonal breeding.</p>
+                    <h2>Growing need for adaptations</h2>
+                    <p>The fate of many species in a rapidly warming world will likely depend on their ability to
+                        migrate away from increasingly less favorable climatic conditions to new areas that meet
+                        their physical, biological, and climatic needs.</p>
                 </div>
             </div>
-                  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.1.18/jquery.backstretch.min.js"></script>
-
-                <script>
-                    $('.bottom-content').backstretch([
-                        { url: "/static/monkey.mp4", duration: 6000, mute: true, alignY: 0, isVideo: true, loop: true}]);
-                </script>
-                 </div>
-
-                 {% if current_user.is_authenticated %}
-                 <div class="contact-us">
-                  <h2>Contact us</h2>
-                     <p>
-                          <div class="contact-details">
-                         <span class="Name">
-                             <label>
-                                 <input type="text" name="Name" value="" size="40" placeholder="Name">
-                             </label>
-                         </span>
-                         <span class="Email">
-                             <label>
-                                 <input type="email" name="Email"  size="40" placeholder="Email">
-                             </label>
-                         </span>
-                         <span class="Message">
-                             <label>
-                                 <textarea name="Message" cols="40" rows="10" placeholder="Message"></textarea>
-                             </label>
-                         </span>
-                         <input type="submit" value="Send" class="submit">
-                     </p>
-                 </div>
         </div>
-                     {% endif %}
 
-{% endif %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.1.18/jquery.backstretch.min.js"></script>
+        <script>
+            $('.bottom-content').backstretch([
+                    { url: "/static/monkey.mp4", duration: 6000, mute: true, alignY: 0, isVideo: true, loop: true}]);
+            </script>
+
+    </div>
+
+    <div class="contact-us">
+        <h2>Contact us</h2>
+        <div class="contact-details">
+            <span class="Name">
+                <label>
+                    <input type="text" name="Name" value="" size="40" placeholder="Name">
+                </label>
+            </span>
+            <span class="Email">
+                <label>
+                    <input type="email" name="Email"  size="40" placeholder="Email">
+                </label>
+            </span>
+            <span class="Message">
+                <label>
+                    <textarea name="Message" cols="40" rows="10" placeholder="Message"></textarea>
+                </label>
+            </span>
+            <input type="submit" value="Send" class="submit">
+        </div>
+    </div>
 
 
 {% endblock %}
