@@ -199,22 +199,19 @@ form div.field {
 }
 
 /* donate page */
-.donate-sub {
+.donate-how\? {
     font-size: 20px;
     margin-top: 30px;
-    margin-bottom: 60px;
+    color: rgba(83, 145, 88, 0.82)
 }
 
-.donate-description{
-    margin-bottom: 80px;
-    text-align: justify-all;
+.donate-steps{
+    margin-top: 35px;
 }
 
-.donate-tutorial {
-    font-size: 19px;
-    font-family: 'Roboto', sans-serif;
+.donate-explanation {
     margin-top: 30px;
-    color: rgba(83, 145, 88, 0.63)
+    margin-bottom: 50px;
 }
 
 
