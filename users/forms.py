@@ -1,10 +1,11 @@
 # IMPORTS
 import re
 import phonenumbers
+from django.db.models import TextField
 from flask import session
 from flask_wtf import FlaskForm, RecaptchaField, Recaptcha
-from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import InputRequired, Email, ValidationError, Length, EqualTo, Optional
+from wtforms import StringField, SubmitField, PasswordField, TextAreaField
+from wtforms.validators import InputRequired, Email, ValidationError, Length, EqualTo, Optional, data_required
 
 
 # checks that the input field does not contain the following special characters: *?!'^+%&/()=}][{$#@<>1234567890
@@ -64,4 +65,13 @@ class LoginForm(FlaskForm):
     email = StringField(validators=[InputRequired(), Email()])
     password = PasswordField(validators=[InputRequired()])
     recaptcha = RecaptchaField(validators=[RequiredIf()])
+    submit = SubmitField()
+
+
+# contact form class
+class ContactForm(FlaskForm):
+    name = StringField(validators=[InputRequired()])
+    email = StringField(validators=[InputRequired(), Email()])
+    subject = TextAreaField(validators=[InputRequired()])
+    message = TextAreaField(validators=[InputRequired()])
     submit = SubmitField()

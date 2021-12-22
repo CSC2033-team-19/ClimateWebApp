@@ -188,6 +188,7 @@ class CarbonData(db.Model):
         self.goods = _goods
         self.date_taken = datetime.utcnow()
 
+
 # Join Challenge model class
 class JoinChallenge(db.Model):
     __tablename__ = 'join_challenge'
@@ -201,6 +202,26 @@ class JoinChallenge(db.Model):
         self.challenge_id = challenge_id
         self.user_email = email
         self.date_joined = datetime.now()
+        db.session.commit()
+
+
+# Contact Us model class
+class Contact(db.Model):
+    __tablename__ = 'contact'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    subject = db.Column(db.Text, nullable=False, default=False)
+    message = db.Column(db.Text, nullable=False, default=False)
+    date = db.Column(db.DateTime, nullable=False)
+
+    def __init__(self, name, email, subject, message):
+        self.name = name
+        self.email = email
+        self.subject = subject
+        self.message = message
+        self.date = datetime.now()
         db.session.commit()
 
 

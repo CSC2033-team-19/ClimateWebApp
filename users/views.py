@@ -5,8 +5,9 @@ import pyotp
 from flask import render_template, flash, redirect, url_for, session, Blueprint, request
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
-from models import User, JoinChallenge
-from users.forms import RegisterForm, LoginForm
+from models import User, JoinChallenge, Contact
+from users.forms import RegisterForm, LoginForm, ContactForm
+from app import index
 from app import db
 
 # CONFIG
@@ -167,3 +168,24 @@ def logout():
 
     # redirect to home page
     return redirect(url_for('index'))
+
+
+# view contact us
+@users_blueprint.route('/contact', methods=['GET', 'POST'])
+def contact():
+    form = ContactForm()
+
+    if form.validate_on_submit():
+
+        flash('Form sent')
+
+        # create a new row with the contact form data
+        new_contact = Contact(name=form.name.data, email=form.email.data, subject=form.subject.data, message=form.message.data)
+
+        # add the new post to the database
+        db.session.add(new_contact)
+        db.session.commit()
+
+        return index()
+
+    return render_template('contact.html', form=form)
