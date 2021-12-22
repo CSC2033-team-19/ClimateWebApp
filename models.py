@@ -106,10 +106,11 @@ class Donations(db.Model):
     donated = db.Column(db.Integer, nullable=False, default=False)
     amount = db.Column(db.Integer, nullable=False, default=False)
     status = db.Column(db.Text,nullable=False,default="In Progress")
+    image = db.Column(db.Text, nullable=False)
 
     # image = db.Column(db.Blob)
 
-    def __init__(self, title, email, status, reason, donated, amount):
+    def __init__(self, title, email, status, reason, donated, amount, image):
         self.title = title
         self.status = status
         self.email = email
@@ -117,6 +118,7 @@ class Donations(db.Model):
         self.reason = reason
         self.donated = donated
         self.amount = amount
+        self.image = image
         db.session.commit()
 
     # update donation

@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/climatewebapp.log" beforeDir="false" afterPath="$PROJECT_DIR$/climatewebapp.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/greenify.db" beforeDir="false" afterPath="$PROJECT_DIR$/greenify.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/donate.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/donate.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +17,7 @@
         <option value="JavaScript File" />
         <option value="Python Script" />
         <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -67,6 +66,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/static" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -168,7 +168,8 @@
       <workItem from="1639926268782" duration="6928000" />
       <workItem from="1640003938185" duration="13241000" />
       <workItem from="1640047085336" duration="148000" />
-      <workItem from="1640093133185" duration="16780000" />
+      <workItem from="1640093133185" duration="17683000" />
+      <workItem from="1640180639419" duration="12382000" />
     </task>
     <task id="LOCAL-00001" summary="Added requires_role">
       <created>1638816757735</created>
@@ -366,7 +367,35 @@
       <option name="project" value="LOCAL" />
       <updated>1640114858094</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="css edits">
+      <created>1640115907819</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1640115907819</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Added upload photo to donate">
+      <created>1640184451248</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1640184451248</updated>
+    </task>
+    <task id="LOCAL-00031" summary="added comments">
+      <created>1640188232876</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1640188232876</updated>
+    </task>
+    <task id="LOCAL-00032" summary="slight adjustments to donation post">
+      <created>1640189358065</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1640189358065</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -377,10 +406,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="corrected comment" />
-    <MESSAGE value="changed blog to feed" />
-    <MESSAGE value="setup stripe python client library and configuration" />
-    <MESSAGE value="customer object" />
     <MESSAGE value="stripe checkout session and webhooks" />
     <MESSAGE value="canceled payment html" />
     <MESSAGE value="css for stripe (global)" />
@@ -402,9 +427,13 @@
     <MESSAGE value="Added contact us and changed opacity of buttons to lay in background image" />
     <MESSAGE value="Changed main title font and size" />
     <MESSAGE value="Added about us html" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added about us html" />
+    <MESSAGE value="css edits" />
+    <MESSAGE value="Added upload photo to donate" />
+    <MESSAGE value="added comments" />
+    <MESSAGE value="slight adjustments to donation post" />
+    <option name="LAST_COMMIT_MESSAGE" value="slight adjustments to donation post" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1640093159839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1640182994358" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
