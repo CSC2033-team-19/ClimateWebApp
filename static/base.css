@@ -214,6 +214,42 @@ form div.field {
     margin-bottom: 50px;
 }
 
+/* social media icons */
+
+.sm_buttons {
+  display: inline-block;
+  float: none;
+  clear: none;
+}
+
+.fab {
+    padding: 10px;
+    font-size: 50px;
+    width: 60px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.fa-twitter-square {
+
+    color: #55ACEE;
+    background: white;
+}
+
+.fa-instagram-square {
+  color: transparent;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+
+  -webkit-background-clip: text;
+}
+
+.fa-facebook-square {
+
+    color: #1877f2;
+    background: white;
+}
+
 
 
 
