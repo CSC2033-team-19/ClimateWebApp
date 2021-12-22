@@ -169,7 +169,7 @@
       <workItem from="1640003938185" duration="13241000" />
       <workItem from="1640047085336" duration="148000" />
       <workItem from="1640093133185" duration="17683000" />
-      <workItem from="1640180639419" duration="12382000" />
+      <workItem from="1640180639419" duration="14731000" />
     </task>
     <task id="LOCAL-00001" summary="Added requires_role">
       <created>1638816757735</created>
@@ -395,7 +395,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640189358065</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="started donate page content">
+      <created>1640193357118</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1640193357118</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -406,7 +413,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="stripe checkout session and webhooks" />
     <MESSAGE value="canceled payment html" />
     <MESSAGE value="css for stripe (global)" />
     <MESSAGE value="index html" />
@@ -431,7 +437,8 @@
     <MESSAGE value="Added upload photo to donate" />
     <MESSAGE value="added comments" />
     <MESSAGE value="slight adjustments to donation post" />
-    <option name="LAST_COMMIT_MESSAGE" value="slight adjustments to donation post" />
+    <MESSAGE value="started donate page content" />
+    <option name="LAST_COMMIT_MESSAGE" value="started donate page content" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1640182994358" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

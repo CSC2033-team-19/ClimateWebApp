@@ -96,8 +96,8 @@ def login():
                       '{} login attempt(s) remaining'.format(6 - session['logins']))
 
                 # logging call for when user login info is invalid
-                logging.warning('SECURITY - Invalid Login Attempt {} [%s, %s, %s]'.format(session['logins']),
-                                user.id, user.email, request.remote_addr)
+                logging.warning('SECURITY - Invalid Login Attempt {} [%s, %s]'.format(session['logins']),
+                                form.email.data, request.remote_addr)
 
             # re-render login page
             return render_template('login.html', form=form)
