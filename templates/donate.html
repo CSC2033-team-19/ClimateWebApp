@@ -6,12 +6,12 @@ body {
     background: white;
 }
 
-/* Header/Blog Title */
+/* Header/Title */
 .card-title {
     padding: 20px;
     font-size: 35px;
     font-color: black;
-    text-align: center;
+    text-align: left;
 }
 
 /* Add a card effect for articles */
@@ -38,7 +38,7 @@ body {
     <img class="card-img-top" src="data:image/jpg;base64,{{ donation.image }}" alt="donation_img"  id="imgslot"/> </img>
     <div class="card-body">
       <h5 class="card-title">{{ donation.title}}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">Amount: {{ donation.amount}} </h6>
+      <h6 class="card-subtitle mb-2 text-muted">Goal: £{{ donation.amount}} </h6>
       <h6 class="card-subtitle mb-2 text-muted">Donated: £{{ donation.donated }}</h6>
       <h6 class="card-subtitle mb-2 text-muted">{{ donation.created.strftime('%d-%m-%Y') }}</h6>
       
@@ -51,7 +51,7 @@ body {
           <input name="amount" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
           <span class="input-group-text">.00</span>
         </div>
-        <input class="btn btn-primary" type="submit" value="Donate"></input>
+          <input class="btn btn-primary" type="submit" value="Donate"/>
     </form>
       
   </div>

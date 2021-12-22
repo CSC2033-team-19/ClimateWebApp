@@ -1,10 +1,50 @@
 {% extends "base.html" %}
 
-<style>
-</style>
 
 {% block content %}
-    <div class="column is-6 is-offset-3">
+
+     <style>
+
+        .title{
+            margin-bottom: 15px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            font-family: Arial, serif;
+            border-radius: 25px;
+            border: 2px solid #59886f;
+            padding: 15px;
+
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .error{
+			color: #AB171DFF;
+		}
+
+        .btn{
+            background-color: #59886f;
+            border-color: #59886f;
+
+        }
+
+        .btn:hover{
+            background-color: #71887f;
+            border-color: #71887f;
+        }
+
+
+
+    </style>
+
+    <div class="column is-5 is-offset-4">
         <h3 class="title is-3">Create Donation</h3>
         <div class="box">
             <form method="POST" enctype="multipart/form-data">
@@ -34,19 +74,22 @@
                         {% endfor %}
                     </div>
                 </div>
+            <p> Upload an image below to be presented on your post
                 <div class="form-group">
-                    {{ form.image(class="form-control-file") }}
+                    {{ form.image(class="form-control-file is-centered") }}
                     {% if form.image.errors %}
                         {% for error in form.image.errors %}
                             <span class="text-danger">{{ error }}</span></br>
                         {% endfor %}
                     {% endif %}
                 </div>
+            <p>
                 <div>
-                    {{ form.submit(class="button is-info is-centered") }}
+               {{ form.submit(class="button is-info is-centered", value = "post donation") }}
                 </div>
             </form>
         </div>
     </div>
+    <div >
 
 {% endblock %}
