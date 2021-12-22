@@ -6,9 +6,9 @@ import stripe
 from app import db, requires_roles
 from donate.forms import DonationForm
 from models import Donations
-from itsdangerous import json
+import base64
 import os
-from dotenv import load_dotenv, find_dotenv
+
 
 # CONFIG
 donate_blueprint = Blueprint("donate", __name__, template_folder="templates")
@@ -26,6 +26,10 @@ def donate():
 
     return render_template('donate.html', donations=donation_copy)
 
+# render picture admin uploads
+def render_picture(data):
+    render_pic = base64.b64encode(data).decode('ascii')
+    return render_pic
 
 # create a new donation
 @donate_blueprint.route('/create_donation', methods=('GET', 'POST'))
@@ -36,10 +40,20 @@ def create():
 
     # if form valid
     if form.validate_on_submit():
+        file = form.image.data
+        data = file.read()
+        render_pic = render_picture(data)
+
         # create a new post with the form data
         new_donation = \
-            Donations(title=form.title.data, email=current_user.email, reason=form.reason.data,
-                      amount=form.amount.data, donated=0, status=form.status.data)
+            Donations(title=form.title.data,
+                      email=current_user.email,
+                      reason=form.reason.data,
+                      amount=form.amount.data,
+                      donated=0,
+                      status=form.status.data,
+                      image=render_pic)
+
         # add the new post to the database
         db.session.add(new_donation)
         db.session.commit()
