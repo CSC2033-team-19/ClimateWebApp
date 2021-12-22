@@ -11,7 +11,9 @@ body {
     padding: 20px;
     font-size: 35px;
     font-color: black;
-    text-align: left;
+    text-align: center;
+
+
 }
 
 /* Add a card effect for articles */
@@ -20,6 +22,7 @@ body {
     margin: 50px;
     font-size: 20px;
     padding: 20px;
+    text-align: center
 }
 
 .flex-container {
@@ -34,10 +37,11 @@ body {
     <div class="section">
 <div class="flex-container">
   {% for donation in donations %}
-      <div class="card w-20" style="width: 18rem;">
+      <div class="card w-20" style="width: 20rem;">
     <img class="card-img-top" src="data:image/jpg;base64,{{ donation.image }}" alt="donation_img"  id="imgslot"/> </img>
     <div class="card-body">
       <h5 class="card-title">{{ donation.title}}</h5>
+          <p>
       <h6 class="card-subtitle mb-2 text-muted">Goal: £{{ donation.amount}} </h6>
       <h6 class="card-subtitle mb-2 text-muted">Donated: £{{ donation.donated }}</h6>
       <h6 class="card-subtitle mb-2 text-muted">{{ donation.created.strftime('%d-%m-%Y') }}</h6>
@@ -46,6 +50,7 @@ body {
         <p class="card-text">{{ donation.status }}</p>
 
       <form action="{{ url_for('donate.create_session', id=donation.id) }} " method="post">
+                <p> Please make your contribution below and help reach the goal indicated. </p>
         <div class="input-group mb-3">
           <span class="input-group-text">£</span>
           <input name="amount" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
