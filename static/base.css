@@ -198,6 +198,26 @@ form div.field {
     margin-top: 40px;
 }
 
+/* donate page */
+.donate-sub {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+.donate-description{
+    margin-bottom: 80px;
+    text-align: justify-all;
+}
+
+.donate-tutorial {
+    font-size: 19px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 30px;
+    color: rgba(83, 145, 88, 0.63)
+}
+
+
 
 
 
