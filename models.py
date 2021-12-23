@@ -1,13 +1,13 @@
 # imports
 import base64
 from datetime import datetime
-
 from Crypto.Protocol.KDF import scrypt
 from Crypto.Random import get_random_bytes
 from flask_login import UserMixin
 from app import db
 from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
+from donate.forms import DonationForm
 
 
 # function to encrypt posts / challenges / card details etc later on TODO
@@ -105,7 +105,7 @@ class Donations(db.Model):
     reason = db.Column(db.Text, nullable=False, default=False)
     donated = db.Column(db.Integer, nullable=False, default=False)
     amount = db.Column(db.Integer, nullable=False, default=False)
-    status = db.Column(db.Text,nullable=False,default="In Progress")
+    status = db.Column(db.Text, nullable=False, default="In Progress")
     image = db.Column(db.Text, nullable=False)
 
     # image = db.Column(db.Blob)
@@ -238,4 +238,18 @@ def init_db():
                  role='admin')
 
     db.session.add(admin)
+    db.session.commit()
+
+    create_donation = Donations(email='admin@email.com',
+                                title='Deforestation, Portel-Pará',
+                                reason='Location: Brazil, South America. This Portel-Pará REDD project is working to '
+                                       'prevent unplanned deforestation '
+                                       'in native forests, which has occurred due to logging, squattering and attempts '
+                                       'to implement pastures. '
+                                       'Info: https://www.globalclimateinstitute.com/en/portel-para-deforestation-redd/',
+                                donated='2000',
+                                amount='2000',
+                                status='Completed',
+                                image="/static/donation.png")
+    db.session.add(create_donation)
     db.session.commit()
