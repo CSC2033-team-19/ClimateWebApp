@@ -172,6 +172,10 @@ form div.field {
     background: -webkit-linear-gradient(top, #8ce776 0%, #558846 100%);
 }
 
+.services-graph {
+    margin-top: 200px;
+}
+
 
 .services-box h3 {
     margin-top: 0;
