@@ -2,8 +2,32 @@
 
 {% block head %}
     {{ super() }}
+
+    {#  Import jQuery to make use of the AJAX query in events.js #}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+    {# Import events.js and css #}
+    <script src="/static/events.js"></script>
+    <link rel="stylesheet" href="/static/events.css" />
+
+    {# Set up maps #}
+
 {% endblock %}
 
 {% block content %}
 
+    <div id="event-map"></div>
+
+    {# Geolocation error toast #}
+    <div id="geo-error-toast" class="toast-container position-absolute p-3 top-0 start-50 translate-middle-x">
+        <div class="toast">
+            <div class="toast-header text-danger">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong class="me-auto">Geolocation error</strong>
+            </div>
+            <div id="geo-toast-body" class="toast-body"></div>
+        </div>
+
+    </div>
 {% endblock %}
