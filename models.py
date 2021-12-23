@@ -253,3 +253,17 @@ def init_db():
                                 image="/static/donation1.png")
     db.session.add(create_donation)
     db.session.commit()
+
+    create_donation2 = Donations(email='admin@email.com',
+                                title='Solar Project by ACME Group',
+                                reason='Location: India, Asia. ACME Group specializes in the manufacturing and supply '
+                                       'of several disruptive green technology solutions within Energy Sector with '
+                                       'global operations and a workforce of over 5000 people blending technology with '
+                                       'innovation. '
+                                       'Info: https://www.acme.in/index',
+                                donated='240',
+                                amount='50,000',
+                                status='In progress',
+                                image="/static/donation2.png")
+    db.session.add(create_donation2)
+    db.session.commit()
