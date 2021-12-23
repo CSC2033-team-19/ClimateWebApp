@@ -8,17 +8,66 @@ script.async = true;
 // Attach callback function to the window object
 window.init_map = function () {
     // JS API is loaded and available
+    // Get markers
+    let markers = [];
+
+    $.ajax({
+        type: "get",
+        url: "/events/get_events.json",
+        success: (result) => {
+            result.events.forEach(event => {
+
+                // Add markers to marker array
+                var marker = new google.maps.Marker({
+                    position: {lat: event.lat, lng: event.lng},
+                    map: map
+                });
+
+                // Create info window with HTML content with information from the marker.
+                var infowindow = new google.maps.InfoWindow({
+                    content: `
+                       <div class="info-window-head" id="event-head-${event.id}">
+                            <p><strong>${event.head}</strong></p>
+                            <p><small>${event.address}, ${event.time}</small></p>
+                       </div>                       
+                       <div class="info-window-body" id="event-body-${event.id}">
+                            <p>${event.body}</p>
+                            <p>
+                                <a class="info-window-event-booking" id="booking-${event.id}" href="#">
+                                    Book your place! ${event.attending.length === undefined ? 0 : event.attending.length}/${event.capacity}
+                                </a>
+                            </p>
+                       </div>
+                    `
+                })
+                // Pin each info window to the corresponding marker.
+                marker.addListener("click", () => {
+                    infowindow.open({
+                        anchor: marker,
+                        map,
+                        shouldFocus: false,
+                    })
+                })
+
+                // Store markers and corresponding info windows in a dict.
+                markers.push({marker: marker, info_window: infowindow});
+            })
+        }
+    })
+
     // Create map
     map = new google.maps.Map(document.getElementById("event-map"), {
         center: {lat: 54, lng: -1},  // Default location
-        zoom: 8
+        zoom: 8,
+        markers: markers
     });
 
-    // Ask user for their location
+    // Ask user for their location (after map is loaded)
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(center_map, show_error);
     } else {
-        console.log("Geolocation is not enabled on this browser.")
+        toast.innerHTML("Geolocation is not supported on this browser.");
+        toast.show()
     }
 }
 
