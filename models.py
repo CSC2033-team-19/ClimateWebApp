@@ -250,6 +250,6 @@ def init_db():
                                 donated='2000',
                                 amount='2000',
                                 status='Completed',
-                                image="/static/donation.png")
+                                image="/static/donation1.png")
     db.session.add(create_donation)
     db.session.commit()
