@@ -13,6 +13,16 @@
             text-align: center;
         }
 
+        .subtitle-description{
+            font-size: 15px;
+            color: darkgrey;
+        }
+
+        .subtitle-description2{
+            font-size: 20px;
+            color: rgba(83, 145, 88, 0.82)
+        }
+
         /* Card effect for challenges */
         .card {
             font-family: Arial, serif;
@@ -46,6 +56,14 @@
 
     <div class="flex-container">
         <h1 class="title is-1 header">Challenges</h1>
+        <div class="subtitle-description2">
+            <div class="description wow fadeInLeftBig">
+                <p>
+                    Join a challenge and help reach the UK's goal of cutting down territorial emissions to net zero by 2050.
+                </p>
+            </div>
+        </div>
+        <h5 class="subtitle-description"><i>There are the little things that do count!</i></h5>
         {% for challenge in challenges %}
             <div class="card">
                 <div class="card-body">

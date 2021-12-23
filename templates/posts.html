@@ -13,7 +13,17 @@
             text-align: center;
         }
 
-        /* Ccard effect for challenges */
+        .subtitle-description{
+            font-size: 20px;
+            color: darkgrey;
+        }
+
+        .subtitle-description2{
+            font-size: 20px;
+            color: rgba(83, 145, 88, 0.82)
+        }
+
+        /* Card effect for challenges */
         .card {
             font-family: Arial, serif;
             padding: 20px;
@@ -41,8 +51,19 @@
 
     <div class="container">
         <h1 class="title is-1 header">Posts</h1>
-        <div class="card">
-            {% for post in posts %}
+        <div class="subtitle-description2">
+            <div class="description wow fadeInLeftBig">
+                <p class="subtitle-description">
+                    Welcome to Greenify's learning space!
+                </p>
+                <p>
+                    Here you will be able to find useful information about different aspects
+                    related to climate change.
+                </p>
+            </div>
+        </div>
+        {% for post in posts %}
+            <div class="card">
                 <div class="card-body">
                     <h5 class="card-subtitle mb-2 text-muted">{{ post.created.strftime("%d %B, %Y") }}</h5>
                     <h2 class="card-title">{{ post.title }}</h2>
@@ -54,8 +75,8 @@
                         </div>
                     {% endif %}
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
 
 {% endblock %}
