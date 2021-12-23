@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/static/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/base.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/table.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -173,7 +173,7 @@
       <workItem from="1640265576430" duration="7438000" />
       <workItem from="1640277617797" duration="83000" />
       <workItem from="1640277768981" duration="551000" />
-      <workItem from="1640278521388" duration="1765000" />
+      <workItem from="1640278521388" duration="2069000" />
     </task>
     <task id="LOCAL-00001" summary="Added requires_role">
       <created>1638816757735</created>
@@ -455,7 +455,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640281434591</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="fixed graph pos">
+      <created>1640281613385</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1640281613385</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -466,7 +473,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Added donation" />
     <MESSAGE value="Added stripe payment page, success.html and cancel.html. Allowed only admin to create donations. Added amounts." />
     <MESSAGE value="Changed CSS and fixed success page error for donate" />
     <MESSAGE value="Added greenify logo img to base.css" />
@@ -491,7 +497,8 @@
     <MESSAGE value="edit" />
     <MESSAGE value="added second donation" />
     <MESSAGE value="made services icons smaller" />
-    <option name="LAST_COMMIT_MESSAGE" value="made services icons smaller" />
+    <MESSAGE value="fixed graph pos" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed graph pos" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1640278592925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
