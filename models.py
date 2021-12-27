@@ -138,6 +138,7 @@ class Donations(db.Model):
         db.session.commit()
 
 
+
 # Challenge model class
 class Challenge(db.Model):
     __tablename__ = 'challenges'

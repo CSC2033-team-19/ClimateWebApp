@@ -1,7 +1,37 @@
 {% extends "base.html" %}
 
-
 {% block content %}
+
+<style>
+  body {
+    font-family: Arial;
+    background: #f1f1f1;
+  }
+
+  /* Header/Blog Title */
+  .header {
+    padding: 30px;
+    font-size: 40px;
+    text-align: center;
+    background: white;
+  }
+
+  /* Add a card effect for articles */
+  .card {
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+  /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 800px) {
+
+  }
+  </style>
 
      <div class="services-container section-container">
         <div class="container">
@@ -59,7 +89,7 @@
       <h6 class="card-subtitle mb-2 text-muted">Goal: £{{ donation.amount}} </h6>
       <h6 class="card-subtitle mb-2 text-muted">Donated: £{{ donation.donated }}</h6>
       <h6 class="card-subtitle mb-2 text-muted">{{ donation.created.strftime('%d-%m-%Y') }}</h6>
-      
+
       <p class="card-text">{{ donation.reason }}</p>
         <p class="card-text">{{ donation.status }}</p>
 
@@ -72,7 +102,7 @@
         </div>
           <input class="btn btn-primary" type="submit" value="Donate"/>
     </form>
-      
+
   </div>
   </div>
   {% endfor %}
