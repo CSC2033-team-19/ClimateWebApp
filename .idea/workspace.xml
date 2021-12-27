@@ -171,7 +171,7 @@
       <workItem from="1640277617797" duration="83000" />
       <workItem from="1640277768981" duration="551000" />
       <workItem from="1640278521388" duration="4564000" />
-      <workItem from="1640622307324" duration="3580000" />
+      <workItem from="1640622307324" duration="3895000" />
     </task>
     <task id="LOCAL-00001" summary="Added requires_role">
       <created>1638816757735</created>
@@ -488,7 +488,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640625809963</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="removed tags">
+      <created>1640626312378</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1640626312378</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,7 +506,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="text back to black" />
     <MESSAGE value="Added about us, what we offer and improved welcome page with sign up / log in buttons" />
     <MESSAGE value="fixed video not looping and added video to authenticated users home page as well" />
     <MESSAGE value="Added new mp4 and Greta Thunberg quote" />
@@ -524,7 +530,8 @@
     <MESSAGE value="font change?" />
     <MESSAGE value="swapped maps and calculator around to relate with image and added text" />
     <MESSAGE value="css for donation posts" />
-    <option name="LAST_COMMIT_MESSAGE" value="css for donation posts" />
+    <MESSAGE value="removed tags" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed tags" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1640625012729" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
