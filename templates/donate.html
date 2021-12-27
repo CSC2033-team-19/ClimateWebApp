@@ -26,6 +26,10 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+  .donate-quote {
+      margin-top: 60px;
+  }
   /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 800px) {
 
@@ -101,11 +105,15 @@
         </div>
           <input class="btn btn-primary" type="submit" value="Donate"/>
     </form>
-
-  </div>
-  </div>
+    </div>
+      </div>
   {% endfor %}
 </div>
     </div>
+                    <div class="donate-quote section-container">
+                        <h2>No act of kindness, no matter how small, is ever wasted</h2>
+                        <div class="divider-1"><span></span></div>
+                    </div>
+                </div>
 
 {% endblock %}
