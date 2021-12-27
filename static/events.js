@@ -2,7 +2,7 @@
 var script = document.createElement("script"); // dynamically load script.
 var map; // map variable.
 var toast; // show errors with geolocation to the user.
-script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDpYkMZmAvZrRN6cEh29n8cqsLkYLFkL-c&callback=init_map";
+script.src = `https://maps.googleapis.com/maps/api/js?key=${document.currentScript.getAttribute("api-key")}&callback=init_map`;
 script.async = true;
 
 // Attach callback function to the window object
@@ -26,18 +26,21 @@ window.init_map = function () {
                 // Create info window with HTML content with information from the marker.
                 var infowindow = new google.maps.InfoWindow({
                     content: `
+                    <div class="info-window">
                        <div class="info-window-head" id="event-head-${event.id}">
-                            <p><strong>${event.head}</strong></p>
-                            <p><small>${event.address}, ${event.time}</small></p>
+                            <p class="no-margin"><strong>${event.head}</strong></p>
+                            <p class="no-margin"><small>${event.address}</small></p>
+                            <p><small>${event.time}</small></p>
                        </div>                       
                        <div class="info-window-body" id="event-body-${event.id}">
                             <p>${event.body}</p>
-                            <p>
+                            <p class="info-window-text-align-right">
                                 <a class="info-window-event-booking" id="booking-${event.id}" href="#">
                                     Book your place! ${event.attending.length === undefined ? 0 : event.attending.length}/${event.capacity}
                                 </a>
                             </p>
                        </div>
+                    </div>
                     `
                 })
                 // Pin each info window to the corresponding marker.

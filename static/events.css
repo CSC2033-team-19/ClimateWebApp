@@ -9,3 +9,20 @@
     height:100%;
     width:100%;
 }
+
+/* Style infowindows */
+.info-window {
+    text-align: left;
+    font-size: 1em;
+}
+.info-window .no-margin {
+    margin-bottom: 0;
+}
+
+.info-window-head .no-margin strong {
+    font-size: 1.75em;
+}
+
+.info-window-text-align-right {
+    justify-content: right;
+}

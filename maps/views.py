@@ -20,7 +20,7 @@ maps_blueprint = Blueprint("maps", __name__, template_folder="templates")
 @maps_blueprint.route("/events", methods=["GET"])
 @login_required
 def events():
-    return render_template("maps.html")
+    return render_template("maps.html", gmap_key=os.environ["GMAP-KEY"])
 
 
 @maps_blueprint.route("/events/get_events.json", methods=["GET"])
@@ -36,13 +36,15 @@ def get_events():
         "body": event.body,
         "attending": {"users": JoinEvent.query.with_entities(JoinEvent.user_id).filter_by(event_id=event.id).all()},
         "capacity": event.capacity,
-        "time": event.time,
+        "time": event.time.strftime("%d/%m/%Y %I:%M %p"),
         "address": event.address,
         "lat": event.lat,
         "lng": event.lng
     }, events))
 
-    return jsonify({"key": os.environ["GMAP-KEY"], "events": event_map})
+    print(events[0].time.strftime("%d/%m/%y %I:%M %p"))
+
+    return jsonify({"events": event_map})
 
 @maps_blueprint.route('/create_event', methods=('GET', 'POST'))
 @login_required
