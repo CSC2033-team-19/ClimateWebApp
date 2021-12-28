@@ -1,5 +1,6 @@
 # imports
 import base64
+import os
 from datetime import datetime
 from Crypto.Protocol.KDF import scrypt
 from Crypto.Random import get_random_bytes
@@ -138,7 +139,6 @@ class Donations(db.Model):
         db.session.commit()
 
 
-
 # Challenge model class
 class Challenge(db.Model):
     __tablename__ = 'challenges'
@@ -227,7 +227,7 @@ class Contact(db.Model):
         self.date = datetime.now()
         db.session.commit()
 
-
+# create two fake donation posts
 def init_db():
     db.drop_all()
     db.create_all()
@@ -241,6 +241,9 @@ def init_db():
     db.session.add(admin)
     db.session.commit()
 
+    with open(os.path.dirname(__file__) + "/static/donation1.png", "rb") as img_file:
+        image1 = base64.b64encode(img_file.read()).decode('ascii')
+
     create_donation = Donations(email='admin@email.com',
                                 title='Deforestation, Portel-Pará',
                                 reason='Location: Brazil, South America. This Portel-Pará REDD project is working to '
@@ -251,20 +254,24 @@ def init_db():
                                 donated='2000',
                                 amount='2000',
                                 status='Completed',
-                                image="/static/donation1.png")
+                                image=image1)
     db.session.add(create_donation)
     db.session.commit()
 
+    with open(os.path.dirname(__file__) + "/static/donation2.png", "rb") as img_file:
+        image2 = base64.b64encode(img_file.read()).decode('ascii')
+
     create_donation2 = Donations(email='admin@email.com',
-                                title='Solar Project by ACME Group',
-                                reason='Location: India, Asia. ACME Group specializes in the manufacturing and supply '
-                                       'of several disruptive green technology solutions within Energy Sector with '
-                                       'global operations and a workforce of over 5000 people blending technology with '
-                                       'innovation. '
-                                       'Info: https://www.acme.in/index',
-                                donated='240',
-                                amount='50,000',
-                                status='In progress',
-                                image="/static/donation2.png")
+                                 title='Solar Project by ACME Group',
+                                 reason='Location: India, Asia. ACME Group specializes in the manufacturing and supply '
+                                        'of several disruptive green technology solutions within Energy Sector with '
+                                        'global operations and a workforce of over 5000 people blending technology '
+                                        'with '
+                                        'innovation. '
+                                        'Info: https://www.acme.in/index',
+                                 donated='240',
+                                 amount='50,000',
+                                 status='In progress',
+                                 image=image2)
     db.session.add(create_donation2)
     db.session.commit()
