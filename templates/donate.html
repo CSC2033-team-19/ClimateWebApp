@@ -1,42 +1,21 @@
 {% extends "base.html" %}
 
-{% block content %}
-
-<style>
-  body {
-    font-family: Arial;
-  }
-
-  /* Header/Blog Title */
-  .header {
-    padding: 30px;
-    font-size: 40px;
-    text-align: center;
-    background: white;
-  }
-
-  /* Add a card effect for articles */
-  .card {
+{% block content %}<style>
+    /* Add a card effect for articles */.card {
     background-color: white;
     margin: 20px;
     padding: 20px;
-  }
-
-  .flex-container {
+  }.flex-container {
   display: flex;
   flex-wrap: wrap;
 }
+    /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other
+  instead of next to each other */
+    @media screen and (max-width: 800px) {
 
-  .donate-quote {
-      margin-top: 60px;
-  }
-  /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
-  @media screen and (max-width: 800px) {
-
-  }
-  </style>
-
-     <div class="services-container section-container">
+    }
+    </style>
+    <div class="services-container section-container">
         <div class="container">
             <div class="row">
                 <div class="col services section-description">
@@ -54,66 +33,79 @@
             <div class="donate-steps">
                 <div class="description">
                     <p>
-                          <div>1) Pick a climate based project below
-                             <div>2) Enter a donation amount and click "donate"
-                                 <div>3) Fill in your card details on stripe and send your donation
-                                      <div>4) You're done, Greenify will ensure your donation is received and helps the selected
-                                         project!
-                                          <div>5) Once the donation goal is reached, the projected will change from "in progress"
-                                         to "completed"
-
-                                     </p>
-                                 </div>
-                             </div>
-                    </div>
-
-            <div class="donate-explanation">
-                <div class="description">
-                    <p>
+                    <div>1) Pick a climate based project below
+                    <div>2) Enter a donation amount and click "donate"
+                        <div>3) Fill in your card details on stripe and send your donation
+                            <div>4) You're done, Greenify will ensure your donation is received and helps the selected project!
+                                <div>5) Once the donation goal is reached, the projected will change from "in progress" to "completed"
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="donate-explanation">
+                            <div class="description">
+                                <p>
                         Here you will see information about a carbon reducing projects around the world to which you can
                         choose to donation of any amount of money you see convenient in order to make an impact by helping
                         the given cause. Every month this page will be updated with a new project so we can make sure
                         we reach all areas affected by global warming and support the maximum number of different
                         organisations that are making that effort to pull us closer to the goal.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+                                </p>
+                            </div>
+                            <div class="section">
+                                <div class="flex-container">
+                                    {% for donation in donations %}
+                                        <div class="card w-20" style="width: 20rem;">
+                                            <img class="card-img-top" src="data:image/jpg;base64,{{ donation.image }}" alt="donation_img"  id="imgslot"/> </img>
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ donation.title}}</h5>
+                                                <p>
+                                                <h6 class="card-subtitle mb-2 text-muted">Goal: £{{ donation.amount}} </h6>
+                                                <h6 class="card-subtitle mb-2 text-muted">Donated: £{{ donation.donated }}</h6>
+                                                <h6 class="card-subtitle mb-2 text-muted">{{ donation.created.strftime('%d-%m-%Y') }}</h6>
+                                                <p class="card-text">{{ donation.reason }}</p>
+                                                <p class="card-text">{{ donation.status }}</p>
+                                                <form action="{{ url_for('donate.create_session', id=donation.id) }} " method="post">
+                                                    <p> Please make your contribution below and help reach the goal indicated. </p>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text">£</span>
+                                                        <input name="amount" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                                        <span class="input-group-text">.00</span>
+                                                    </div>
+                                                    <input class="btn btn-primary" type="submit" value="Donate"/>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                       </div>
+                            </div>
+                        </div>
+                        <div class="donate-content">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-8 offset-md-2 text">
+                                        <div class="description">
+                                            <p>"No act of kindness, no matter how small, is ever wasted"</p>
+                                        </div>
+                                        <div class="top-big-link ">
 
-    <div class="section">
-<div class="flex-container">
-  {% for donation in donations %}
-      <div class="card w-20" style="width: 20rem;">
-    <img class="card-img-top" src="data:image/jpg;base64,{{ donation.image }}" alt="donation_img"  id="imgslot"/> </img>
-    <div class="card-body">
-      <h5 class="card-title">{{ donation.title}}</h5>
-          <p>
-      <h6 class="card-subtitle mb-2 text-muted">Goal: £{{ donation.amount}} </h6>
-      <h6 class="card-subtitle mb-2 text-muted">Donated: £{{ donation.donated }}</h6>
-      <h6 class="card-subtitle mb-2 text-muted">{{ donation.created.strftime('%d-%m-%Y') }}</h6>
-
-      <p class="card-text">{{ donation.reason }}</p>
-        <p class="card-text">{{ donation.status }}</p>
-
-      <form action="{{ url_for('donate.create_session', id=donation.id) }} " method="post">
-                <p> Please make your contribution below and help reach the goal indicated. </p>
-        <div class="input-group mb-3">
-          <span class="input-group-text">£</span>
-          <input name="amount" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-          <span class="input-group-text">.00</span>
-        </div>
-          <input class="btn btn-primary" type="submit" value="Donate"/>
-    </form>
-    </div>
-      </div>
-  {% endfor %}
-</div>
-    </div>
-                    <div class="donate-quote section-container">
-                        <h2>No act of kindness, no matter how small, is ever wasted</h2>
-                        <div class="divider-1"><span></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.1.18/jquery.backstretch.min.js"></script>
+                                <script>
+                                    $('.donate-content').backstretch([
+                                        { url: "/static/environment.mp4", duration: 6000, mute: true, alignY: 0, isVideo: true, loop: true}]);
+                                </script>
+                            </div>
+                              <p>Thanks for your contribution, Greenify ensure all donations make an impact!</p>
+                        </div>
                     </div>
                 </div>
+                    <p>@ Greenify 2021 & 2022 all rights reserved</p>
+
 
 {% endblock %}
