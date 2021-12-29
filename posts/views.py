@@ -1,5 +1,5 @@
 import copy
-from flask import Blueprint, render_template, flash
+from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import desc
 from app import db, requires_roles
@@ -69,9 +69,9 @@ def create():
         # add the new post to the database
         db.session.add(new_post)
         db.session.commit()
-
-        flash("Post Submitted Successfully")
-        return posts()
+        # send admin to post page with the matching 'id'
+        flash("Post has successfully been created")
+        return redirect(url_for('posts.post', id=post.id))
 
     # re-render create_post page
     return render_template('create_post.html', form=form)
@@ -98,9 +98,9 @@ def update(id):
         # update old post data with the new form data and commit it to database
         post.update_post(form.title.data, form.body.data, current_user.postkey)
         db.session.commit()
-        flash("Post Updated Successfully")
-        # send admin to posts page
-        return posts()
+        flash("Post has successfully been updated")
+        # send admin to post page with the matching 'id'
+        return redirect(url_for('posts.post', id=post.id))
 
     # creates a copy of post object which is independent of database
     post_copy = copy.deepcopy(post)

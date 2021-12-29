@@ -2,15 +2,6 @@
 
 {% block content %}
 
-{% for message in get_flashed_messages() %}
-
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      {{ message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-{% endfor %}
-
     <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
 
         <style>
@@ -80,6 +71,8 @@
         {{ ckeditor.load() }}
         {{ ckeditor.config(name='body') }}
         </div>
+        <br>
+        <a type="button" class="btn btn-outline-primary btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('posts.posts') }}" role="button">Back to Posts</a>
     </div>
 
 {% endblock %}

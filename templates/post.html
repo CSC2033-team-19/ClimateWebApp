@@ -29,6 +29,13 @@
 
     </style>
 
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
     <div class="container">
         <h2 class="title is-1 header">{{ post.title }}</h2>
         <hr>
@@ -41,7 +48,7 @@
         {% if post.username == current_user.username %}
             <div class="d-grid gap-2 d-md-block" role="group" aria-label="Basic outlined example">
                 {% if current_user.is_authenticated %}
-                    <a type="button" class="btn btn-outline-primary btn-rounded me-md-2" href="{{ url_for('posts.posts', id=post.id) }}" role="button">Back to Posts</a>
+                    <a type="button" class="btn btn-outline-primary btn-rounded me-md-2" href="{{ url_for('posts.posts') }}" role="button">Back to Posts</a>
                 {% endif %}
                 <a type="button" class="btn btn-outline-success btn-rounded me-md-2" href="{{ url_for('posts.update', id=post.id) }}" role="button">Update</a>
                 <a type="button" class="btn btn-outline-danger btn-rounded" href="{{ url_for('posts.delete', id=post.id) }}" role="button">Delete</a>
