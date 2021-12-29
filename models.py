@@ -20,6 +20,11 @@ def decrypt(data, key):
     return Fernet(key).decrypt(data).decode("utf-8")
 
 
+# Create association table for joining an event
+join_event = db.Table("join_event", db.Model.metadata,
+                      db.Column("event_id", db.Integer, db.ForeignKey("events.id")),
+                      db.Column("user_id", db.Integer, db.ForeignKey("users.id"))
+                      )
 '''
 User Model class 
 '''
@@ -52,7 +57,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post')
     challenges = db.relationship('Challenge')
     carbon_data = db.relationship('CarbonData')
-    maps = db.relationship('JoinEvent')
+    events = db.relationship('Event', secondary=join_event, back_populates="users")
     join_challenge = db.relationship('JoinChallenge')
 
     def __init__(self, email, firstname, lastname, phone, password, role):
@@ -106,7 +111,7 @@ class Donations(db.Model):
     reason = db.Column(db.Text, nullable=False, default=False)
     donated = db.Column(db.Integer, nullable=False, default=False)
     amount = db.Column(db.Integer, nullable=False, default=False)
-    status = db.Column(db.Text,nullable=False,default="In Progress")
+    status = db.Column(db.Text, nullable=False, default="In Progress")
 
     # image = db.Column(db.Blob)
 
@@ -192,7 +197,7 @@ class CarbonData(db.Model):
 
 # Event class
 class Event(db.Model):
-    __tablename__ = "event"
+    __tablename__ = "events"
 
     # Initialise columns of the table
     id = db.Column(db.Integer, primary_key=True)
@@ -207,7 +212,7 @@ class Event(db.Model):
     address = db.Column(db.String)
 
     # Create *..* relationship with users
-    users = db.relationship('JoinEvent')
+    users = db.relationship("User", secondary=join_event, back_populates="events")
 
     def __init__(self, head, body, capacity, time, lat, lng, address):
         self.head = head
@@ -219,14 +224,20 @@ class Event(db.Model):
         self.address = address
 
 
-# Join class Event-Users (registered_for_event)
-class JoinEvent(db.Model):
-    __tablename__ = "join_event"
+# # Join class Event-Users (registered_for_event)
+# class JoinEvent(db.Model):
+#     __tablename__ = "join_event"
+#
+#     # Initialise columns
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+#     event_id = db.Column(db.Integer, db.ForeignKey("event.id"))
+#
+#     user = db.relationship(User, backref=db.backref("JoinEvent", cascade="all, delete-orphan"))
+#     event = db.relationship(Event, backref=db.backref("JoinEvent", cascade="all, delete-orphan"))
 
-    # Initialise columns
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(User.id))
-    event_id = db.Column(db.Integer, db.ForeignKey(Event.id))
+
+
 
 
 # Join Challenge model class
