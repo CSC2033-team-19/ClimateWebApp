@@ -29,7 +29,6 @@
             padding: 20px;
             margin-top: 20px;
             background-color: white;
-            border: 2px solid #59886f;
             border-radius: 15px;
         }
 
@@ -65,7 +64,7 @@
         </div>
         <h5 class="subtitle-description"><i>There are the little things that do count!</i></h5>
         {% for challenge in challenges %}
-            <div class="card">
+            <div class="card shadow mb-5">
                 <div class="card-body">
                     <h5 class="card-subtitle mb-2 text-muted">{{ challenge.created.strftime("%d %B, %Y") }}</h5>
                     <h2 class="card-title">{{ challenge.title }}</h2>
@@ -73,11 +72,14 @@
                     <br>
                     {% if challenge.username == current_user.username %}
                         <div class="d-grid gap-2 d-md-block" role="group" aria-label="Basic outlined example">
+                            <a type="button" class="btn btn-outline-primary btn-rounded me-md-2" href="{{ url_for('challenges.challenge', id=challenge.id) }}" role="button">View Post</a>
                             <a type="button" class="btn btn-outline-success btn-rounded me-md-2" href="{{ url_for('challenges.update', id=challenge.id) }}" role="button">Update</a>
                             <a type="button" class="btn btn-outline-danger btn-rounded" href="{{ url_for('challenges.delete', id=challenge.id) }}" role="button">Delete</a>
                         </div>
                     {% endif %}
                     {% if current_user.role == 'user' %}
+                        <a type="button" class="btn btn-outline-primary btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.challenge', id=challenge.id) }}" role="button">View Post</a>
+                        <br>
                         <a type="button" class="btn btn-outline-success btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.join', id=challenge.id) }}" role="button">Join Challenge</a>
                     {% endif %}
                 </div>

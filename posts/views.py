@@ -35,6 +35,24 @@ def posts():
     return render_template('posts.html', posts=decrypted_posts)
 
 
+# view individual post
+@posts_blueprint.route('/<int:id>/posts')
+@login_required
+def post(id):
+    # get all posts in descending ordered depending on their id number
+    post = Post.query.get_or_404(id)
+
+    # create post copy
+    post_copy = copy.deepcopy(post)
+
+    # decrypt copy of the current_winning_draw
+    user = User.query.filter_by(email=post.email).first()
+    post_copy.view_post(user.postkey)
+
+    # re-render posts page with the decrypted posts
+    return render_template('post.html', post=post_copy)
+
+
 # create a new post
 @posts_blueprint.route('/create_post', methods=('GET', 'POST'))
 @login_required

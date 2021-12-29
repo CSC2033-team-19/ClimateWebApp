@@ -34,6 +34,24 @@ def challenges():
     return render_template('challenges.html', challenges=decrypted_challenges)
 
 
+# view individual post
+@challenges_blueprint.route('/<int:id>/challenges')
+@login_required
+def challenge(id):
+    # get all posts in descending ordered depending on their id number
+    challenge = Challenge.query.get_or_404(id)
+
+    # create post copy
+    challenge_copy = copy.deepcopy(challenge)
+
+    # decrypt copy of the current_winning_draw
+    user = User.query.filter_by(email=challenge.email).first()
+    challenge_copy.view_challenge(user.postkey)
+
+    # re-render posts page with the decrypted posts
+    return render_template('challenge.html', challenge=challenge_copy)
+
+
 # create a new challenge
 @challenges_blueprint.route('/create_challenge', methods=('GET', 'POST'))
 @login_required
