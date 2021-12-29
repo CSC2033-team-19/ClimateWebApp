@@ -51,6 +51,7 @@ def create():
         db.session.add(new_challenge)
         db.session.commit()
 
+        flash("Challenge Submitted Successfully")
         return challenges()
 
     # re-render create_challenge page
@@ -78,6 +79,7 @@ def update(id):
         # update old challenge data with the new form data and commit changes to database
         challenge.update_challenge(form.title.data, form.body.data, current_user.postkey)
         db.session.commit()
+        flash("Challenge Updated Successfully")
         return challenges()
 
     # creates a copy of challenge object which is independent of database.

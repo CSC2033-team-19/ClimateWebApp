@@ -1,7 +1,7 @@
 # IMPORTS
 from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField
+from wtforms import StringField, SubmitField
 from wtforms.validators import data_required
 
 

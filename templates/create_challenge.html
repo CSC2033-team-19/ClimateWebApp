@@ -2,6 +2,17 @@
 
 {% block content %}
 
+{% for message in get_flashed_messages() %}
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+{% endfor %}
+
+    <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
+
     <style>
 
         .title{
@@ -14,8 +25,8 @@
 
         .form-control {
             font-family: Arial, serif;
-            border-radius: 15px;
-            border: 2px solid #59886f;
+            border-radius: 10px;
+            border: 1px solid darkgrey;
             padding: 15px;
 
         }
@@ -70,6 +81,8 @@
                     {{ form.submit(class="btn btn-primary d-grid gap-2 col-6 mx-auto") }}
                 </div>
             </form>
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='body') }}
         </div>
     </div>
 
