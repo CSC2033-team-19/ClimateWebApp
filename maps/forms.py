@@ -43,6 +43,10 @@ class EventForm(FlaskForm):
 
         # If the address was found, store the results
         if req.json()["status"] == "OK":
+            # Ensure address is consistent with latlng
+            self.address.data = req.json()["results"][0]["formatted_address"]
+
+            # Get latlng from request to geocoding service
             self.lat = req.json()["results"][0]["geometry"]["location"]["lat"]
             self.lng = req.json()["results"][0]["geometry"]["location"]["lng"]
         else:

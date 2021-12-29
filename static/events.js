@@ -33,10 +33,15 @@ window.init_map = function () {
                             <p><small>${event.time}</small></p>
                        </div>                       
                        <div class="info-window-body" id="event-body-${event.id}">
-                            <p>${event.body}</p>
+                            <p>
+                                ${event.body}
+                            </p>
+                            <p class="info-window-text-align-right no-margin">
+                                <small>Current attendance: ${event.attending.users}/${event.capacity} </small>
+                            </p>
                             <p class="info-window-text-align-right">
-                                <a class="info-window-event-booking" id="booking-${event.id}" href="#">
-                                    Book your place! ${event.attending.length === undefined ? 0 : event.attending.length}/${event.capacity}
+                                <a class="info-window-event-booking" id="booking-${event.id}" onclick="handle_event(event)" href="#">
+                                    ${event.attending.current_user_attending === false ? "Book your place!": "I'm not planning on coming anymore"} 
                                 </a>
                             </p>
                        </div>
@@ -110,3 +115,13 @@ $(function() {
     var toast_element = document.getElementsByClassName("toast")[0];
     toast = new bootstrap.Toast(toast_element);
 })
+
+function handle_event(event) {
+    $.post("/events/handle_event",  // url
+        {"event_id": event.target.id.split("-")[1]},  // data passed
+        function(data, status, jqXHR) {
+            // Reload page to update the infowindows
+            location.reload();
+        }
+    )
+}
