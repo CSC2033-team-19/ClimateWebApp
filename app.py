@@ -4,6 +4,7 @@ import socket
 from functools import wraps
 import stripe
 from flask import Flask, render_template, request, jsonify, redirect
+from flask_ckeditor import CKEditor
 from flask_login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -203,6 +204,8 @@ logger.propagate = False
 # initialise database TODO
 db = SQLAlchemy(app)
 
+# initialise text editor
+ckeditor = CKEditor(app)
 
 # security headers TODO
 

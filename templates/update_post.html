@@ -2,6 +2,56 @@
 
 {% block content %}
 
+    {% for message in get_flashed_messages() %}
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    {% endfor %}
+
+    <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
+
+    <style>
+
+        .title{
+            margin-bottom: 15px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            font-family: Arial, serif;
+            border-radius: 15px;
+            border: 2px solid #59886f;
+            padding: 15px;
+
+        }
+
+        .error{
+			color: #AB171DFF;
+		}
+
+        .btn{
+            background-color: #59886f;
+            border-color: #59886f;
+
+        }
+
+        .btn:hover{
+            background-color: #71887f;
+            border-color: #71887f;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+    </style>
+
     <div class="column is-6 is-offset-3">
         <h3 class="title is-3">Update Post</h3>
         <div class="box">
@@ -9,7 +59,7 @@
                 <div class="field">
                     {{ form.csrf_token() }}
                     <div class="control">
-                        {{ form.title(class="input") }}
+                        {{ form.title(class="input form-control") }}
                         {% for error in form.title.errors %}
                             {{ error }}
                         {% endfor %}
@@ -17,16 +67,18 @@
                 </div>
                 <div class="field">
                     <div class="control" >
-                        {{ form.body(class="textarea") }}
+                        {{ form.body(class="textarea form-control") }}
                         {% for error in form.body.errors %}
                             {{ error }}
                         {% endfor %}
                     </div>
                 </div>
                 <div>
-                    {{ form.submit(class="button is-info is-centered") }}
+                    {{ form.submit(class="btn btn-primary d-grid gap-2 col-6 mx-auto") }}
                 </div>
             </form>
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='body') }}
         </div>
     </div>
 

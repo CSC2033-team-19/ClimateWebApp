@@ -29,7 +29,7 @@
             padding: 20px;
             margin-top: 20px;
             background-color: white;
-            border: 2px solid #59886f;
+            border: 1px solid grey;
             border-radius: 15px;
         }
 
@@ -44,7 +44,7 @@
         }
 
         .card-text{
-            text-align: justify;
+            text-align: left;
         }
 
     </style>
@@ -67,7 +67,7 @@
                 <div class="card-body">
                     <h5 class="card-subtitle mb-2 text-muted">{{ post.created.strftime("%d %B, %Y") }}</h5>
                     <h2 class="card-title">{{ post.title }}</h2>
-                    <p class="card-text">{{ post.body }}</p>
+                    <p class="card-text">{{ post.body | safe }}</p>
                     {% if post.username == current_user.username %}
                         <div class="d-grid gap-2 d-md-block" role="group" aria-label="Basic outlined example">
                             <a type="button" class="btn btn-outline-success btn-rounded me-md-2" href="{{ url_for('posts.update', id=post.id) }}" role="button">Update</a>

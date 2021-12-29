@@ -1,5 +1,5 @@
 import copy
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, flash
 from flask_login import login_required, current_user
 from sqlalchemy import desc
 from app import db, requires_roles
@@ -52,6 +52,7 @@ def create():
         db.session.add(new_post)
         db.session.commit()
 
+        flash("Post Submitted Successfully")
         return posts()
 
     # re-render create_post page
@@ -79,6 +80,7 @@ def update(id):
         # update old post data with the new form data and commit it to database
         post.update_post(form.title.data, form.body.data, current_user.postkey)
         db.session.commit()
+        flash("Post Updated Successfully")
         # send admin to posts page
         return posts()
 
