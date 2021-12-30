@@ -154,6 +154,12 @@ def join(id):
 @login_required
 @requires_roles('user')
 def leave(id):
-    # Temp function add functionality later
-    flash("Challenge left")
-    return redirect(url_for('challenges.challenge', id=id))
+    # get challenge with the matching id
+    challenge = Challenge.query.filter_by(id=id).first()
+
+    # delete join_challenge row which matching id
+    JoinChallenge.query.filter_by(id=id).delete()
+    db.session.commit()
+
+    flash("Unjoined Challenge")
+    return redirect(url_for('challenges.challenge', id=challenge.id))
