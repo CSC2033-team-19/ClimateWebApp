@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.10.0/basic/ckeditor.js"></script>
 
         <style>
 
@@ -26,13 +26,13 @@
 			color: #AB171DFF;
 		}
 
-        .btn{
+        .btn2{
             background-color: #59886f;
             border-color: #59886f;
 
         }
 
-        .btn:hover{
+        .btn2:hover{
             background-color: #71887f;
             border-color: #71887f;
         }
@@ -65,14 +65,14 @@
                     </div>
                 </div>
                 <div>
-                    {{ form.submit(class="btn btn-primary d-grid gap-2 col-6 mx-auto") }}
+                    {{ form.submit(class="btn btn-primary btn2 d-grid gap-2 col-6 mx-auto") }}
                 </div>
             </form>
         {{ ckeditor.load() }}
         {{ ckeditor.config(name='body') }}
         </div>
         <br>
-        <a type="button" class="btn btn-outline-primary btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('posts.posts') }}" role="button">Back to Posts</a>
+        <a type="button" class="btn btn-outline-primary btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.challenges') }}" role="button">Back to Challenges</a>
     </div>
 
 {% endblock %}

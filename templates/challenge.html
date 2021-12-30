@@ -53,9 +53,9 @@
             </div>
         {% endif %}
         {% if current_user.role == 'user' %}
-            <a type="button" class="btn btn-outline-primary btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.challenges') }}" role="button">Back to Challenges</a>
-            <br>
             <a type="button" class="btn btn-outline-success btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.join', id=challenge.id) }}" role="button">Join Challenge</a>
+            <br>
+            <a type="button" class="btn btn-outline-primary btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.challenges') }}" role="button">Back to Challenges</a>
         {% endif %}
     </div>
 
