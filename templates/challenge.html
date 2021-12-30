@@ -45,7 +45,7 @@
                 <p class="text-start">{{ challenge.body | safe }}</p>
             </div>
         </div>
-        {% if challenge.username == current_user.username %}
+        {% if challenge.email == current_user.email %}
             <div class="d-grid gap-2 d-md-block" role="group" aria-label="Basic outlined example">
                 <a type="button" class="btn btn-outline-primary btn-rounded me-md-2" href="{{ url_for('challenges.challenges') }}" role="button">Back to Challenges</a>
                 <a type="button" class="btn btn-outline-success btn-rounded me-md-2" href="{{ url_for('challenges.update', id=challenge.id) }}" role="button">Update</a>
@@ -53,7 +53,11 @@
             </div>
         {% endif %}
         {% if current_user.role == 'user' %}
-            <a type="button" class="btn btn-outline-success btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.join', id=challenge.id) }}" role="button">Join Challenge</a>
+            {% if not user_in_challenge %}
+                <a type="button" class="btn btn-outline-success btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.join', id=challenge.id) }}" role="button">Join Challenge</a>
+            {% else %}
+                <a type="button" class="btn btn-outline-success btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.leave', id=challenge.id) }}" role="button">Leave Challenge</a>
+            {% endif %}
             <br>
             <a type="button" class="btn btn-outline-primary btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.challenges') }}" role="button">Back to Challenges</a>
         {% endif %}

@@ -24,6 +24,10 @@ def challenges():
     # empty list for decrypted copied post objects
     decrypted_challenges = []
 
+    # Create list of challenges which the user is in
+    user_challenges = JoinChallenge.query.with_entities(JoinChallenge.challenge_id).filter_by(user_email=current_user.email).all()
+    challenge_ids = [challenge.challenge_id for challenge in user_challenges]
+
     # decrypt each copied challenge object and add it to decrypted_challenges array.
     for c in challenge_copies:
         user = User.query.filter_by(email=c.email).first()
@@ -31,7 +35,7 @@ def challenges():
         decrypted_challenges.append(c)
 
     # re-render challenges page with the decrypted challenges
-    return render_template('challenges.html', challenges=decrypted_challenges)
+    return render_template('challenges.html', challenges=decrypted_challenges, challenges_for_user=challenge_ids)
 
 
 # view individual post
@@ -48,8 +52,11 @@ def challenge(id):
     user = User.query.filter_by(email=challenge.email).first()
     challenge_copy.view_challenge(user.postkey)
 
+    # Check if user is in the challenge
+    user_in_challenge = current_user.email in [user.user_email for user in challenge.join_challenge]
+
     # re-render posts page with the decrypted posts
-    return render_template('challenge.html', challenge=challenge_copy)
+    return render_template('challenge.html', challenge=challenge_copy, user_in_challenge=user_in_challenge)
 
 
 # create a new challenge
@@ -142,3 +149,11 @@ def join(id):
     flash('Challenge Joined Successfully')
     return redirect(url_for('challenges.challenge', id=challenge.id))
 
+# leave a challenge
+@challenges_blueprint.route('/<int:id>/leave_challenge', methods=('GET', 'POST'))
+@login_required
+@requires_roles('user')
+def leave(id):
+    # Temp function add functionality later
+    flash("Challenge left")
+    return redirect(url_for('challenges.challenge', id=id))
