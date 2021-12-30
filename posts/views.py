@@ -70,8 +70,8 @@ def create():
         db.session.add(new_post)
         db.session.commit()
         # send admin to post page with the matching 'id'
-        flash("Post has successfully been created")
-        return redirect(url_for('posts.post', id=post.id))
+        flash("Post Created Successfully")
+        return redirect(url_for('posts.post', id=new_post.id))
 
     # re-render create_post page
     return render_template('create_post.html', form=form)
@@ -98,7 +98,7 @@ def update(id):
         # update old post data with the new form data and commit it to database
         post.update_post(form.title.data, form.body.data, current_user.postkey)
         db.session.commit()
-        flash("Post has successfully been updated")
+        flash("Post Updated Successfully")
         # send admin to post page with the matching 'id'
         return redirect(url_for('posts.post', id=post.id))
 
@@ -124,5 +124,5 @@ def delete(id):
     # delete post which id matches
     Post.query.filter_by(id=id).delete()
     db.session.commit()
-
+    flash("Post has been deleted")
     return posts()

@@ -1,5 +1,5 @@
 import copy
-from flask import Blueprint, render_template, flash
+from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import desc
 from app import db, requires_roles
@@ -69,8 +69,8 @@ def create():
         db.session.add(new_challenge)
         db.session.commit()
 
-        flash("Challenge Submitted Successfully")
-        return challenges()
+        flash("Challenge Created Successfully")
+        return redirect(url_for('challenges.challenge', id=new_challenge.id))
 
     # re-render create_challenge page
     return render_template('create_challenge.html', form=form)
@@ -98,7 +98,7 @@ def update(id):
         challenge.update_challenge(form.title.data, form.body.data, current_user.postkey)
         db.session.commit()
         flash("Challenge Updated Successfully")
-        return challenges()
+        return redirect(url_for('challenges.challenge', id=challenge.id))
 
     # creates a copy of challenge object which is independent of database.
     challenge_copy = copy.deepcopy(challenge)
@@ -122,7 +122,7 @@ def delete(id):
     # delete challenge which matches id
     Challenge.query.filter_by(id=id).delete()
     db.session.commit()
-
+    flash("Challenge has been deleted")
     return challenges()
 
 
@@ -139,7 +139,6 @@ def join(id):
     db.session.add(new_join)
     db.session.commit()
 
-    flash('Joined Challenge')
-
-    return challenges()
+    flash('Challenge Joined Successfully')
+    return redirect(url_for('challenges.challenge', id=challenge.id))
 
