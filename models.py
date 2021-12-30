@@ -227,7 +227,7 @@ class Contact(db.Model):
         self.date = datetime.now()
         db.session.commit()
 
-# create two fake donation posts
+
 def init_db():
     db.drop_all()
     db.create_all()
@@ -241,6 +241,7 @@ def init_db():
     db.session.add(admin)
     db.session.commit()
 
+    # create two fake donation posts
     with open(os.path.dirname(__file__) + "/static/donation1.png", "rb") as img_file:
         image1 = base64.b64encode(img_file.read()).decode('ascii')
 
@@ -275,3 +276,51 @@ def init_db():
                                  image=image2)
     db.session.add(create_donation2)
     db.session.commit()
+
+    # create post
+    post1 = Post(email='admin@email.com',
+                 title='Save energy, save the planet',
+                 body='<p>Wasting energy necessitates greater production, and burning fossil fuels is a major source '
+                      'of carbon dioxide (CO2), which exacerbates climate change. However, you could start by making '
+                      'some simple modifications at home to help and here are some useful tips:</p> '
+                      '<p><strong>1.&nbsp; Remove the plug.</strong><br /> When you are not using something, '
+                      'switch it off. This includes TVs, DVD players, chargers, speakers, and laptops.</p> '
+                      '<p><strong>2.&nbsp; Turn off the lights.</strong><br /> Did you know that lighting can account '
+                      'for up to 15% of your energy bill?<br /> You may save energy by turning off lights when not in '
+                      'use and using LED energy-efficient light bulbs.</p> <p><strong>3.&nbsp; Conserve '
+                      'water.</strong><br /> Purifying and distributing water to our houses consumes a lot of energy, '
+                      'therefore conserving water can help reduce greenhouse gas emissions.<br /> You may save money '
+                      'by only filling your kettle with what you need and decreasing your water consumption in the '
+                      'shower.</p> <p><strong>4.&nbsp; Take charge.</strong><br /> Heating and hot water account for '
+                      'more than half of all household energy bills.<br /> So make use of your thermostats, '
+                      'controllers, and timers to avoid wasting energy and money.</p> <p><strong>5.&nbsp; Be '
+                      'astute.</strong><br /> Check your bill/tariff and make the transition to 100% renewable energy '
+                      'sources.<br /> Getting a smart metre will show you how much and what kind of energy you are '
+                      'utilising.</p> <p>Reference: <a '
+                      'href="http://www.wwf.org.uk/myfootprint/challenges/save-energy-save-planet-app">https://www'
+                      '.wwf.org.uk/myfootprint/challenges/save-energy-save-planet-app</a></p>',
+                 postkey=admin.postkey)
+
+    db.session.add(post1)
+    db.session.commit()
+
+    # create challenge
+    challenge1 = Challenge(email='admin@email.com',
+                           title='Is your gift wrap recyclable?',
+                           body='<p><strong>Our challenge to you:</strong></p><p><strong>Use only recyclable gift '
+                                'wrap this holiday season:</strong></p><ul><li>Check for the Forest Stewardship '
+                                'Council (FSC) badge, which indicates that the product came from well-managed '
+                                'forests.</li><li>Look out for readily available sources online, or consider other '
+                                'environmentally friendly alternatives such as reusable wrapping '
+                                'fabric.</li></ul><p><strong>Why is out choice of packaging '
+                                'important?</strong></p><ul><li>Glitter, foil, laminate, and hazardous dyes are all '
+                                'common non-recyclable additives in packaging.</li><li>Sticky tape can&#39;t be '
+                                'recycled since it&#39;s too thin or tissue paper has too few fibres.</li><li>The '
+                                'vast majority of gift wrap is thrown away.</li></ul><p><strong>How you will make an '
+                                'impact?</strong><br />Choose entirely recyclable packaging and make a statement by '
+                                'sending an email to paper industries about how sustainability is the future.</p>',
+                           postkey=admin.postkey)
+
+    db.session.add(challenge1)
+    db.session.commit()
+

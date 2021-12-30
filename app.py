@@ -31,14 +31,6 @@ stripe.set_app_info(
 stripe.api_version = '2020-08-27'
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
-# Set up SSH tunnel to connect to the database.
-# tunnel = sshtunnel.SSHTunnelForwarder(
-# ("linux.cs.ncl.ac.uk"), ssh_username=os.environ["SSH_USERNAME"], ssh_password=os.environ["SSH_PASSWORD"],
-# remote_bind_address=("cs-db.ncl.ac.uk", 3306)
-# )
-
-# tunnel.start()
-
 # CONFIG
 # app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://csc2033_team19:SeerMid._Dim@127.0.0.1:{" \
@@ -60,6 +52,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['RECAPTCHA_PUBLIC_KEY'] = "6Leg-5wdAAAAAAs7FQBG-GzvllDhnGUCEAZOpj6C"
 app.config['RECAPTCHA_PRIVATE_KEY'] = "6Leg-5wdAAAAAJMdYCe4qxf5xZxt-qmJxGxgyySn"
 
+
 @app.route('/create-customer', methods=['POST'])
 def create_customer():
     # Reads application/json and returns a response
@@ -79,6 +72,7 @@ def create_customer():
         return resp
     except Exception as e:
         return jsonify(error=str(e)), 403
+
 
 # configuration for stripe
 @app.route('/config', methods=['GET'])
@@ -169,7 +163,7 @@ def requires_roles(*roles):
             if current_user.role not in roles:
                 logging.warning('SECURITY - Unauthorised access attempt [%s, %s, %s, %s]',
                                 current_user.id,
-                                current_user.username,
+                                current_user.email,
                                 current_user.role,
                                 request.remote_addr)
                 # Redirect the user to an unauthorised notice!
@@ -290,5 +284,6 @@ if __name__ == '__main__':
     app.register_blueprint(posts_blueprint)
     app.register_blueprint(calculator_blueprint)
     app.register_blueprint(donate_blueprint)
-    #free_port
+
+    # free_port
     app.run(host=my_host, port=55757, debug=True)
