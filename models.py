@@ -77,12 +77,14 @@ class Post(db.Model):
     created = db.Column(db.DateTime, nullable=False)
     title = db.Column(db.Text, nullable=False, default=False)
     body = db.Column(db.Text, nullable=False, default=False)
+    image = db.Column(db.Text, nullable=False)
 
-    def __init__(self, email, title, body, postkey):
+    def __init__(self, email, title, body, image, postkey):
         self.email = email
         self.created = datetime.now()
         self.title = encrypt(title, postkey)
         self.body = encrypt(body, postkey)
+        self.image = image
         db.session.commit()
 
     def update_post(self, title, body, postkey):
@@ -277,6 +279,9 @@ def init_db():
     db.session.add(create_donation2)
     db.session.commit()
 
+    with open(os.path.dirname(__file__) + "/static/solarpanels.png", "rb") as img_file:
+        post1_image = base64.b64encode(img_file.read()).decode('ascii')
+
     # create post
     post1 = Post(email='admin@email.com',
                  title='Save energy, save the planet',
@@ -299,6 +304,7 @@ def init_db():
                       'utilising.</p> <p>Reference: <a '
                       'href="http://www.wwf.org.uk/myfootprint/challenges/save-energy-save-planet-app">https://www'
                       '.wwf.org.uk/myfootprint/challenges/save-energy-save-planet-app</a></p>',
+                 image=post1_image,
                  postkey=admin.postkey)
 
     db.session.add(post1)

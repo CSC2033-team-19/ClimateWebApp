@@ -1,3 +1,4 @@
+import base64
 import copy
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user
@@ -53,6 +54,12 @@ def post(id):
     return render_template('post.html', post=post_copy)
 
 
+# render picture admin uploads
+def render_picture(data):
+    render_pic = base64.b64encode(data).decode('ascii')
+    return render_pic
+
+
 # create a new post
 @posts_blueprint.route('/create_post', methods=('GET', 'POST'))
 @login_required
@@ -62,9 +69,16 @@ def create():
 
     # if form valid
     if form.validate_on_submit():
+        file = form.image.data
+        data = file.read()
+        render_pic = render_picture(data)
 
         # create a new post with the form data
-        new_post = Post(email=current_user.email, title=form.title.data, body=form.body.data, postkey=current_user.postkey)
+        new_post = Post(email=current_user.email,
+                        title=form.title.data,
+                        body=form.body.data,
+                        image=render_pic,
+                        postkey=current_user.postkey)
 
         # add the new post to the database
         db.session.add(new_post)

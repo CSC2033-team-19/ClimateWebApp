@@ -68,6 +68,16 @@
                     </div>
                 </div>
                 <br>
+                <div class="field">
+                    <div class="control">
+                        <p>Upload an image below to be displayed with the post</p>
+                        {{ form.image(class="form-control-field") }}
+                        {% for error in form.image.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
                 <div>
                     {{ form.submit(class="btn btn-primary d-grid gap-2 col-6 mx-auto") }}
                 </div>

@@ -1,7 +1,7 @@
 # IMPORTS
 from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, FileField
 from wtforms.validators import data_required
 
 
@@ -9,4 +9,5 @@ from wtforms.validators import data_required
 class PostForm(FlaskForm):
     title = StringField(validators=[data_required()])
     body = CKEditorField(validators=[data_required()])
+    image = FileField('Upload Picture')
     submit = SubmitField()
