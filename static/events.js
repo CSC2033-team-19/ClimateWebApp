@@ -24,24 +24,21 @@ window.init_map = async function () {
         url: "/events/get_events.json",
         success: (result) => {
             // Define variables
-            var rendered_event;
-            var infowindow;
-            var marker;
             var event_list_element = $("#event-list");
 
             result.events.forEach(event => {
 
                 // Add markers to marker array
-                marker = new google.maps.Marker({
+                var marker = new google.maps.Marker({
                     position: {lat: event.lat, lng: event.lng},
                     map: map
                 });
 
                 // Create HTML for the event
-                rendered_event = render_event(event);
+                var rendered_event = render_event(event);
 
                 // Create info window with HTML content with information from the marker.
-                infowindow = new google.maps.InfoWindow({
+                var infowindow = new google.maps.InfoWindow({
                     content: rendered_event
                 })
 
@@ -130,6 +127,8 @@ function handle_event(event, id) {
         function(data, status, jqXHR) {
             // Reload page to update the infowindows, focus on infowindow which was previously open
             window.location.href = data.redirect_to;
+            console.log(data);
+
         }
     )
 }

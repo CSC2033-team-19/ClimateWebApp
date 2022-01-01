@@ -33,7 +33,7 @@ class EventForm(FlaskForm):
     def get_date_time(self):
         date = datetime.strptime(self.date.data, "%d-%m-%Y")
 
-        date.replace(hour=self.time.data.hour, minute=self.time.data.minute)
+        date = date.replace(hour=self.time.data.hour, minute=self.time.data.minute)
 
         return date
 

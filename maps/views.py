@@ -51,12 +51,11 @@ def event_id(id):
 @login_required
 def handle_event():
     # Fetch the row related to the user in the event-user association
-    event_user = Event.query.filter(Event.users.any(id=current_user.id))
+    event_user = Event.query.filter(Event.users.any(id=current_user.id), Event.id==request.form["event_id"])
 
     # Check if row already exists before enlisting the user.
     if event_user.first() is None:
         # Add the user into the event
-
         event = Event.query.filter_by(id=request.form["event_id"]).first()
         event.users.append(current_user)
         result_string = "User added to event list"
