@@ -2,52 +2,54 @@
 var script = document.createElement("script"); // dynamically load script.
 var map; // map variable.
 var toast; // show errors with geolocation to the user.
+var markers = []; // Store all the markers as well as the corresponding IDs here.
+const focused_event = document.currentScript.getAttribute("focus-event"); // Store which event is being focused
 script.src = `https://maps.googleapis.com/maps/api/js?key=${document.currentScript.getAttribute("api-key")}&callback=init_map`;
-script.async = true;
+script.async = true; // Ensure that the script is loaded asynchronously.
 
 // Attach callback function to the window object
-window.init_map = function () {
+window.init_map = async function () {
     // JS API is loaded and available
-    // Get markers
-    let markers = [];
 
+    // Create map
+    map = new google.maps.Map(document.getElementById("event-map"), {
+        center: {lat: 54, lng: -1},  // Default location
+        zoom: 8,
+        markers: markers
+    });
+
+    // Get markers, create infowindows and handle the centering of the map.
     $.ajax({
         type: "get",
         url: "/events/get_events.json",
         success: (result) => {
+            // Define variables
+            var rendered_event;
+            var infowindow;
+            var marker;
+            var event_list_element = $("#event-list");
+
             result.events.forEach(event => {
 
                 // Add markers to marker array
-                var marker = new google.maps.Marker({
+                marker = new google.maps.Marker({
                     position: {lat: event.lat, lng: event.lng},
                     map: map
                 });
 
+                // Create HTML for the event
+                rendered_event = render_event(event);
+
                 // Create info window with HTML content with information from the marker.
-                var infowindow = new google.maps.InfoWindow({
-                    content: `
-                    <div class="info-window">
-                       <div class="info-window-head" id="event-head-${event.id}">
-                            <p class="no-margin"><strong>${event.head}</strong></p>
-                            <p class="no-margin"><small>${event.address}</small></p>
-                            <p><small>${event.time}</small></p>
-                       </div>                       
-                       <div class="info-window-body" id="event-body-${event.id}">
-                            <p>
-                                ${event.body}
-                            </p>
-                            <p class="info-window-text-align-right no-margin">
-                                <small>Current attendance: ${event.attending.users}/${event.capacity} </small>
-                            </p>
-                            <p class="info-window-text-align-right">
-                                <a class="info-window-event-booking" id="booking-${event.id}" onclick="handle_event(event)" href="#">
-                                    ${event.attending.current_user_attending === false ? "Book your place!": "I'm not planning on coming anymore"} 
-                                </a>
-                            </p>
-                       </div>
-                    </div>
-                    `
+                infowindow = new google.maps.InfoWindow({
+                    content: rendered_event
                 })
+
+                // Check if the user is in the event to add to the event list.
+                if (event.attending.current_user_attending === true) {
+                    event_list_element.append(rendered_event);
+                }
+
                 // Pin each info window to the corresponding marker.
                 marker.addListener("click", () => {
                     infowindow.open({
@@ -58,25 +60,11 @@ window.init_map = function () {
                 })
 
                 // Store markers and corresponding info windows in a dict.
-                markers.push({marker: marker, info_window: infowindow});
+                markers.push({id: event.id, marker: marker, info_window: infowindow});
             })
-        }
+            get_center();
+        },
     })
-
-    // Create map
-    map = new google.maps.Map(document.getElementById("event-map"), {
-        center: {lat: 54, lng: -1},  // Default location
-        zoom: 8,
-        markers: markers
-    });
-
-    // Ask user for their location (after map is loaded)
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(center_map, show_error);
-    } else {
-        toast.innerHTML("Geolocation is not supported on this browser.");
-        toast.show()
-    }
 }
 
 // Add script tag to the head
@@ -89,6 +77,25 @@ function center_map(center) {
     map.setZoom(13);
 }
 
+// Find out where the map needs to be focused
+function get_center() {
+    if (focused_event===false) {
+        // Ask user for their location (after map is loaded)
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(center_map, show_error);
+        } else {
+            toast.innerHTML("Geolocation is not supported on this browser.");
+            toast.show()
+        }
+    } else {
+        // Focus the event which the user has been refreshed from (ensure correct casting is done with parseInt)
+        var focus_marker = map.markers.filter(event => event.id === parseInt(focused_event));
+        focus_marker[0].info_window.open(map, focus_marker[0].marker);
+        map.setZoom(13);
+    }
+}
+
+// Display error in geolocation
 function show_error(error) {
     let body = document.getElementById("geo-toast-body");
     switch (error.code) {
@@ -116,12 +123,39 @@ $(function() {
     toast = new bootstrap.Toast(toast_element);
 })
 
-function handle_event(event) {
+// Handles the joining and leaving of events
+function handle_event(event, id) {
     $.post("/events/handle_event",  // url
-        {"event_id": event.target.id.split("-")[1]},  // data passed
+        {"event_id": id},  // pass ID of the event by parsing through the ID of the elmnt
         function(data, status, jqXHR) {
-            // Reload page to update the infowindows
-            location.reload();
+            // Reload page to update the infowindows, focus on infowindow which was previously open
+            window.location.href = data.redirect_to;
         }
     )
+}
+
+// Create an HTML representation of an event
+function render_event(event) {
+    return `
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                ${event.head}
+                
+            </h5>
+            <p class="card-text">
+                <small>${event.time}, ${event.address}</small>
+            </p>
+            <p class="card-text">
+                 <small>Current attendance: ${event.attending.users}/${event.capacity}</small> 
+            </p>
+            <p class="card-text">
+                ${event.body}
+            </p> 
+            <a class="btn btn-primary" onclick="handle_event(event, ${event.id})">
+                ${event.attending.current_user_attending === false ? "Join event": "Leave event"}<br>  
+            </a>       
+        </div>
+    </div>
+    `
 }

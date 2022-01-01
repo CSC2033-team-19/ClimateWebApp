@@ -10,6 +10,10 @@
     width:100%;
 }
 
+.content-block {
+    display: flex;
+}
+
 /* Style infowindows */
 .info-window {
     text-align: left;

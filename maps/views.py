@@ -5,7 +5,7 @@ import flask
 import sqlalchemy
 
 from app import requires_roles, db
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, render_template, request, flash, jsonify, url_for
 from flask_login import current_user, login_required
 import logging
 
@@ -16,12 +16,36 @@ from maps.forms import EventForm
 maps_blueprint = Blueprint("maps", __name__, template_folder="templates")
 
 
+# Change database into easily usable JSON file
+def map_event(event):
+    return ({
+        "id": event.id,
+        "head": event.head,
+        "body": event.body,
+        "attending": {
+            "users": len(event.users),
+            "current_user_attending": any(current_user.id == user.id for user in event.users)
+        },
+        "capacity": event.capacity,
+        "time": event.time.strftime("%d/%m/%Y %I:%M %p"),
+        "address": event.address,
+        "lat": event.lat,
+        "lng": event.lng
+    })
+
+
 # Views
 @maps_blueprint.route("/events", methods=["GET"])
+@maps_blueprint.route("/events/", methods=["GET"])
 @login_required
 def events():
-    return render_template("maps.html", gmap_key=os.environ["GMAP-KEY"])
+    return render_template("maps.html", gmap_key=os.environ["GMAP-KEY"], focus_event=False)
 
+
+@maps_blueprint.route("/events/<int:id>", methods=["GET"])
+@login_required
+def event_id(id):
+    return render_template("maps.html", gmap_key=os.environ["GMAP-KEY"], focus_event=id)
 
 @maps_blueprint.route("/events/handle_event", methods=["POST"])
 @login_required
@@ -49,24 +73,9 @@ def handle_event():
     # Commit changes to the database.
     db.session.commit()
 
-    return jsonify({"result": result_string})
+    return jsonify({"result": result_string, "redirect_to": f"/events/{request.form['event_id']}"})
 
 
-def map_event(event):
-    return ({
-        "id": event.id,
-        "head": event.head,
-        "body": event.body,
-        "attending": {
-            "users": len(event.users),
-            "current_user_attending": any(current_user.id == user.id for user in event.users)
-        },
-        "capacity": event.capacity,
-        "time": event.time.strftime("%d/%m/%Y %I:%M %p"),
-        "address": event.address,
-        "lat": event.lat,
-        "lng": event.lng
-    })
 
 @maps_blueprint.route("/events/get_events.json", methods=["GET"])
 @login_required

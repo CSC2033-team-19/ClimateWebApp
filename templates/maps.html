@@ -8,7 +8,7 @@
 
 
     {# Import events.js and css #}
-    <script src="/static/events.js" api-key={{ gmap_key }}></script>
+    <script src="/static/events.js" api-key={{ gmap_key }} focus-event={{ focus_event }}></script>
     <link rel="stylesheet" href="/static/events.css" />
 
     {# Set up maps #}
@@ -18,6 +18,7 @@
 {% block content %}
 
     <div id="event-map"></div>
+    <div id="event-list"></div>
 
     {# Geolocation error toast #}
     <div id="geo-error-toast" class="toast-container position-absolute p-3 top-0 start-50 translate-middle-x">
@@ -29,6 +30,5 @@
             <div id="geo-toast-body" class="toast-body"></div>
         </div>
     </div>
-
 
 {% endblock %}
