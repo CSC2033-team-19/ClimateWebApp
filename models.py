@@ -269,8 +269,7 @@ def init_db():
                                  reason='Location: India, Asia. ACME Group specializes in the manufacturing and supply '
                                         'of several disruptive green technology solutions within Energy Sector with '
                                         'global operations and a workforce of over 5000 people blending technology '
-                                        'with '
-                                        'innovation. '
+                                        'with innovation, donate now! . '
                                         'Info: https://www.acme.in/index',
                                  donated='240',
                                  amount='50,000',
