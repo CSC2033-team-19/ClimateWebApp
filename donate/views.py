@@ -1,5 +1,5 @@
 import copy
-from flask import Blueprint, render_template, jsonify, request, redirect
+from flask import Blueprint, render_template, jsonify, request, redirect, flash
 from flask_login import login_required, current_user
 from sqlalchemy import desc
 import stripe
@@ -63,7 +63,7 @@ def create():
     return render_template('create_donation.html', form=form)
 
 
-# update or edit a post
+# update or edit a donation
 @donate_blueprint.route('/<int:id>/update_donation', methods=('GET', 'POST'))
 @login_required
 @requires_roles('admin')
@@ -156,3 +156,5 @@ def retrieve_session():
         expand=['payment_intent'],
     )
     return jsonify(session)
+
+
