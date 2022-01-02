@@ -228,8 +228,15 @@ class Event(db.Model):
         self.address = address
         self.created_by = created_by
 
-
-
+    def update_event(self, head, body, capacity, time, lat, lng, address):
+        self.head = head
+        self.body = body
+        self.capacity = capacity
+        self.time = time
+        self.lat = lat
+        self.lng = lng
+        self.address = address
+        db.session.commit() 
 
 
 

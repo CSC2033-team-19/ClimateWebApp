@@ -33,7 +33,8 @@ def map_event(event):
             "time": event.time.strftime("%d/%m/%Y %I:%M %p"),
             "address": event.address,
             "lat": event.lat,
-            "lng": event.lng
+            "lng": event.lng,
+            "created_by_user": event.created_by == current_user.id
         })
     else:
         # Event has already occurred, pass
@@ -140,9 +141,17 @@ def update_event(id):
     # if form valid
     if form.validate_on_submit():
         # update old event data with new data
-        event.update(form)
+        time = form.get_date_time()
+
+        event.update_event(form.head.data,
+                           form.body.data,
+                           form.capacity.data,
+                           time,
+                           form.lat,
+                           form.lng,
+                           form.address.data)
         db.session.commit()
-        return events()
+        return event_id(id)
 
     # Fill out form with event data
     form.fill_data(event)
@@ -156,7 +165,7 @@ def update_event(id):
 @requires_roles("admin")
 def delete_event(id):
     # Delete the challenge which matches the given id.
-    Event.query.filter(id=id).delete()
+    Event.query.filter(Event.id==id).delete()
     db.session.commit()
 
     # Return the events page

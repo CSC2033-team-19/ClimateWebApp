@@ -1,7 +1,8 @@
 // Create script tag
 var script = document.createElement("script"); // dynamically load script.
 var map; // map variable.
-var toast; // show errors with geolocation to the user.
+var geolocation_error_toast; // show errors with geolocation to the user.
+var deletion_warning_toast; // Warn the user that they are about to delete an event
 var markers = []; // Store all the markers as well as the corresponding IDs here.
 const focused_event = document.currentScript.getAttribute("focus-event"); // Store which event is being focused
 script.src = `https://maps.googleapis.com/maps/api/js?key=${document.currentScript.getAttribute("api-key")}&callback=init_map`;
@@ -76,13 +77,14 @@ function center_map(center) {
 
 // Find out where the map needs to be focused
 function get_center() {
-    if (focused_event===false) {
+    console.log(focused_event==="False");
+    if (focused_event==="False") {
         // Ask user for their location (after map is loaded)
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(center_map, show_error);
         } else {
-            toast.innerHTML("Geolocation is not supported on this browser.");
-            toast.show()
+            geolocation_error_toast.innerHTML("Geolocation is not supported on this browser.");
+            geolocation_error_toast.show()
         }
     } else {
         // Focus the event which the user has been refreshed from (ensure correct casting is done with parseInt)
@@ -101,23 +103,26 @@ function show_error(error) {
             break;
         case error.POSITION_UNAVAILABLE:
             body.innerHTML = "Location information is unavailable at this time.";
-            toast.show();
+            geolocation_error_toast.show();
             break;
         case error.TIMEOUT:
             body.innerHTML = "Request for user location timed out.";
-            toast.show();
+            geolocation_error_toast.show();
             break;
         case error.UNKNOWN_ERR:
             body.innerHTML = "An unknown error occurred."
-            toast.show();
+            geolocation_error_toast.show();
             break;
     }
 }
 
-// Initialise toast error displaying for geolocation
+// Initialise toast error displaying for geolocation and warning admins when deleting their events.
 $(function() {
-    var toast_element = document.getElementsByClassName("toast")[0];
-    toast = new bootstrap.Toast(toast_element);
+    var geo_toast_element = document.getElementById("geo-toast");
+    var deletion_toast_element = document.getElementById("deletion-toast");
+
+    geolocation_error_toast = new bootstrap.Toast(geo_toast_element);
+    deletion_warning_toast = new bootstrap.Toast(deletion_toast_element);
 })
 
 // Handles the joining and leaving of events
@@ -127,17 +132,49 @@ function handle_event(event, id) {
         function(data, status, jqXHR) {
             // Reload page to update the infowindows, focus on infowindow which was previously open
             window.location.href = data.redirect_to;
-            console.log(data);
-
         }
     )
 }
 
+// Warn the user about deleting an event
+function warning_deletion(id) {
+    var toast_element = document.getElementById("deletion-toast-body");
+
+    // Create the confirmation button in the toast which will show to warn the user
+    toast_element.innerHTML = `
+        <a class="btn btn-danger" href="/events/delete_event/${id}">
+            I am sure that I want to delete this event.
+        </a>
+    `
+
+    // Show the toast now that the content is loaded.
+    deletion_warning_toast.show()
+}
+
 // Create an HTML representation of an event
 function render_event(event) {
+    var button
+
+    if (event.created_by_user) {
+        button = `
+            <a class="btn btn-primary" href="/events/update_event/${event.id}">
+                Update Event Details
+            </a>
+            <a class="btn btn-danger" onclick="warning_deletion(${event.id})">
+                Delete Event
+            </a>
+        `
+    }
+    else {
+        button = `
+            <a class="btn btn-primary" onClick="handle_event(event, ${event.id})">
+                ${event.attending.current_user_attending === false ? "Join event" : "Leave event"}<br>
+            </a>`
+    }
     return `
+    
     <div class="card">
-        <div class="card-body">
+        <div id="event-${event.id}" class="card-body">
             <h5 class="card-title">
                 ${event.head}
                 
@@ -151,9 +188,7 @@ function render_event(event) {
             <p class="card-text">
                 ${event.body}
             </p> 
-            <a class="btn btn-primary" onclick="handle_event(event, ${event.id})">
-                ${event.attending.current_user_attending === false ? "Join event": "Leave event"}<br>  
-            </a>       
+            ${button}     
         </div>
     </div>
     `
