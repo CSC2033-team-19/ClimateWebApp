@@ -62,5 +62,11 @@ class EventForm(FlaskForm):
     address = StringField(validators=[DataRequired(), get_lat_lng])
     submit = SubmitField()
 
-    # lat lng derived from address using geocoding
-
+    # Fill out data in form for updating the event
+    def fill_data(self, event):
+        self.head.data = event.head
+        self.body.data = event.body
+        self.capacity.data = event.capacity
+        self.date.data = f"{str(event.time.day).zfill(2)}-{str(event.time.month).zfill(2)}-{event.time.year}"
+        self.time.data = event.time
+        self.address.data = event.address

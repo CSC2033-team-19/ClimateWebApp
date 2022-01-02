@@ -57,6 +57,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post')
     challenges = db.relationship('Challenge')
     carbon_data = db.relationship('CarbonData')
+    created_events = db.relationship("Event")
     events = db.relationship('Event', secondary=join_event, back_populates="users")
     join_challenge = db.relationship('JoinChallenge')
 
@@ -211,10 +212,13 @@ class Event(db.Model):
     lng = db.Column(db.Float)
     address = db.Column(db.String)
 
+    # Created by
+    created_by = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
+
     # Create *..* relationship with users
     users = db.relationship("User", secondary=join_event, back_populates="events")
 
-    def __init__(self, head, body, capacity, time, lat, lng, address):
+    def __init__(self, head, body, capacity, time, lat, lng, address, created_by):
         self.head = head
         self.body = body
         self.capacity = capacity
@@ -222,19 +226,8 @@ class Event(db.Model):
         self.lat = lat
         self.lng = lng
         self.address = address
+        self.created_by = created_by
 
-
-# # Join class Event-Users (registered_for_event)
-# class JoinEvent(db.Model):
-#     __tablename__ = "join_event"
-#
-#     # Initialise columns
-#     id = db.Column(db.Integer, primary_key=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-#     event_id = db.Column(db.Integer, db.ForeignKey("event.id"))
-#
-#     user = db.relationship(User, backref=db.backref("JoinEvent", cascade="all, delete-orphan"))
-#     event = db.relationship(Event, backref=db.backref("JoinEvent", cascade="all, delete-orphan"))
 
 
 
@@ -267,4 +260,36 @@ def init_db():
                  role='admin')
 
     db.session.add(admin)
+    db.session.commit()
+
+    event_1 = Event(head="Open lecture on climate change",
+                    body="Lecture on the long term effects of the warming climate",
+                    capacity=100,
+                    time=datetime.now().replace(2022, 1, 31, 15, 30),
+                    lat=54.9799884,
+                    lng=-1.6189398,
+                    address="Newcastle University, Newcastle upon Tyne NE1 7RU",
+                    created_by=1)
+
+    event_2 = Event(head="Climate conscious discussion forum",
+                    body="A place to discuss how to improve your carbon footprint with local experts",
+                    capacity=30,
+                    time=datetime.now().replace(2022, 1, 22, 12, 0),
+                    lat=54.9824472,
+                    lng=-1.6113149,
+                    address="Philip Robinson Library, Jesmond Rd W, Newcastle upon Tyne NE2 4HQ",
+                    created_by=1)
+
+    event_3 = Event(head="Volunteers needed cleaning up the local park",
+                    body="Lecture on the long term effects of the warming climate",
+                    capacity=100,
+                    time=datetime.now().replace(2022, 1, 26, 8, 30),
+                    lat=54.990446,
+                    lng=-1.6128411,
+                    address="Claremont Rd, Newcastle upon Tyne NE2 4PZ",
+                    created_by=1)
+
+    db.session.add(event_1)
+    db.session.add(event_2)
+    db.session.add(event_3)
     db.session.commit()
