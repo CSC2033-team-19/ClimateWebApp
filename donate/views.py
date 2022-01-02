@@ -15,13 +15,13 @@ donate_blueprint = Blueprint("donate", __name__, template_folder="templates")
 
 
 # VIEWS
-# view feed homepage
+# view donate homepage
 @donate_blueprint.route('/donate')
 @login_required
 def donate():
     donations = Donations.query.order_by(desc('id')).all()
 
-    # creates a list of copied post objects which are independent of database.
+    # creates a list of copied donation post objects which are independent of database.
     donation_copy = list(map(lambda x: copy.deepcopy(x), donations))
 
     return render_template('donate.html', donations=donation_copy)
@@ -44,7 +44,7 @@ def create():
         data = file.read()
         render_pic = render_picture(data)
 
-        # create a new post with the form data
+        # create a new donation with the form data
         new_donation = \
             Donations(title=form.title.data,
                       email=current_user.email,
@@ -54,12 +54,12 @@ def create():
                       status=form.status.data,
                       image=render_pic)
 
-        # add the new post to the database
+        # add the new donation to the database
         db.session.add(new_donation)
         db.session.commit()
         return donate()
 
-    # re-render create_post page
+    # re-render create_donation page
     return render_template('create_donation.html', form=form)
 
 
@@ -68,27 +68,27 @@ def create():
 @login_required
 @requires_roles('admin')
 def update(id):
-    # get draw with the matching id
+    # get donation with the matching id
     donation = Donations.query.filter_by(id=id).first()
 
-    # if post with given id does not exist
+    # if donation with given id does not exist
     if not donation:
         # re-render Internal Server Error page
         return render_template('500.html')
 
-    # create Post object
+    # create donation object
     form = DonationForm()
 
     # if form valid
     if form.validate_on_submit():
-        # update old post data with the new form data and commit it to database
+        # update old donation data with the new form data and commit it to database
         donation.update_donation(form.title.data, form.reason.data, form.donated.data, form.amount.data,
                                  form.status.data)
         db.session.commit()
-        # send admin to posts page
+        # send admin to donation page
         return donate()
 
-    # creates a copy of post object which is independent of database
+    # creates a copy of donation object which is independent of database
     donation_copy = copy.deepcopy(donation)
 
     # set update form with title and body of copied post object
@@ -96,16 +96,16 @@ def update(id):
     form.reason.data = donation_copy.reason
     form.amount.data = donation_copy.amount
 
-    # re-render update_post template
+    # re-render update_donation template
     return render_template('update_donation.html', form=form)
 
 
-# delete a post
+# delete a donation post
 @donate_blueprint.route('/<int:id>/delete')
 @login_required
 @requires_roles('admin')
 def delete(id):
-    # delete post which id matches
+    # delete donation post which id matches
     Donations.query.filter_by(id=id).delete()
     db.session.commit()
     return donate()
