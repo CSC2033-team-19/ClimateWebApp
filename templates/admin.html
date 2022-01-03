@@ -2,153 +2,161 @@
 
 {% block content %}
     <script type="text/javascript" src="{{ url_for('static', filename='rng.js') }}"></script>
-    <h3 class="title is-3">Admin
-    </h3>
-    <h4 class="subtitle is-4">
-        Welcome, {{ name }}
-    </h4>
 
-    <div class="column is-10 is-offset-1">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="notification is-danger">
-                    {{ messages[0] }}
-                </div>
-            {% endif %}
-        {% endwith %}
+    <style>
+
+    .btn{
+        background-color: #59886f;
+        border-color: #59886f;
+        margin-bottom: 30px;
+    }
+
+    .btn:hover{
+        background-color: #71887f;
+        border-color: #71887f;
+    }
 
 
-        <h4 class="title is-4">Registered Users</h4>
-        <div class="box">
-            {% if current_users %}
-                <div class="field">
-                    <table class="table">
-                        <tr>
-                            <th>ID</th>
-                            <th>Email</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Phone Number</th>
-                            <th>Role</th>
-                        </tr>
-                        {% for user in current_users %}
+    </style>
+
+
+    <div class="column is-6 is-offset-3 admin">
+        <h3 class="admin-title">Admin
+        </h3>
+        <h4 class="subtitle">
+            Welcome, {{ name }}
+        </h4>
+
+
+        <div class="control-panel">
+
+            <h4 class="section-title">Registered Users</h4>
+            <div class="box">
+                {% if current_users %}
+                    <div class="field">
+                        <table class="table">
                             <tr>
-                                <td>{{ user.id }}</td>
-                                <td>{{ user.email }}</td>
-                                <td>{{ user.firstname }}</td>
-                                <td>{{ user.lastname }}</td>
-                                <td>{{ user.phone }}</td>
-                                <td>{{ user.role }}</td>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Phone Number</th>
+                                <th>Role</th>
                             </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            {% endif %}
-            <form method="POST" action="/view_all_users">
-                <div>
-                    <button class="button is-info is-centered">View All Users</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="column is-8 is-offset-2" id="test">
-        <h4 class="title is-4">Security Logs</h4>
-        <div class="box">
-            {% if logs %}
-                <div class="field">
-                <table class="table">
-                    <tr>
-                        <th>Last 10 Security Log Entries</th>
-                    </tr>
-                    {% for entry in logs %}
-                        <tr>
-                            <td>{{ entry }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-            <form method="POST" action="/logs">
-                <div>
-                    <button class="button is-info is-centered">View Logs</button>
-                </div>
-            </form>
+                            {% for user in current_users %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.firstname }}</td>
+                                    <td>{{ user.lastname }}</td>
+                                    <td>{{ user.phone }}</td>
+                                    <td>{{ user.role }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
+                <form method="POST" action="/view_all_users">
+                    <div>
+                        <button class="btn btn-lg btn-primary is-info is-centered">View All Users</button>
+                    </div>
+                </form>
             </div>
-        </div>
-    </div>
 
-    <div class="column is-10 is-offset-1">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="notification is-danger">
-                    {{ messages[0] }}
-                </div>
-            {% endif %}
-        {% endwith %}
-    </div>
 
-    <h4 class="title is-4">Challenges Joined by Users</h4>
-        <div class="box">
-            {% if joined_challenges %}
-                <div class="field">
-                    <table class="table">
-                        <tr>
-                            <th>Join ID</th>
-                            <th>User Email</th>
-                            <th>Challenge ID</th>
-                            <th>Date Joined</th>
-                        </tr>
-                        {% for challenge in joined_challenges %}
+
+            <h4 class="section-title">Security Logs</h4>
+            <div class="box">
+                {% if logs %}
+                    <div class="field">
+                        <table class="table">
                             <tr>
-                                <td>{{ challenge.id }}</td>
-                                <td>{{ challenge.user_email }}</td>
-                                <td>{{ challenge.challenge_id }}</td>
-                                <td>{{ challenge.date_joined.strftime('%d-%m-%Y') }}</td>
+                                <th>Last 10 Security Log Entries</th>
                             </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            {% endif %}
-            <form method="POST" action="/view_all_joined_challenges">
-                <div>
-                    <button class="button is-info is-centered">View All Joined Challenges</button>
-                </div>
-            </form>
+                            {% for entry in logs %}
+                                <tr>
+                                    <td>{{ entry }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
+                <form method="POST" action="/logs">
+                    <div>
+                        <button class="btn btn-lg btn-primary is-info is-centered">View Logs</button>
+                    </div>
+                </form>
+            </div>
+
+
+
+
+            <h4 class="section-title">Challenges Joined by Users</h4>
+            <div class="box">
+                {% if joined_challenges %}
+                    <div class="field">
+                        <table class="table">
+                            <tr>
+                                <th>Join ID</th>
+                                <th>User Email</th>
+                                <th>Challenge ID</th>
+                                <th>Date Joined</th>
+                            </tr>
+                            {% for challenge in joined_challenges %}
+                                <tr>
+                                    <td>{{ challenge.id }}</td>
+                                    <td>{{ challenge.user_email }}</td>
+                                    <td>{{ challenge.challenge_id }}</td>
+                                    <td>{{ challenge.date_joined.strftime('%d-%m-%Y') }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
+                <form method="POST" action="/view_all_joined_challenges">
+                    <div>
+                        <button class="btn btn-lg btn-primary is-info is-centered">View All Joined Challenges</button>
+                    </div>
+                </form>
+            </div>
+
+
+            <h4 class="section-title">Donations</h4>
+            <div class="box">
+                {% if donations %}
+                    <div class="field">
+                        <table class="table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Reason</th>
+                                <th>Amount</th>
+                                <th>Donated</th>
+                                <th>Status</th>
+                            </tr>
+                            {% for donation in donations %}
+                                <tr>
+                                    <td>{{ donation.id }}</td>
+                                    <td>{{ donation.email }}</td>
+                                    <td>{{ donation.reason }}</td>
+                                    <td>{{ donation.amount }}</td>
+                                    <td>{{ donation.donated }}</td>
+                                    <td>{{ donation.status }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
+                <form method="POST" action="/view_all_donations">
+                    <div>
+                        <button class="btn btn-lg btn-primary is-info is-centered">View All Donations</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
-
-    <h4 class="title is-4">Donations</h4>
-    <div class="box">
-        {% if donations %}
-            <div class="field">
-                <table class="table">
-                    <tr>
-                        <th>ID</th>
-                        <th>Email</th>
-                        <th>Reason</th>
-                        <th>Amount</th>
-                        <th>Donated</th>
-                        <th>Status</th>
-                    </tr>
-                    {% for donation in donations %}
-                        <tr>
-                            <td>{{ donation.id }}</td>
-                            <td>{{ donation.email }}</td>
-                            <td>{{ donation.reason }}</td>
-                            <td>{{ donation.amount }}</td>
-                            <td>{{ donation.donated }}</td>
-                            <td>{{ donation.status }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        {% endif %}
-        <form method="POST" action="/view_all_donations">
-            <div>
-                <button class="button is-info is-centered">View All Donations</button>
-            </div>
-        </form>
     </div>
+
 
 
 {% endblock %}
