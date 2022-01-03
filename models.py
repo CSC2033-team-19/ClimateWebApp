@@ -474,3 +474,34 @@ def init_db():
     db.session.add(challenge1)
     db.session.commit()
 
+    with open(os.path.dirname(__file__) + "/static/images/challenge2.jpeg", "rb") as img_file:
+        challenge2_image = base64.b64encode(img_file.read()).decode('ascii')
+
+    # create challenge
+    challenge1 = Challenge(email='admin@email.com',
+                           title='Sustainable Shopping - Choose a Reusable Bag',
+                           body='<p><strong>The challenge:</strong></p><p>At the supermarket or clothing stores use '
+                                'reusable bags instead of plastic carrier '
+                                'bags.</p><p><strong>Why?</strong></p><p>There&#39;s an easy way to make your '
+                                'supermarket or clothes shop more sustainable: at the checkout avoid asking for new '
+                                'plastic carrier bags and instead carry your groceries or goods in a reusable '
+                                'bag.</p><p><strong>How you will make an impact?</strong></p><p>Plastic carrier bags '
+                                'are often only used a handful of times before being thrown away, and for many of us '
+                                'they can&#39;t be recycled at home.</p><p>While they may be convenient to use, '
+                                'plastic bags take too much time to break down. A plastic bag can take from 15 to 1,'
+                                '000 years to break down. In addition, the cost of recycling plastic bags outweighs '
+                                'their value.</p><p>Making a switch to a more s<strong>ustainable '
+                                'alternative</strong> such as bringing a reusable bag from home with you can be the '
+                                'smartest move to make, in order to help reduce the impact of plastic bags on the '
+                                'environment.</p><p>Plastic pollution kills wildlife, damages natural ecosystems, '
+                                'and contributes to climate change. Plastic waste has been found in soils, '
+                                'rivers and oceans where it can degrade or destroy wildlife habitats.</p><p>Stand '
+                                'against unnecessary plastic production and choose a <strong>reusable bag '
+                                '</strong>instead.</p><p><small>Image Reference: <a '
+                                'href="https://www.ecofriendlyhabits.com/reusable-grocery-bags/">Eco-friendly '
+                                'Reusable Bags</a></small></p>',
+                           image=challenge2_image,
+                           postkey=admin.postkey)
+
+    db.session.add(challenge1)
+    db.session.commit()
