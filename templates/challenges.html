@@ -78,6 +78,7 @@
                     <p class="card-text">{{ challenge.body | safe }}</p>
                     <br>
                 </div>
+                <img class="card-img-bottom w-75 p-3 rounded mx-auto d-block" src="data:image/jpg;base64,{{ challenge.image }}" alt="post_img"  id="imgslot"/>
                 {% if challenge.email == current_user.email %}
                     <div class="d-grid gap-2 d-md-block" role="group" aria-label="Basic outlined example">
                         <a type="button" class="btn btn-outline-primary btn-rounded me-md-2" href="{{ url_for('challenges.challenge', id=challenge.id) }}" role="button">View Challenge</a>

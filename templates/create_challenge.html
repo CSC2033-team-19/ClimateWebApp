@@ -48,7 +48,7 @@
         <br>
         <br>
         <div class="box">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="field">
                     {{ form.csrf_token() }}
                     <div class="control">
@@ -65,6 +65,14 @@
                         {% for error in form.body.errors %}
                             {{ error }}
                         {% endfor %}
+                    </div>
+                </div>
+                <br>
+                <div class="field">
+                    <div class="control">
+                        <p>Upload an image below to be displayed with the post</p>
+                        <label for="inputFile">File input</label>
+                        <input class="form-control-file" type="file" name="inputFile">
                     </div>
                 </div>
                 <br>

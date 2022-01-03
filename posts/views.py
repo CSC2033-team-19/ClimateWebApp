@@ -97,6 +97,7 @@ def create():
 
     # if form valid
     if form.validate_on_submit():
+        # retrieve input file
         file = request.files['inputFile']
         data = file.read()
         render_file = render_picture(data)

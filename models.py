@@ -193,6 +193,7 @@ class Challenge(db.Model):
         created (datetime): date and time of when challenge was created
         title (Text): challenge's title
         body (Text): challenge's body
+        image (Text): challenge's image
 
     Methods:
         update_challenge(self, title, body, postkey): encrypts challenge's title and body
@@ -205,10 +206,11 @@ class Challenge(db.Model):
     created = db.Column(db.DateTime, nullable=False)
     title = db.Column(db.Text, nullable=False, default=False)
     body = db.Column(db.Text, nullable=False, default=False)
+    image = db.Column(db.Text, nullable=False)
 
     join_challenge = db.relationship('JoinChallenge')
 
-    def __init__(self, email, title, body, postkey):
+    def __init__(self, email, title, body, image, postkey):
         """
         Constructs all the necessary attributes for the challenge object.
 
@@ -217,11 +219,13 @@ class Challenge(db.Model):
             created (datetime): current date and time
             title (Text): challenge's title
             body (Text): challenge's body
+            image (Text): challenge's image
         """
         self.email = email
         self.created = datetime.now()
         self.title = encrypt(title, postkey)
         self.body = encrypt(body, postkey)
+        self.image = image
         db.session.commit()
 
     def update_challenge(self, title, body, postkey):
@@ -406,6 +410,9 @@ def init_db():
     db.session.add(post1)
     db.session.commit()
 
+    with open(os.path.dirname(__file__) + "/static/ecofriendly-giftwrap.png", "rb") as img_file:
+        challenge1_image = base64.b64encode(img_file.read()).decode('ascii')
+
     # create challenge
     challenge1 = Challenge(email='admin@email.com',
                            title='Is your gift wrap recyclable?',
@@ -421,6 +428,7 @@ def init_db():
                                 'vast majority of gift wrap is thrown away.</li></ul><p><strong>How you will make an '
                                 'impact?</strong><br />Choose entirely recyclable packaging and make a statement by '
                                 'sending an email to paper industries about how sustainability is the future.</p>',
+                           image=challenge1_image,
                            postkey=admin.postkey)
 
     db.session.add(challenge1)
