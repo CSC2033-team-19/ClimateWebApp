@@ -15,6 +15,15 @@ challenges_blueprint = Blueprint('challenges', __name__, template_folder='templa
 @challenges_blueprint.route('/challenges')
 @login_required
 def challenges():
+    """
+    This function retrieves all challenges in descending id order from the database and displays them
+        in the challenges.html template.
+
+    Returns:
+        render_template('challenges.html', challenges=decrypted_challenges, challenges_for_user=challenge_ids):
+            renders the challenges.html template with the decrypted data of each challenge as a variable
+            as well as the challenge's id the current user has joined .
+    """
     # get all challenges in descending ordered depending on their id number
     challenges = Challenge.query.order_by(desc('id')).all()
 
@@ -42,6 +51,18 @@ def challenges():
 @challenges_blueprint.route('/<int:id>/challenges')
 @login_required
 def challenge(id):
+    """
+    This function retrieves the challenge with the matching id from the database and displays it
+        in the challenge.html template.
+
+    Parameters:
+        id (int): challenge id
+
+    Returns:
+        render_template('challenge.html', challenge=challenge_copy, user_in_challenge=user_in_challenge):
+            renders the challenge.html template with the decrypted data of the
+            matching post id and user_in_challenge as variables.
+    """
     # get all posts in descending ordered depending on their id number
     challenge = Challenge.query.get_or_404(id)
 
@@ -64,6 +85,17 @@ def challenge(id):
 @login_required
 @requires_roles('admin')
 def create():
+    """
+     This function enables the user with 'admin' role to create a Challenge object
+     by retrieving and storing the user input through the ChallengeForm to the database.
+
+     Returns:
+         redirect(url_for('challenges.challenge', id=new_challenge.id)): If ChallengeForm valid, it redirects the user
+            to the 'challenge' function and passing the challenge id as a variable where the inputted challenge
+            data is stored.
+         render_template('create_challenge.html', form=form): If ChallengeForm not valid, it re-renders the
+            create_challenge template along with the form.
+     """
     form = ChallengeForm()
 
     # if form valid
@@ -88,6 +120,20 @@ def create():
 @login_required
 @requires_roles('admin')
 def update(id):
+    """
+    This function enables the user with 'admin' role to edit a Challenge object
+    by retrieving and storing the new data inputted through the ChallengeForm to the database.
+
+    Parameters:
+        id (int): challenge id
+
+    Returns:
+        return render_template('500.html'): If no challenge exists with the given id, render 500.html error page.
+        return redirect(url_for('challenges.challenge', id=challenge.id)): If ChallengeForm is valid, it redirects the
+            user to the 'challenge' function and passing the challenge id as a variable where the new data is stored.
+        return render_template('update_challenge.html', form=form): If ChallengeForm not valid, it re-renders
+            the update_challenge template along with the form.
+    """
     # get challenge with the matching id
     challenge = Challenge.query.filter_by(id=id).first()
 
@@ -126,6 +172,16 @@ def update(id):
 @login_required
 @requires_roles('admin')
 def delete(id):
+    """
+    This function enables the user with 'admin' role to delete the Challenge object from the database
+        which the matches challenge id passed in as a parameter.
+
+    Parameters:
+        id (int): challenge id
+
+    Returns:
+        challenges(): function which renders the challenges.html template
+    """
     # delete challenge which matches id
     Challenge.query.filter_by(id=id).delete()
     db.session.commit()
@@ -138,6 +194,17 @@ def delete(id):
 @login_required
 @requires_roles('user')
 def join(id):
+    """
+    This function enables the user with 'user' role to join a Challenge object by creating a new JoinChallenge
+        object with challenge id and the current user email which will be saved to the database.
+
+    Parameters:
+        id (int): challenge id
+
+    Returns:
+        redirect(url_for('challenges.challenge', id=challenge.id)): redirects user to the 'challenge' function
+            with the challenge id that the user will join as a variable.
+    """
     # get challenge with the matching id
     challenge = Challenge.query.filter_by(id=id).first()
     # create a new row with the data
@@ -154,6 +221,17 @@ def join(id):
 @login_required
 @requires_roles('user')
 def leave(id):
+    """
+    This function enables the user with 'user' role to unjoin a Challenge object by deleting from the database an
+        existing JoinChallenge object, which matches the challenge id passed in as a parameter.
+
+    Parameters:
+        id (int): challenge id
+
+    Returns:
+        redirect(url_for('challenges.challenge', id=challenge.id)): redirects user to the 'challenge' function
+            with the challenge id that the user will unjoin as a variable.
+    """
     # get challenge with the matching id
     challenge = Challenge.query.filter_by(id=id).first()
 

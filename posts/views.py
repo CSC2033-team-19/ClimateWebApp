@@ -17,6 +17,14 @@ posts_blueprint = Blueprint('posts', __name__, template_folder='templates')
 @posts_blueprint.route('/posts')
 @login_required
 def posts():
+    """
+    This function retrieves all posts in descending id order from the database and displays them
+        in the posts.html template.
+
+    Returns:
+        render_template('posts.html', posts=decrypted_posts): renders the posts.html template with the decrypted data
+            of each post as a variable in order to be displayed.
+    """
     # get all posts in descending ordered depending on their id number
     posts = Post.query.order_by(desc('id')).all()
 
@@ -40,6 +48,16 @@ def posts():
 @posts_blueprint.route('/<int:id>/posts')
 @login_required
 def post(id):
+    """
+    This function retrieves the post with the matching id from the database and displays it in the post.html template.
+
+    Parameters:
+        id (int): post id
+
+    Returns:
+        render_template('post.html', post=post_copy): renders the post.html template with the decrypted data of the
+            matching post id as a variable in order to be displayed.
+    """
     # get all posts in descending ordered depending on their id number
     post = Post.query.get_or_404(id)
 
@@ -65,6 +83,16 @@ def render_picture(data):
 @login_required
 @requires_roles('admin')
 def create():
+    """
+     This function enables the user with 'admin' role to create a Post object
+     by retrieving and storing the user input through the PostForm to the database.
+
+     Returns:
+         redirect(url_for('posts.post', id=new_post.id)): If PostForm valid, it redirects the user to the
+            'post' function and passing the post id as a variable where the inputted post data is stored.
+         render_template('create_post.html', form=form): If PostForm not valid, it re-renders the create_post template
+            along with the form.
+     """
     form = PostForm()
 
     # if form valid
@@ -96,6 +124,20 @@ def create():
 @login_required
 @requires_roles('admin')
 def update(id):
+    """
+    This function enables the user with 'admin' role to edit a Post object
+    by retrieving and storing the new data inputted through the PostForm to the database.
+
+    Parameters:
+        id (int): post id
+
+    Returns:
+        return render_template('500.html'): If no post exists with the given id, render 500.html error page.
+        redirect(url_for('posts.post', id=post.id)): If PostForm is valid, it redirects the user to the 'post'
+            function and passing the post id as a variable where the new post data is stored.
+        render_template('update_post.html', form=form): If PostForm not valid, it re-renders the update_post template
+            along with the form.
+    """
     # get draw with the matching id
     post = Post.query.filter_by(id=id).first()
 
@@ -135,6 +177,16 @@ def update(id):
 @login_required
 @requires_roles('admin')
 def delete(id):
+    """
+    This function enables the user with 'admin' role to delete the Post object from the database
+        which the matches post id passed in as a parameter.
+
+    Parameters:
+        id (int): post id
+
+    Returns:
+        posts(): function which renders the posts.html template
+    """
     # delete post which id matches
     Post.query.filter_by(id=id).delete()
     db.session.commit()

@@ -70,6 +70,21 @@ class User(db.Model, UserMixin):
 
 # Post model class
 class Post(db.Model):
+    """
+    This class is used to represent the Post object and the 'posts' table in the database.
+
+    Attributes:
+        id (Integer): post id, primary key
+        email (String): user's email, foreign key with the 'users' table
+        created (datetime): date and time of when post was created
+        title (Text): post's title
+        body (Text): post's body
+        image (Text): post's image
+
+    Methods:
+        update_post(self, title, body, postkey): encrypts post's title and body
+        view_post(self, postkey): decrypts post's title and body
+    """
     __tablename__ = 'posts'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -80,6 +95,16 @@ class Post(db.Model):
     image = db.Column(db.Text, nullable=False)
 
     def __init__(self, email, title, body, image, postkey):
+        """
+        Constructs all the necessary attributes for the post object.
+
+        Parameters:
+            email (String): user's email
+            created (datetime): current date and time
+            title (Text): post's title
+            body (Text): post's body
+            image (Text): post's image
+        """
         self.email = email
         self.created = datetime.now()
         self.title = encrypt(title, postkey)
@@ -88,11 +113,27 @@ class Post(db.Model):
         db.session.commit()
 
     def update_post(self, title, body, postkey):
+        """
+        Encrypts post's title and body with the user's postkey and saves the encrypted data to the database.
+
+        Parameters:
+            postkey: user's unique encryption key
+            title (Text): post's title
+            body (Text): post's body
+        """
         self.title = encrypt(title, postkey)
         self.body = encrypt(body, postkey)
         db.session.commit()
 
     def view_post(self, postkey):
+        """
+        Decrypts post's title and body with the user's postkey.
+
+        Parameters:
+            postkey: user's unique encryption key
+            title (Text): post's title
+            body (Text): post's body
+        """
         self.title = decrypt(self.title, postkey)
         self.body = decrypt(self.body, postkey)
 
@@ -143,6 +184,20 @@ class Donations(db.Model):
 
 # Challenge model class
 class Challenge(db.Model):
+    """
+    This class is used to represent the Challenge object and the 'challenges' table in the database.
+
+    Attributes:
+        id (Integer): challenge id, primary key
+        email (String): user's email, foreign key with the 'users' table
+        created (datetime): date and time of when challenge was created
+        title (Text): challenge's title
+        body (Text): challenge's body
+
+    Methods:
+        update_challenge(self, title, body, postkey): encrypts challenge's title and body
+        view_challenge(self, postkey): decrypts challenge's title and body
+    """
     __tablename__ = 'challenges'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -154,6 +209,15 @@ class Challenge(db.Model):
     join_challenge = db.relationship('JoinChallenge')
 
     def __init__(self, email, title, body, postkey):
+        """
+        Constructs all the necessary attributes for the challenge object.
+
+        Parameters:
+            email (String): user's email
+            created (datetime): current date and time
+            title (Text): challenge's title
+            body (Text): challenge's body
+        """
         self.email = email
         self.created = datetime.now()
         self.title = encrypt(title, postkey)
@@ -161,11 +225,27 @@ class Challenge(db.Model):
         db.session.commit()
 
     def update_challenge(self, title, body, postkey):
+        """
+        Encrypts challenge's title and body with the user's postkey and saves the data to the database.
+
+        Parameters:
+            postkey: user's unique encryption key
+            title (Text): challenge's title
+            body (Text): challenge's body
+        """
         self.title = encrypt(title, postkey)
         self.body = encrypt(body, postkey)
         db.session.commit()
 
     def view_challenge(self, postkey):
+        """
+        Decrypts challenge's title and body with the user's postkey.
+
+        Parameters:
+            postkey: user's unique encryption key
+            title (Text): challenge's title
+            body (Text): challenge's body
+        """
         self.title = decrypt(self.title, postkey)
         self.body = decrypt(self.body, postkey)
 
@@ -196,6 +276,15 @@ class CarbonData(db.Model):
 
 # Join Challenge model class
 class JoinChallenge(db.Model):
+    """
+    This class is used to represent the JoinChallenge object and the 'join_challenge' table in the database.
+
+    Attributes:
+        id (Integer): join challenge id, primary key
+        challenge_id (Integer): challenge id, foreign key with the 'challenges' table
+        user_email (String): user's email, foreign key with the 'users' table
+        date_joined (datetime): date and time of when the user joined the challenge
+    """
     __tablename__ = 'join_challenge'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -204,6 +293,14 @@ class JoinChallenge(db.Model):
     date_joined = db.Column(db.DateTime, nullable=False)
 
     def __init__(self, challenge_id, email):
+        """
+        Constructs all the necessary attributes for the join challenge object.
+
+        Parameters:
+            challenge_id (Integer): challenge id
+            user_email (String): user's email
+            date_joined (datetime): current date and time
+        """
         self.challenge_id = challenge_id
         self.user_email = email
         self.date_joined = datetime.now()

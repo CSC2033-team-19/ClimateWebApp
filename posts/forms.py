@@ -7,6 +7,13 @@ from wtforms.validators import data_required
 
 # post form class
 class PostForm(FlaskForm):
+    """
+    This class represents an instance of a FlaskForm in order to retrieve and save to the database the inputted data
+        by user in order to create a Post object.
+
+    Parameters:
+        FlaskForm(Form): Flask-specific subclass of WTForms
+    """
     title = StringField(validators=[data_required()])
     body = CKEditorField(validators=[data_required()])
     submit = SubmitField()
