@@ -1,6 +1,6 @@
 import base64
 import copy
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import login_required, current_user
 from sqlalchemy import desc
 from app import db, requires_roles
@@ -69,15 +69,15 @@ def create():
 
     # if form valid
     if form.validate_on_submit():
-        file = form.image.data
+        file = request.files['inputFile']
         data = file.read()
-        render_pic = render_picture(data)
+        render_file = render_picture(data)
 
         # create a new post with the form data
         new_post = Post(email=current_user.email,
                         title=form.title.data,
                         body=form.body.data,
-                        image=render_pic,
+                        image=render_file,
                         postkey=current_user.postkey)
 
         # add the new post to the database

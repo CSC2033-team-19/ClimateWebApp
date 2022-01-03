@@ -9,5 +9,4 @@ from wtforms.validators import data_required
 class PostForm(FlaskForm):
     title = StringField(validators=[data_required()])
     body = CKEditorField(validators=[data_required()])
-    image = FileField('Upload Picture')
     submit = SubmitField()
