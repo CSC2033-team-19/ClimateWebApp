@@ -76,17 +76,18 @@
                     <h2 class="card-title">{{ challenge.title }}</h2>
                     <h5 class="card-subtitle mb-2 text-muted">{{ challenge.created.strftime("%d %B, %Y") }}</h5>
                     <p class="card-text">{{ challenge.body | safe }}</p>
-                    <br>
                 </div>
-                <img class="card-img-bottom w-75 p-3 rounded mx-auto d-block" src="data:image/jpg;base64,{{ challenge.image }}" alt="post_img"  id="imgslot"/>
+                <img class="card-img-bottom w-50 p-3 rounded mx-auto d-block" src="data:image/jpg;base64,{{ challenge.image }}" alt="post_img"  id="imgslot"/>
                 {% if challenge.email == current_user.email %}
                     <div class="d-grid gap-2 d-md-block" role="group" aria-label="Basic outlined example">
+                        <br>
                         <a type="button" class="btn btn-outline-primary btn-rounded me-md-2" href="{{ url_for('challenges.challenge', id=challenge.id) }}" role="button">View Challenge</a>
                         <a type="button" class="btn btn-outline-success btn-rounded me-md-2" href="{{ url_for('challenges.update', id=challenge.id) }}" role="button">Update</a>
                         <a type="button" class="btn btn-outline-danger btn-rounded" href="{{ url_for('challenges.delete', id=challenge.id) }}" role="button">Delete</a>
                     </div>
                 {% endif %}
                 {% if current_user.role == 'user' %}
+                    <br>
                     <a type="button" class="btn btn-outline-primary btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.challenge', id=challenge.id) }}" role="button">View Challenge</a>
                     <br>
                     {% if challenge.id not in challenges_for_user %}
@@ -94,8 +95,6 @@
                     {% else %}
                         <a type="button" class="btn btn-outline-success btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.leave', id=challenge.id) }}" role="button">Leave Challenge</a>
                     {% endif %}
-
-
                 {% endif %}
             </div>
         {% endfor %}

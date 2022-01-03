@@ -345,7 +345,7 @@ def init_db():
     db.session.commit()
 
     # create two fake donation posts
-    with open(os.path.dirname(__file__) + "/static/donation1.png", "rb") as img_file:
+    with open(os.path.dirname(__file__) + "/static/images/donation1.png", "rb") as img_file:
         image1 = base64.b64encode(img_file.read()).decode('ascii')
 
     create_donation = Donations(email='admin@email.com',
@@ -362,7 +362,7 @@ def init_db():
     db.session.add(create_donation)
     db.session.commit()
 
-    with open(os.path.dirname(__file__) + "/static/donation2.png", "rb") as img_file:
+    with open(os.path.dirname(__file__) + "/static/images/donation2.png", "rb") as img_file:
         image2 = base64.b64encode(img_file.read()).decode('ascii')
 
     create_donation2 = Donations(email='admin@email.com',
@@ -379,7 +379,7 @@ def init_db():
     db.session.add(create_donation2)
     db.session.commit()
 
-    with open(os.path.dirname(__file__) + "/static/solarpanels.png", "rb") as img_file:
+    with open(os.path.dirname(__file__) + "/static/images/post1.jpeg", "rb") as img_file:
         post1_image = base64.b64encode(img_file.read()).decode('ascii')
 
     # create post
@@ -401,16 +401,53 @@ def init_db():
                       'controllers, and timers to avoid wasting energy and money.</p> <p><strong>5.&nbsp; Be '
                       'astute.</strong><br /> Check your bill/tariff and make the transition to 100% renewable energy '
                       'sources.<br /> Getting a smart metre will show you how much and what kind of energy you are '
-                      'utilising.</p> <p>Reference: <a '
-                      'href="http://www.wwf.org.uk/myfootprint/challenges/save-energy-save-planet-app">https://www'
-                      '.wwf.org.uk/myfootprint/challenges/save-energy-save-planet-app</a></p>',
+                      'utilising.</p><p><small>Reference: <a '
+                      'href="http://www.wwf.org.uk/myfootprint/challenges/save-energy-save-planet-app">Save energy,'
+                      'Save the planet | WWF</a></small></p><p><small>Image Reference: <a '
+                      'href="https://events.cornell.edu/event/systems_engineering_-_energy_systems_meng_webinar'
+                      '">Systems Engineering - Energy Systems M.Eng. Webinar</a></small></p>',
                  image=post1_image,
                  postkey=admin.postkey)
 
     db.session.add(post1)
     db.session.commit()
 
-    with open(os.path.dirname(__file__) + "/static/ecofriendly-giftwrap.png", "rb") as img_file:
+    with open(os.path.dirname(__file__) + "/static/images/post2.jpg", "rb") as img_file:
+        post2_image = base64.b64encode(img_file.read()).decode('ascii')
+
+    # create post
+    post2 = Post(email='admin@email.com',
+                 title='Further Causes of Climate Change',
+                 body='<p>Climate change is the greenhouse effect of CO₂ (and various other gases) in the atmosphere, '
+                      'masking the globe in a huge blanket.</p><p><strong>However, what are the causes of climate '
+                      'change?</strong></p><p>Contrary to popular belief, the generation of power is only part of the '
+                      'problem.</p><ul><li><strong>Deforestation</strong></li></ul><p>The consistent deforestation '
+                      'occurring in our forests and rainforests is also crucial as we are losing a primary source of '
+                      'carbon capture (25% of carbon dioxide in the atmosphere is absorbed by trees); the secondary '
+                      'effects include the drastic damage to the species that call these habitats their '
+                      'home.</p><ul><li><strong>Transport</strong></li></ul><p>Transport is also a huge factor in '
+                      'global warming as most transport is powered by internal combustion &ndash; exhaust fumes '
+                      'contain toxic gases such as sulphur dioxide and carbon dioxide, which are dispersed into the '
+                      'atmosphere despite the best efforts of exhaust catalytic converters.</p><p>There is a slow '
+                      'increase in the sale of electric cars but only in recent years has the infrastructure been in '
+                      'place to accommodate owning an electric car, in addition, the range of electric cars now '
+                      'warrants them being usable on a daily basis.</p><ul><li><strong>Food '
+                      'Produce</strong></li></ul><p>Producing food is also a huge factor, for example: the farming of '
+                      'cattle is a huge producer of methane, a powerful greenhouse gas. The running of farms and '
+                      'processing food uses a lot of energy created from burning fossil fuels &ndash; hence the '
+                      'growing cries for everyone to eat locally sourced, vegan, and organic '
+                      'produce.</p><p><small>Reference: <a '
+                      'href="https://www.un.org/en/climatechange/what-is-climate-change">What is Climate Change? | '
+                      'United Nations</a></small></p><p><small>Image Reference: <a '
+                      'href="https://www.iberdrola.com/sustainability/against-climate-change">Climate Change | '
+                      'Iberdrola</a></small></p>',
+                 image=post2_image,
+                 postkey=admin.postkey)
+
+    db.session.add(post2)
+    db.session.commit()
+
+    with open(os.path.dirname(__file__) + "/static/images/challenge1.png", "rb") as img_file:
         challenge1_image = base64.b64encode(img_file.read()).decode('ascii')
 
     # create challenge
@@ -427,10 +464,44 @@ def init_db():
                                 'recycled since it&#39;s too thin or tissue paper has too few fibres.</li><li>The '
                                 'vast majority of gift wrap is thrown away.</li></ul><p><strong>How you will make an '
                                 'impact?</strong><br />Choose entirely recyclable packaging and make a statement by '
-                                'sending an email to paper industries about how sustainability is the future.</p>',
+                                'sending an email to paper industries about how sustainability is the future.</p>'
+                                '<p><small>Image Reference: <a '
+                                'href="https://theeverydayenvironmentalist.com/eco-friendly-gift-wrap/">Eco-friendly '
+                                'Gift Wrap</a></small></p>',
                            image=challenge1_image,
                            postkey=admin.postkey)
 
     db.session.add(challenge1)
     db.session.commit()
 
+    with open(os.path.dirname(__file__) + "/static/images/challenge2.jpeg", "rb") as img_file:
+        challenge2_image = base64.b64encode(img_file.read()).decode('ascii')
+
+    # create challenge
+    challenge1 = Challenge(email='admin@email.com',
+                           title='Sustainable Shopping - Choose a Reusable Bag',
+                           body='<p><strong>The challenge:</strong></p><p>At the supermarket or clothing stores use '
+                                'reusable bags instead of plastic carrier '
+                                'bags.</p><p><strong>Why?</strong></p><p>There&#39;s an easy way to make your '
+                                'supermarket or clothes shop more sustainable: at the checkout avoid asking for new '
+                                'plastic carrier bags and instead carry your groceries or goods in a reusable '
+                                'bag.</p><p><strong>How you will make an impact?</strong></p><p>Plastic carrier bags '
+                                'are often only used a handful of times before being thrown away, and for many of us '
+                                'they can&#39;t be recycled at home.</p><p>While they may be convenient to use, '
+                                'plastic bags take too much time to break down. A plastic bag can take from 15 to 1,'
+                                '000 years to break down. In addition, the cost of recycling plastic bags outweighs '
+                                'their value.</p><p>Making a switch to a more s<strong>ustainable '
+                                'alternative</strong> such as bringing a reusable bag from home with you can be the '
+                                'smartest move to make, in order to help reduce the impact of plastic bags on the '
+                                'environment.</p><p>Plastic pollution kills wildlife, damages natural ecosystems, '
+                                'and contributes to climate change. Plastic waste has been found in soils, '
+                                'rivers and oceans where it can degrade or destroy wildlife habitats.</p><p>Stand '
+                                'against unnecessary plastic production and choose a <strong>reusable bag '
+                                '</strong>instead.</p><p><small>Image Reference: <a '
+                                'href="https://www.ecofriendlyhabits.com/reusable-grocery-bags/">Eco-friendly '
+                                'Reusable Bags</a></small></p>',
+                           image=challenge2_image,
+                           postkey=admin.postkey)
+
+    db.session.add(challenge1)
+    db.session.commit()
