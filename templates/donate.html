@@ -78,7 +78,6 @@
                                                         <div class="d-grid gap-2 d-md-block" role="group" aria-label="Basic outlined example">
                                                             <br>
                                                             {% if current_user.role == 'admin' %}
-                                                            <a type="button" class="btn btn-outline-success btn-rounded me-md-2" href="{{ url_for('donate.update', id=donation.id) }}" role="button">Update</a>
                                                             <a type="button" class="btn btn-outline-danger btn-rounded" href="{{ url_for('donate.delete', id=donation.id) }}" role="button">Delete</a>
                                                             {% endif %}
                                                         </div>
