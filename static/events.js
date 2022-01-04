@@ -19,10 +19,17 @@ window.init_map = async function () {
         markers: markers
     });
 
+    // Get the center of the map
+    get_center();
+
     // Get markers, create infowindows and handle the centering of the map.
     $.ajax({
         type: "get",
         url: "/events/get_events.json",
+        data: {
+            "lat": map.center.lat,
+            "lng": map.center.lng
+        },
         success: (result) => {
             // Define variables
             var event_list_element = $("#event-list");
@@ -44,7 +51,7 @@ window.init_map = async function () {
                 })
 
                 // Check if the user is in the event to add to the event list.
-                if (event.attending.current_user_attending === true) {
+                if (event.attending.current_user_attending || event.created_by_user) {
                     event_list_element.append(rendered_event);
                 }
 
@@ -59,8 +66,12 @@ window.init_map = async function () {
 
                 // Store markers and corresponding info windows in a dict.
                 markers.push({id: event.id, marker: marker, info_window: infowindow});
+
+                // Open corrseponding marker if relevant
+                if (event.id === parseInt(focused_event)) {
+                    infowindow.open(map, marker);
+                }
             })
-            get_center();
         },
     })
 }
@@ -77,7 +88,6 @@ function center_map(center) {
 
 // Find out where the map needs to be focused
 function get_center() {
-    console.log(focused_event==="False");
     if (focused_event==="False") {
         // Ask user for their location (after map is loaded)
         if (navigator.geolocation) {
@@ -88,9 +98,24 @@ function get_center() {
         }
     } else {
         // Focus the event which the user has been refreshed from (ensure correct casting is done with parseInt)
-        var focus_marker = map.markers.filter(event => event.id === parseInt(focused_event));
-        focus_marker[0].info_window.open(map, focus_marker[0].marker);
-        map.setZoom(13);
+        $.ajax({
+            type: "get",
+            url: "/events/event_details.json",
+            async: false,  // Otherwise this will error.
+            data: {
+                id: parseInt(focused_event)
+            },
+            success: (event) => {
+                // If the event could be found, set the center on the map and zoom in to it.
+                if (event.success) {
+                    map.setCenter({lat: event.result.lat, lng: event.result.lng})
+                    map.setZoom(13);
+                }
+                else {
+                    console.log("Map could not be centered (The event you are trying to access may have already occurred");
+                }
+            }
+        })
     }
 }
 

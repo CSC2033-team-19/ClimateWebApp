@@ -296,7 +296,18 @@ def init_db():
                     address="Claremont Rd, Newcastle upon Tyne NE2 4PZ",
                     created_by=1)
 
+    event_4 = Event(head="Fundraising event",
+                    body="Sustainable event meant to raise awareness on climate issues in a fun way.",
+                    capacity=200,
+                    time=datetime.now().replace(2022, 2, 28, 12, 0),
+                    lat=40.6848898,
+                    lng=-74.0759989,
+                    address="200 Morris Pesin Drive, Jersey City, NJ 07305, United States",
+                    created_by=1
+                    )
+
     db.session.add(event_1)
     db.session.add(event_2)
     db.session.add(event_3)
+    db.session.add(event_4)
     db.session.commit()

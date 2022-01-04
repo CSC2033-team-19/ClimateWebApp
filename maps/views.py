@@ -58,7 +58,7 @@ def event_id(id):
 @login_required
 def handle_event():
     # Fetch the row related to the user in the event-user association
-    event_user = Event.query.filter(Event.users.any(id=current_user.id), Event.id==request.form["event_id"])
+    event_user = Event.query.filter(Event.users.any(id=current_user.id), Event.id == request.form["event_id"])
 
     # Check if row already exists before enlisting the user.
     if event_user.first() is None:
@@ -71,7 +71,8 @@ def handle_event():
     else:
         # user already in event, so they want to delist from this event.
 
-        deletion = join_event.delete().where(join_event.c.event_id == request.form["event_id"], join_event.c.user_id == current_user.id)
+        deletion = join_event.delete().where(join_event.c.event_id == request.form["event_id"],
+                                             join_event.c.user_id == current_user.id)
 
         db.session.execute(deletion)
         result_string = "User removed from event list"
@@ -85,13 +86,45 @@ def handle_event():
 @maps_blueprint.route("/events/get_events.json", methods=["GET"])
 @login_required
 def get_events():
-    # Get events from database, join with the users table to get their id
-    events = Event.query.all()
+    # Distance
+    radius = 0.5
+
+    print(float(request.args["lat"]), float(request.args["lng"]))
+
+    # Get events from the database that are within {radius} of the user at the time.
+    events = Event.query.filter(
+                                # Check if the event is within 50km of the user's location (latitude)
+                                (Event.lat < (float(request.args["lat"]) + radius))
+                                & (Event.lat > (float(request.args["lat"]) - radius))
+                                # Check if the event is within 50km of the user's location (longitude)
+                                & (Event.lng < (float(request.args["lng"]) + radius))
+                                & (Event.lng > (float(request.args["lng"]) - radius))
+                                # Check if the user created the event
+                                | (Event.created_by == current_user.id)
+                                # Check if the user is in the event
+                                | (Event.users.any(id=current_user.id))).all()
 
     # Format the event query into a JSON file to be fetched by the javascript when creating the map.
     prepared_events = list(map(map_event, events))
 
     return jsonify({"events": prepared_events})
+
+
+@maps_blueprint.route("/events/event_details.json")
+@login_required
+def get_event():
+    # Get event
+    event = Event.query.filter(Event.id == request.args["id"]).first()
+
+    # Format event
+    return_object = map_event(event)
+
+    # Check if null
+    if return_object is None:
+        return jsonify({"success": False})
+
+    # Return result.
+    return jsonify({"success": True, "result": return_object})
 
 
 @maps_blueprint.route("/events/create_event", methods=["GET", "POST"])
@@ -165,7 +198,7 @@ def update_event(id):
 @requires_roles("admin")
 def delete_event(id):
     # Delete the challenge which matches the given id.
-    Event.query.filter(Event.id==id).delete()
+    Event.query.filter(Event.id == id).delete()
     db.session.commit()
 
     # Return the events page
