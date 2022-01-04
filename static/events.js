@@ -4,12 +4,22 @@ var map; // map variable.
 var geolocation_error_toast; // show errors with geolocation to the user.
 var deletion_warning_toast; // Warn the user that they are about to delete an event
 var markers = []; // Store all the markers as well as the corresponding IDs here.
+var ids_on_map = []; // Store all the ids that are on the map to ensure an event is not placed twice.
 const focused_event = document.currentScript.getAttribute("focus-event"); // Store which event is being focused
 script.src = `https://maps.googleapis.com/maps/api/js?key=${document.currentScript.getAttribute("api-key")}&callback=init_map`;
 script.async = true; // Ensure that the script is loaded asynchronously.
 
+// Initialise toast error displaying for geolocation and warning admins when deleting their events.
+$(function() {
+    var geo_toast_element = document.getElementById("geo-toast");
+    var deletion_toast_element = document.getElementById("deletion-toast");
+
+    geolocation_error_toast = new bootstrap.Toast(geo_toast_element);
+    deletion_warning_toast = new bootstrap.Toast(deletion_toast_element);
+})
+
 // Attach callback function to the window object
-window.init_map = async function () {
+window.init_map = function () {
     // JS API is loaded and available
 
     // Create map
@@ -19,61 +29,17 @@ window.init_map = async function () {
         markers: markers
     });
 
-    // Get the center of the map
-    get_center();
-
-    // Get markers, create infowindows and handle the centering of the map.
+    // Load events relevant to the user to the map.
     $.ajax({
         type: "get",
         url: "/events/get_events.json",
-        data: {
-            "lat": map.center.lat,
-            "lng": map.center.lng
-        },
-        success: (result) => {
-            // Define variables
-            var event_list_element = $("#event-list");
+        success: create_events_on_map
+    });
 
-            result.events.forEach(event => {
+    // Get the center of the map
+    get_center();
 
-                // Add markers to marker array
-                var marker = new google.maps.Marker({
-                    position: {lat: event.lat, lng: event.lng},
-                    map: map
-                });
 
-                // Create HTML for the event
-                var rendered_event = render_event(event);
-
-                // Create info window with HTML content with information from the marker.
-                var infowindow = new google.maps.InfoWindow({
-                    content: rendered_event
-                })
-
-                // Check if the user is in the event to add to the event list.
-                if (event.attending.current_user_attending || event.created_by_user) {
-                    event_list_element.append(rendered_event);
-                }
-
-                // Pin each info window to the corresponding marker.
-                marker.addListener("click", () => {
-                    infowindow.open({
-                        anchor: marker,
-                        map,
-                        shouldFocus: false,
-                    })
-                })
-
-                // Store markers and corresponding info windows in a dict.
-                markers.push({id: event.id, marker: marker, info_window: infowindow});
-
-                // Open corrseponding marker if relevant
-                if (event.id === parseInt(focused_event)) {
-                    infowindow.open(map, marker);
-                }
-            })
-        },
-    })
 }
 
 // Add script tag to the head
@@ -84,6 +50,17 @@ function center_map(center) {
     var new_center = new google.maps.LatLng(center.coords.latitude, center.coords.longitude);
     map.setCenter(new_center);
     map.setZoom(13);
+
+    // Load local events onto the map
+    $.ajax({
+        type: "get",
+        url: "/events/get_local_events.json",
+        data: {
+            "lat": center.coords.latitude,
+            "lng": center.coords.longitude
+        },
+        success: create_events_on_map
+    })
 }
 
 // Find out where the map needs to be focused
@@ -101,22 +78,70 @@ function get_center() {
         $.ajax({
             type: "get",
             url: "/events/event_details.json",
-            async: false,  // Otherwise this will error.
             data: {
                 id: parseInt(focused_event)
             },
             success: (event) => {
                 // If the event could be found, set the center on the map and zoom in to it.
                 if (event.success) {
-                    map.setCenter({lat: event.result.lat, lng: event.result.lng})
-                    map.setZoom(13);
+                    center_map({coords: {latitude: event.result.lat, longitude: event.result.lng}})
                 }
                 else {
-                    console.log("Map could not be centered (The event you are trying to access may have already occurred");
+                    center_map({coords: {latitude: 54, longitude: -1}}); // render map with default position
                 }
             }
         })
     }
+}
+
+
+function create_events_on_map(result) {
+    // Define variables
+    var event_list_element = $("#event-list");
+
+    result.events.forEach(event => {
+        // Check if event is already on the map
+        if (ids_on_map.includes(event.id)) {
+            return;
+        }
+
+        // Add markers to marker array
+        var marker = new google.maps.Marker({
+            position: {lat: event.lat, lng: event.lng},
+            map: map
+        });
+
+        // Create HTML for the event
+        var rendered_event = render_event(event);
+
+        // Create info window with HTML content with information from the marker.
+        var infowindow = new google.maps.InfoWindow({
+            content: rendered_event
+        })
+
+        // Check if the user is in the event to add to the event list.
+        if (event.attending.current_user_attending || event.created_by_user) {
+            event_list_element.append(rendered_event);
+        }
+
+        // Pin each info window to the corresponding marker.
+        marker.addListener("click", () => {
+            infowindow.open({
+                anchor: marker,
+                map,
+                shouldFocus: false,
+            })
+        })
+
+        // Store markers and corresponding info windows in a dict.
+        markers.push({id: event.id, marker: marker, info_window: infowindow});
+        ids_on_map.push(event.id);
+
+        // Open corrseponding marker if relevant
+        if (event.id === parseInt(focused_event)) {
+            infowindow.open(map, marker);
+        }
+    })
 }
 
 // Display error in geolocation
@@ -139,26 +164,6 @@ function show_error(error) {
             geolocation_error_toast.show();
             break;
     }
-}
-
-// Initialise toast error displaying for geolocation and warning admins when deleting their events.
-$(function() {
-    var geo_toast_element = document.getElementById("geo-toast");
-    var deletion_toast_element = document.getElementById("deletion-toast");
-
-    geolocation_error_toast = new bootstrap.Toast(geo_toast_element);
-    deletion_warning_toast = new bootstrap.Toast(deletion_toast_element);
-})
-
-// Handles the joining and leaving of events
-function handle_event(event, id) {
-    $.post("/events/handle_event",  // url
-        {"event_id": id},  // pass ID of the event by parsing through the ID of the elmnt
-        function(data, status, jqXHR) {
-            // Reload page to update the infowindows, focus on infowindow which was previously open
-            window.location.href = data.redirect_to;
-        }
-    )
 }
 
 // Warn the user about deleting an event
@@ -217,4 +222,15 @@ function render_event(event) {
         </div>
     </div>
     `
+}
+
+// Handles the joining and leaving of events
+function handle_event(event, id) {
+    $.post("/events/handle_event",  // url
+        {"event_id": id},  // pass ID of the event by parsing through the ID of the elmnt
+        function(data, status, jqXHR) {
+            // Reload page to update the infowindows, focus on infowindow which was previously open
+            window.location.href = data.redirect_to;
+        }
+    )
 }

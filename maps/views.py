@@ -86,10 +86,24 @@ def handle_event():
 @maps_blueprint.route("/events/get_events.json", methods=["GET"])
 @login_required
 def get_events():
-    # Distance
-    radius = 0.5
+    events = Event.query.filter(
+                                # Check if the user created the event
+                                (Event.created_by == current_user.id)
+                                # Check if the user is in the event
+                                | (Event.users.any(id=current_user.id))
+    ).all()
 
-    print(float(request.args["lat"]), float(request.args["lng"]))
+    # Format the event query into a JSON file to be fetched by the javascript when creating the map.
+    prepared_events = list(map(map_event, events))
+
+    return jsonify({"events": prepared_events})
+
+
+@maps_blueprint.route("/events/get_local_events.json", methods=["GET"])
+@login_required
+def get_local_events():
+    # Distance
+    radius = 1
 
     # Get events from the database that are within {radius} of the user at the time.
     events = Event.query.filter(
@@ -99,10 +113,7 @@ def get_events():
                                 # Check if the event is within 50km of the user's location (longitude)
                                 & (Event.lng < (float(request.args["lng"]) + radius))
                                 & (Event.lng > (float(request.args["lng"]) - radius))
-                                # Check if the user created the event
-                                | (Event.created_by == current_user.id)
-                                # Check if the user is in the event
-                                | (Event.users.any(id=current_user.id))).all()
+                                ).all()
 
     # Format the event query into a JSON file to be fetched by the javascript when creating the map.
     prepared_events = list(map(map_event, events))
