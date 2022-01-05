@@ -19,6 +19,14 @@ donate_blueprint = Blueprint("donate", __name__, template_folder="templates")
 @donate_blueprint.route('/donate')
 @login_required
 def donate():
+    """
+       This function retrieves all donation posts in descending id order from the database and displays them
+           in the donate.html template.
+
+       Returns:
+           render_template('donate.html', donations=decrypted_donations): renders the donate.html template with the decrypted data
+               of each post as a variable in order to be displayed.
+       """
     donations = Donations.query.order_by(desc('id')).all()
 
     # creates a list of copied donation post objects which are independent of database.
@@ -36,6 +44,16 @@ def render_picture(data):
 @login_required
 @requires_roles('admin')
 def create():
+    """
+         This function enables the user with 'admin' role to create a Donate object
+         by retrieving and storing the user input through the DonationForm to the database.
+
+         Returns:
+             redirect(url_for('Donations.post', id=new_donate.id)): If DonationForm valid, it redirects the user to the
+                'donate' function and passing the donate id as a variable where the inputted post data is stored.
+             render_template('create_donation.html', form=form): If DonationForm not valid, it re-renders the
+             create_donation template along with the form.
+         """
     form = DonationForm()
 
     # if form valid
@@ -105,6 +123,15 @@ def update(id):
 @login_required
 @requires_roles('admin')
 def delete(id):
+    """
+            This function enables the user with 'admin' role to delete the Donate object from the database
+                which the matches donate id passed in as a parameter.
+
+            @param id: donate id (int)
+
+            Returns:
+                donate(): function which renders the donate.html template
+            """
     # delete donation post which id matches
     Donations.query.filter_by(id=id).delete()
     db.session.commit()
