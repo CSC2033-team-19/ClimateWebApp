@@ -129,15 +129,14 @@ def update(id):
     This function enables the user with 'admin' role to edit a Post object
     by retrieving and storing the new data inputted through the PostForm to the database.
 
-    Parameters:
-        id (int): post id
+    Parameters: id (int): post id
 
     Returns:
         return render_template('500.html'): If no post exists with the given id, render 500.html error page.
         redirect(url_for('posts.post', id=post.id)): If PostForm is valid, it redirects the user to the 'post'
-            function and passing the post id as a variable where the new post data is stored.
+        function and passing the post id as a variable where the new post data is stored.
         render_template('update_post.html', form=form): If PostForm not valid, it re-renders the update_post template
-            along with the form.
+        along with the form.
     """
     # get draw with the matching id
     post = Post.query.filter_by(id=id).first()

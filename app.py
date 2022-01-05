@@ -13,7 +13,6 @@ import sshtunnel
 
 # Setup Stripe python client library.
 from itsdangerous import json
-
 load_dotenv(find_dotenv())
 
 # Ensure environment variables are set.
@@ -49,6 +48,13 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = "6Leg-5wdAAAAAJMdYCe4qxf5xZxt-qmJxGxgyySn"
 
 @app.route('/create-customer', methods=['POST'])
 def create_customer():
+
+    """
+    This function creates a object representing a customer of for the business (Greenify).
+    It lets you create recurring charges and track payments that belong to the same customer on our
+    stripe dashboard at https://dashboard.stripe.com
+    """
+
     # Reads application/json and returns a response
     data = json.loads(request.data)
     try:
@@ -71,6 +77,11 @@ def create_customer():
 # configuration for stripe
 @app.route('/config', methods=['GET'])
 def get_publishable_key():
+    """
+    This function makes a AJAX request from the client to the server requesting the publishable key,
+    respond with the key and Use the key to create a new instance.
+    """
+
     price = stripe.Price.retrieve(os.getenv('PRICE'))
     return jsonify({
       'publicKey': os.getenv('STRIPE_PUBLISHABLE_KEY'),
@@ -82,6 +93,13 @@ def get_publishable_key():
 # Webhook for stripe payment events
 @app.route('/webhook', methods=['POST'])
 def webhook_received():
+    """
+    This function configures webhook endpoints via the API to be notified about events that happen the Stripe
+    account.
+
+    Return: notifications.
+    """
+
     # Webhooks to receive information about asynchronous payment events.
     webhook_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
     request_data = json.loads(request.data)
