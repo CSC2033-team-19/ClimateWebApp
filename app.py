@@ -39,12 +39,6 @@ stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 # app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
 # DB FOR TESTING
-#app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mariadb+pymysql://csc2033_team19:SeerMid._Dim@cs-db.ncl.ac.uk:3306/csc2033_team19'
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
-
-# DB FOR TESTING
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///greenify.db'
@@ -83,45 +77,6 @@ def get_publishable_key():
       'unitAmount': price['unit_amount'],
       'currency': price['currency']
     })
-
-'''
-    # creating sessions
-    @app.route('/create-session', methods=['POST'])
-    def create_session():
-
-        domain_url = os.getenv('DOMAIN')
-        data = json.loads(request.data)
-        session = stripe.checkout.Session.create(
-            success_url=domain_url + '/success?id={CHECKOUT_SESSION_ID}',
-            cancel_url=domain_url + '/cancel',
-            submit_type='donate',
-            payment_method_types=['card'],
-            line_items=[{
-                'amount': data['amount'],
-                'name': 'Donation',
-                'currency': 'USD',
-                'quantity': 1
-            }],
-            payment_intent_data={
-                'metadata': {
-                    'cause': data['cause'],
-                },
-            },
-            metadata={
-                'cause': data['cause'],
-            }
-        )
-        return jsonify(session)
-    
-    # retrieving sessions
-    @app.route('/retrieve-session')
-    def retrieve_session():
-        session = stripe.checkout.Session.retrieve(
-            request.args['id'],
-            expand=['payment_intent'],
-        )
-        return jsonify(session)
-'''
 
 
 # Webhook for stripe payment events
@@ -195,7 +150,7 @@ logger.addHandler(fh)
 logger.propagate = False
 
 
-# initialise database TODO
+# initialise database
 db = SQLAlchemy(app)
 
 # initialise text editor
