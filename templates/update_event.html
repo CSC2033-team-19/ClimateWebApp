@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+
+    {#  Import jQuery & jQueryUI to make use of the AJAX query in maps.js and datetimepicker #}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+
+
+    {# Import static JavaScript for this page #}
+    <script src="/static/maps.js" type="application/javascript"></script>
+{% endblock %}
+{% block content %}
+
+    <div class="column is-6 is-offset-3">
+        <h3 class="title is-3">Update Event Details</h3>
+        <div class="box">
+            <form method="POST">
+                <div class="field">
+                    {{ form.csrf_token() }}
+                    <div class="control">
+                        {{ form.head(class="input form-control", placeholder="Title") }}
+                        {% for error in form.head.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        {{ form.body(class="textarea form-control", placeholder="Body") }}
+                        {% for error in form.body.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        {{ form.capacity(class="textarea form-control", placeholder="Max. Capacity") }}
+                        {% for error in form.capacity.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        {{ form.date(class="form-control", placeholder="Date") }}
+                        {% for error in form.date.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        {{ form.time(class="form-control", placeholder="Time") }}
+                        {% for error in form.time.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        {{ form.address(class="form-control", placeholder="Address") }}
+                        {% for error in form.address.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div>
+                    {{ form.submit(class="btn btn-primary d-grid gap-2 col-6 mx-auto", value="Update Event Details") }}
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

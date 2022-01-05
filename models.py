@@ -21,6 +21,11 @@ def decrypt(data, key):
     return Fernet(key).decrypt(data).decode("utf-8")
 
 
+# Create association table for joining an event
+join_event = db.Table("join_event", db.Model.metadata,
+                      db.Column("event_id", db.Integer, db.ForeignKey("events.id")),
+                      db.Column("user_id", db.Integer, db.ForeignKey("users.id"))
+                      )
 '''
 User Model class 
 '''
@@ -53,6 +58,8 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post')
     challenges = db.relationship('Challenge')
     carbon_data = db.relationship('CarbonData')
+    created_events = db.relationship("Event")
+    events = db.relationship('Event', secondary=join_event, back_populates="users")
     join_challenge = db.relationship('JoinChallenge')
 
     def __init__(self, email, firstname, lastname, phone, password, role):
@@ -278,6 +285,51 @@ class CarbonData(db.Model):
         self.date_taken = datetime.utcnow()
 
 
+# Event class
+class Event(db.Model):
+    __tablename__ = "events"
+
+    # Initialise columns of the table
+    id = db.Column(db.Integer, primary_key=True)
+    head = db.Column(db.String)
+    body = db.Column(db.String)
+    capacity = db.Column(db.Integer)
+
+    # Time and place
+    time = db.Column(db.DateTime)
+    lat = db.Column(db.Float)
+    lng = db.Column(db.Float)
+    address = db.Column(db.String)
+
+    # Created by
+    created_by = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
+
+    # Create *..* relationship with users
+    users = db.relationship("User", secondary=join_event, back_populates="events")
+
+    def __init__(self, head, body, capacity, time, lat, lng, address, created_by):
+        self.head = head
+        self.body = body
+        self.capacity = capacity
+        self.time = time
+        self.lat = lat
+        self.lng = lng
+        self.address = address
+        self.created_by = created_by
+
+    def update_event(self, head, body, capacity, time, lat, lng, address):
+        self.head = head
+        self.body = body
+        self.capacity = capacity
+        self.time = time
+        self.lat = lat
+        self.lng = lng
+        self.address = address
+        db.session.commit() 
+
+
+
+
 # Join Challenge model class
 class JoinChallenge(db.Model):
     """
@@ -344,6 +396,48 @@ def init_db():
     db.session.add(admin)
     db.session.commit()
 
+    event_1 = Event(head="Open lecture on climate change",
+                    body="Lecture on the long term effects of the warming climate",
+                    capacity=100,
+                    time=datetime.now().replace(2022, 1, 31, 15, 30),
+                    lat=54.9799884,
+                    lng=-1.6189398,
+                    address="Newcastle University, Newcastle upon Tyne NE1 7RU",
+                    created_by=1)
+
+    event_2 = Event(head="Climate conscious discussion forum",
+                    body="A place to discuss how to improve your carbon footprint with local experts",
+                    capacity=30,
+                    time=datetime.now().replace(2022, 1, 22, 12, 0),
+                    lat=54.9824472,
+                    lng=-1.6113149,
+                    address="Philip Robinson Library, Jesmond Rd W, Newcastle upon Tyne NE2 4HQ",
+                    created_by=1)
+
+    event_3 = Event(head="Volunteers needed cleaning up the local park",
+                    body="Lecture on the long term effects of the warming climate",
+                    capacity=100,
+                    time=datetime.now().replace(2022, 1, 26, 8, 30),
+                    lat=54.990446,
+                    lng=-1.6128411,
+                    address="Claremont Rd, Newcastle upon Tyne NE2 4PZ",
+                    created_by=1)
+
+    event_4 = Event(head="Fundraising event",
+                    body="Sustainable event meant to raise awareness on climate issues in a fun way.",
+                    capacity=200,
+                    time=datetime.now().replace(2022, 2, 28, 12, 0),
+                    lat=40.6848898,
+                    lng=-74.0759989,
+                    address="200 Morris Pesin Drive, Jersey City, NJ 07305, United States",
+                    created_by=1
+                    )
+
+    db.session.add(event_1)
+    db.session.add(event_2)
+    db.session.add(event_3)
+    db.session.add(event_4)
+
     # create two fake donation posts
     with open(os.path.dirname(__file__) + "/static/images/donation1.png", "rb") as img_file:
         image1 = base64.b64encode(img_file.read()).decode('ascii')
@@ -370,7 +464,7 @@ def init_db():
                                  reason='Location: India, Asia. ACME Group specializes in the manufacturing and supply '
                                         'of several disruptive green technology solutions within Energy Sector with '
                                         'global operations and a workforce of over 5000 people blending technology '
-                                        'with innovation, donate now! . '
+                                     'with innovation, donate now! . '
                                         'Info: https://www.acme.in/index',
                                  donated='240',
                                  amount='50,000',

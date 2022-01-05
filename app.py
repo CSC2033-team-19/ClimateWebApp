@@ -155,7 +155,7 @@ class SecurityFilter(logging.Filter):
 
 
 # create file handler to log security messages to file
-fh = logging.FileHandler('climatewebapp.log', 'w')
+fh = logging.FileHandler(os.path.dirname(__file__) + '/climatewebapp.log', 'w')
 fh.setLevel(logging.WARNING)
 fh.addFilter(SecurityFilter())
 formatter = logging.Formatter('%(asctime)s : %(message)s', '%m/%d/%Y %I:%M:%S %p')
@@ -249,6 +249,7 @@ if __name__ == '__main__':
     from posts.views import posts_blueprint
     from calculator.views import calculator_blueprint
     from donate.views import donate_blueprint
+    from maps.views import maps_blueprint
 
     # register blueprints with app
     app.register_blueprint(users_blueprint)
@@ -257,6 +258,7 @@ if __name__ == '__main__':
     app.register_blueprint(posts_blueprint)
     app.register_blueprint(calculator_blueprint)
     app.register_blueprint(donate_blueprint)
+    app.register_blueprint(maps_blueprint)
 
-    # free_port
+    #free_port
     app.run(host=my_host, port=55757, debug=True)

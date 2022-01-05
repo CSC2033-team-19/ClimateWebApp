@@ -1,0 +1,37 @@
+/* Style the map container */
+#event-map {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 75%;
+}
+
+/* Style event list */
+#event-list {
+    overflow:auto;
+    margin: 0.1%;
+    width: 25%;
+}
+
+.event-list-head {
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+/* Set the width and height to be correctly shown */
+.body-container, .content-block {
+    height:100%;
+    width:100%;
+}
+
+/* Format the map and event list next to one another. pad them 10% down and up the page */
+.content-block {
+    padding: 10% 0;
+    display: flex;
+}
+
+/* Format info-windows */
+h5.card-title {
+    font-weight: bold;
+    text-transform: uppercase;
+}

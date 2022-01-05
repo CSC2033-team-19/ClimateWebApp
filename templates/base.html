@@ -50,14 +50,12 @@
                         <a class="nav-link" href="{{ url_for("donate.donate") }}">Donate</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Map</a>
+                        <a class="nav-link" href="{{ url_for("maps.events") }}">Events</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href={{ url_for('calculator.calculator') }}>Carbon Calculator</a>
                     </li>
                     {% if current_user.role == "admin" %}
-                        <li class="nav-item">
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Admin
@@ -68,10 +66,10 @@
                                     <li><a class="dropdown-item" href="{{ url_for("donate.create") }}">New Donation</a></li>
                                     <li><a class="dropdown-item" href="{{ url_for("challenges.create") }}">New Challenge</a></li>
                                     <li><a class="dropdown-item" href="{{ url_for("posts.create") }}">New Post</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for("maps.create_event") }}">New Event</a></li>
                                 {% endif %}
                             </ul>
                         </li>
-                    {% endif %}
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for("users.contact") }}">Contact us</a>
