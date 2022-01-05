@@ -1,7 +1,6 @@
 # IMPORTS
 import re
 import phonenumbers
-from django.db.models import TextField
 from flask import session
 from flask_wtf import FlaskForm, RecaptchaField, Recaptcha
 from wtforms import StringField, SubmitField, PasswordField, TextAreaField

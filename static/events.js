@@ -118,7 +118,9 @@ function create_events_on_map(result) {
         // Add markers to marker array
         var marker = new google.maps.Marker({
             position: {lat: event.lat, lng: event.lng},
-            map: map
+            map: map,
+            title: `${event.head}`,
+            optimized: false
         });
 
         // Create HTML for the event
@@ -229,17 +231,18 @@ function render_event(event) {
         <div id="event-${event.id}" class="card-body">
             <h5 class="card-title">
                 ${event.head}
-                
             </h5>
             <p class="card-text">
-                <small>${event.time}, ${event.address}</small>
-            </p>
+                ${event.body}
+            </p> 
+            
             <p class="card-text">
                  <small>Current attendance: ${event.attending.users}/${event.capacity}</small> 
             </p>
             <p class="card-text">
-                ${event.body}
-            </p> 
+                <small>${event.address}</small><br>
+                <small>${event.time}</small>
+            </p>            
             ${button}     
         </div>
     </div>

@@ -109,7 +109,11 @@ def get_events():
                                 (Event.created_by == current_user.id)
                                 # Check if the user is in the event
                                 | (Event.users.any(id=current_user.id))
-    ).all()
+    )
+    if events.first() is None:
+        print("test")
+        return render_template("404.html")
+    events = events.all()
 
     # Format the event query into a JSON file to be fetched by the javascript when creating the map.
     prepared_events = list(map(map_event, events))
