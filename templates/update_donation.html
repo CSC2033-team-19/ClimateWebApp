@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="column is-6 is-offset-3">
-        <h3 class="title is-3">Update Post</h3>
+        <h3 class="title is-3">Donation</h3>
         <div class="box">
             <form method="POST">
                 <div class="field">
@@ -27,6 +27,10 @@
                     {{ form.submit(class="button is-info is-centered") }}
                 </div>
             </form>
+            {{ ckeditor.load() }}
+            {{ ckeditor.config(name='body') }}
+            <br>
+            <a type="button" class="btn btn-outline-primary btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('donations.donations') }}" role="button">Back to Donate</a>
         </div>
     </div>
 

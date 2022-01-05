@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/climatewebapp.log" beforeDir="false" afterPath="$PROJECT_DIR$/climatewebapp.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/greenify.db" beforeDir="false" afterPath="$PROJECT_DIR$/greenify.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/donate/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/donate/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/donate/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/donate/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +19,7 @@
         <option value="JavaScript File" />
         <option value="Python Script" />
         <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -67,14 +67,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/images" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/templates/images" />
       <recent name="$PROJECT_DIR$/templates" />
-      <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/templates/html" />
     </key>
@@ -167,63 +168,21 @@
       <workItem from="1639675955077" duration="6362000" />
       <workItem from="1639916294138" duration="8142000" />
       <workItem from="1639926268782" duration="6928000" />
-      <workItem from="1640003938185" duration="10428000" />
-    </task>
-    <task id="LOCAL-00001" summary="Added requires_role">
-      <created>1638816757735</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1638816757736</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Added all login / sign up functionality, still need to apply log in from home screen and access control.">
-      <created>1638818642090</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1638818642090</updated>
-    </task>
-    <task id="LOCAL-00003" summary="corrected comment">
-      <created>1638827130953</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1638827130953</updated>
-    </task>
-    <task id="LOCAL-00004" summary="changed blog to feed">
-      <created>1638887522843</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1638887522844</updated>
-    </task>
-    <task id="LOCAL-00005" summary="setup stripe python client library and configuration">
-      <created>1639335483005</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1639335483005</updated>
-    </task>
-    <task id="LOCAL-00006" summary="customer object">
-      <created>1639336051856</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1639336051856</updated>
-    </task>
-    <task id="LOCAL-00007" summary="stripe checkout session and webhooks">
-      <created>1639336486993</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1639336486993</updated>
-    </task>
-    <task id="LOCAL-00008" summary="canceled payment html">
-      <created>1639337105900</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1639337105900</updated>
+      <workItem from="1640003938185" duration="13241000" />
+      <workItem from="1640047085336" duration="148000" />
+      <workItem from="1640093133185" duration="17683000" />
+      <workItem from="1640180639419" duration="16109000" />
+      <workItem from="1640215958779" duration="359000" />
+      <workItem from="1640265576430" duration="7438000" />
+      <workItem from="1640277617797" duration="83000" />
+      <workItem from="1640277768981" duration="551000" />
+      <workItem from="1640278521388" duration="4564000" />
+      <workItem from="1640622307324" duration="20060000" />
+      <workItem from="1640660381605" duration="855000" />
+      <workItem from="1640661341921" duration="141000" />
+      <workItem from="1641075497310" duration="6000" />
+      <workItem from="1641129946203" duration="5015000" />
+      <workItem from="1641312883492" duration="5525000" />
     </task>
     <task id="LOCAL-00009" summary="css for stripe (global)">
       <created>1639337246618</created>
@@ -316,7 +275,259 @@
       <option name="project" value="LOCAL" />
       <updated>1639933025487</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Added about us, what we offer and improved welcome page with sign up / log in buttons">
+      <created>1640025469159</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1640025469159</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fixed video not looping and added video to authenticated users home page as well">
+      <created>1640094351208</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1640094351208</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Added new mp4 and Greta Thunberg quote">
+      <created>1640096495896</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1640096495896</updated>
+    </task>
+    <task id="LOCAL-00025" summary="added video of monkey mp4 and text">
+      <created>1640100262440</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1640100262440</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Added contact us and changed opacity of buttons to lay in background image">
+      <created>1640107474808</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1640107474808</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Changed main title font and size">
+      <created>1640109147192</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1640109147192</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Added about us html">
+      <created>1640114858093</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1640114858094</updated>
+    </task>
+    <task id="LOCAL-00029" summary="css edits">
+      <created>1640115907819</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1640115907819</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Added upload photo to donate">
+      <created>1640184451248</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1640184451248</updated>
+    </task>
+    <task id="LOCAL-00031" summary="added comments">
+      <created>1640188232876</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1640188232876</updated>
+    </task>
+    <task id="LOCAL-00032" summary="slight adjustments to donation post">
+      <created>1640189358065</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1640189358065</updated>
+    </task>
+    <task id="LOCAL-00033" summary="started donate page content">
+      <created>1640193357118</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1640193357118</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Added donate content">
+      <created>1640196017660</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1640196017660</updated>
+    </task>
+    <task id="LOCAL-00035" summary="updated">
+      <created>1640269700747</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1640269700747</updated>
+    </task>
+    <task id="LOCAL-00036" summary="donation project changes from &quot;in progress&quot; to &quot;completed&quot; once goal is reached.">
+      <created>1640270021685</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1640270021685</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Added donation example">
+      <created>1640274790689</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1640274790689</updated>
+    </task>
+    <task id="LOCAL-00038" summary="edit">
+      <created>1640275062585</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1640275062585</updated>
+    </task>
+    <task id="LOCAL-00039" summary="added second donation">
+      <created>1640276143701</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1640276143701</updated>
+    </task>
+    <task id="LOCAL-00040" summary="made services icons smaller">
+      <created>1640281434591</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1640281434591</updated>
+    </task>
+    <task id="LOCAL-00041" summary="fixed graph pos">
+      <created>1640281613385</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1640281613385</updated>
+    </task>
+    <task id="LOCAL-00042" summary="added table image">
+      <created>1640282073325</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1640282073325</updated>
+    </task>
+    <task id="LOCAL-00043" summary="font change?">
+      <created>1640282667570</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1640282667570</updated>
+    </task>
+    <task id="LOCAL-00044" summary="swapped maps and calculator around to relate with image and added text">
+      <created>1640283891782</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1640283891782</updated>
+    </task>
+    <task id="LOCAL-00045" summary="css for donation posts">
+      <created>1640625809963</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1640625809963</updated>
+    </task>
+    <task id="LOCAL-00046" summary="removed tags">
+      <created>1640626312378</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1640626312378</updated>
+    </task>
+    <task id="LOCAL-00047" summary="white background">
+      <created>1640626625250</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1640626625250</updated>
+    </task>
+    <task id="LOCAL-00048" summary="added donate quote">
+      <created>1640635694814</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1640635694814</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Added animation to donation page">
+      <created>1640659633790</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1640659633790</updated>
+    </task>
+    <task id="LOCAL-00050" summary="added rights @Greenify">
+      <created>1640659851255</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1640659851256</updated>
+    </task>
+    <task id="LOCAL-00051" summary="rights">
+      <created>1640660199472</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1640660199472</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Text pos change">
+      <created>1641130172388</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1641130172389</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Added update and delete functionality to donations">
+      <created>1641134019384</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1641134019384</updated>
+    </task>
+    <task id="LOCAL-00054" summary="fixed comments for donate">
+      <created>1641134461911</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1641134461911</updated>
+    </task>
+    <task id="LOCAL-00055" summary="removed update, having just delete option.">
+      <created>1641313490860</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1641313490861</updated>
+    </task>
+    <task id="LOCAL-00056" summary="added docstrinds to donate">
+      <created>1641343483588</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1641343483588</updated>
+    </task>
+    <task id="LOCAL-00057" summary="updated">
+      <created>1641344054202</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1641344054202</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,29 +538,34 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Added requires_role" />
-    <MESSAGE value="Added all login / sign up functionality, still need to apply log in from home screen and access control." />
-    <MESSAGE value="corrected comment" />
-    <MESSAGE value="changed blog to feed" />
-    <MESSAGE value="setup stripe python client library and configuration" />
-    <MESSAGE value="customer object" />
-    <MESSAGE value="stripe checkout session and webhooks" />
-    <MESSAGE value="canceled payment html" />
-    <MESSAGE value="css for stripe (global)" />
-    <MESSAGE value="index html" />
-    <MESSAGE value="success page on checkout html" />
-    <MESSAGE value="backend js for taking in users ID for checkout" />
-    <MESSAGE value="Added .env for stripe and index.html" />
-    <MESSAGE value="comments" />
-    <MESSAGE value="Added donation" />
-    <MESSAGE value="Added stripe payment page, success.html and cancel.html. Allowed only admin to create donations. Added amounts." />
-    <MESSAGE value="Changed CSS and fixed success page error for donate" />
-    <MESSAGE value="Added greenify logo img to base.css" />
-    <MESSAGE value="Added video to the home page, working on scale / layers" />
-    <MESSAGE value="text back to black" />
-    <option name="LAST_COMMIT_MESSAGE" value="text back to black" />
+    <MESSAGE value="slight adjustments to donation post" />
+    <MESSAGE value="started donate page content" />
+    <MESSAGE value="Added donate content" />
+    <MESSAGE value="donation project changes from &quot;in progress&quot; to &quot;completed&quot; once goal is reached." />
+    <MESSAGE value="Added donation example" />
+    <MESSAGE value="edit" />
+    <MESSAGE value="added second donation" />
+    <MESSAGE value="made services icons smaller" />
+    <MESSAGE value="fixed graph pos" />
+    <MESSAGE value="added table image" />
+    <MESSAGE value="font change?" />
+    <MESSAGE value="swapped maps and calculator around to relate with image and added text" />
+    <MESSAGE value="css for donation posts" />
+    <MESSAGE value="removed tags" />
+    <MESSAGE value="white background" />
+    <MESSAGE value="added donate quote" />
+    <MESSAGE value="Added animation to donation page" />
+    <MESSAGE value="added rights @Greenify" />
+    <MESSAGE value="rights" />
+    <MESSAGE value="Text pos change" />
+    <MESSAGE value="Added update and delete functionality to donations" />
+    <MESSAGE value="fixed comments for donate" />
+    <MESSAGE value="removed update, having just delete option." />
+    <MESSAGE value="added docstrinds to donate" />
+    <MESSAGE value="updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1640012367446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1641313184559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

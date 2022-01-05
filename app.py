@@ -4,6 +4,7 @@ import socket
 from functools import wraps
 import stripe
 from flask import Flask, render_template, request, jsonify, redirect
+from flask_ckeditor import CKEditor
 from flask_login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -12,7 +13,6 @@ import sshtunnel
 
 # Setup Stripe python client library.
 from itsdangerous import json
-
 load_dotenv(find_dotenv())
 
 # Ensure environment variables are set.
@@ -21,7 +21,7 @@ if price is None or price == 'price_12345' or price == '':
     print('You must set a Price ID in .env. Please see the README.')
     exit(0)
 
-# For sample support and debugging, not required for production:
+# For sample support reference:
 stripe.set_app_info(
     'stripe-samples/checkout-one-time-payments',
     version='0.0.1',
@@ -29,14 +29,6 @@ stripe.set_app_info(
 
 stripe.api_version = '2020-08-27'
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
-
-# Set up SSH tunnel to connect to the database.
-# tunnel = sshtunnel.SSHTunnelForwarder(
-# ("linux.cs.ncl.ac.uk"), ssh_username=os.environ["SSH_USERNAME"], ssh_password=os.environ["SSH_PASSWORD"],
-# remote_bind_address=("cs-db.ncl.ac.uk", 3306)
-# )
-
-# tunnel.start()
 
 # CONFIG
 # app = Flask(__name__)
@@ -46,12 +38,6 @@ stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 # app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
 # DB FOR TESTING
-#app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mariadb+pymysql://csc2033_team19:SeerMid._Dim@cs-db.ncl.ac.uk:3306/csc2033_team19'
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
-
-# DB FOR TESTING
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///greenify.db'
@@ -59,8 +45,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['RECAPTCHA_PUBLIC_KEY'] = "6Leg-5wdAAAAAAs7FQBG-GzvllDhnGUCEAZOpj6C"
 app.config['RECAPTCHA_PRIVATE_KEY'] = "6Leg-5wdAAAAAJMdYCe4qxf5xZxt-qmJxGxgyySn"
 
+
 @app.route('/create-customer', methods=['POST'])
 def create_customer():
+
+    """
+    This function creates a object representing a customer of for the business (Greenify).
+    It lets you create recurring charges and track payments that belong to the same customer on our
+    stripe dashboard at https://dashboard.stripe.com
+    """
+
     # Reads application/json and returns a response
     data = json.loads(request.data)
     try:
@@ -79,9 +73,15 @@ def create_customer():
     except Exception as e:
         return jsonify(error=str(e)), 403
 
+
 # configuration for stripe
 @app.route('/config', methods=['GET'])
 def get_publishable_key():
+    """
+    This function makes a AJAX request from the client to the server requesting the publishable key,
+    respond with the key and Use the key to create a new instance.
+    """
+
     price = stripe.Price.retrieve(os.getenv('PRICE'))
     return jsonify({
       'publicKey': os.getenv('STRIPE_PUBLISHABLE_KEY'),
@@ -89,49 +89,17 @@ def get_publishable_key():
       'currency': price['currency']
     })
 
-'''
-    # creating sessions
-    @app.route('/create-session', methods=['POST'])
-    def create_session():
-
-        domain_url = os.getenv('DOMAIN')
-        data = json.loads(request.data)
-        session = stripe.checkout.Session.create(
-            success_url=domain_url + '/success?id={CHECKOUT_SESSION_ID}',
-            cancel_url=domain_url + '/cancel',
-            submit_type='donate',
-            payment_method_types=['card'],
-            line_items=[{
-                'amount': data['amount'],
-                'name': 'Donation',
-                'currency': 'USD',
-                'quantity': 1
-            }],
-            payment_intent_data={
-                'metadata': {
-                    'cause': data['cause'],
-                },
-            },
-            metadata={
-                'cause': data['cause'],
-            }
-        )
-        return jsonify(session)
-    
-    # retrieving sessions
-    @app.route('/retrieve-session')
-    def retrieve_session():
-        session = stripe.checkout.Session.retrieve(
-            request.args['id'],
-            expand=['payment_intent'],
-        )
-        return jsonify(session)
-'''
-
 
 # Webhook for stripe payment events
 @app.route('/webhook', methods=['POST'])
 def webhook_received():
+    """
+    This function configures webhook endpoints via the API to be notified about events that happen the Stripe
+    account.
+
+    Return: notifications.
+    """
+
     # Webhooks to receive information about asynchronous payment events.
     webhook_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
     request_data = json.loads(request.data)
@@ -168,7 +136,7 @@ def requires_roles(*roles):
             if current_user.role not in roles:
                 logging.warning('SECURITY - Unauthorised access attempt [%s, %s, %s, %s]',
                                 current_user.id,
-                                current_user.username,
+                                current_user.email,
                                 current_user.role,
                                 request.remote_addr)
                 # Redirect the user to an unauthorised notice!
@@ -200,9 +168,11 @@ logger.addHandler(fh)
 logger.propagate = False
 
 
-# initialise database TODO
+# initialise database
 db = SQLAlchemy(app)
 
+# initialise text editor
+ckeditor = CKEditor(app)
 
 # security headers TODO
 

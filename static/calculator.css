@@ -4,6 +4,11 @@
     margin-top: 15%;
 }
 
+/* Fix error with the form jumping around during use */
+.content-container content-block {
+    align-self: start;   
+}
+
 /* Set up border for the tabs */
 .tab-pane {
     border: 1px solid rgb(222, 226, 230);

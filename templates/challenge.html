@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .header {
+            padding: 15px;
+            font-size: 40px;
+            text-align: center;
+        }
+
+        /* Card effect for challenges */
+        .card {
+            font-family: Arial, serif;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: white;
+            border-color: white;
+        }
+
+        .card-subtitle {
+            color: #727272;
+            text-align: left;
+        }
+
+    </style>
+
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
+    <div class="container">
+        <h2 class="title is-1 header">{{ challenge.title }}</h2>
+        <hr>
+        <h5 class="card-subtitle mb-2 text-muted text-center">{{ challenge.created.strftime("%d %B, %Y") }}</h5>
+        <div class="card mb-5">
+            <div class="card-body text-start">
+                <p class="text-start">{{ challenge.body | safe }}</p>
+            </div>
+            <img class="card-img-bottom w-75 p-3 rounded mx-auto d-block" src="data:image/jpg;base64,{{ challenge.image }}" alt="post_img"  id="imgslot"/>
+        </div>
+        {% if challenge.email == current_user.email %}
+            <div class="d-grid gap-2 d-md-block" role="group" aria-label="Basic outlined example">
+                <a type="button" class="btn btn-outline-primary btn-rounded me-md-2" href="{{ url_for('challenges.challenges') }}" role="button">Back to Challenges</a>
+                <a type="button" class="btn btn-outline-success btn-rounded me-md-2" href="{{ url_for('challenges.update', id=challenge.id) }}" role="button">Update</a>
+                <a type="button" class="btn btn-outline-danger btn-rounded" href="{{ url_for('challenges.delete', id=challenge.id) }}" role="button">Delete</a>
+            </div>
+        {% endif %}
+        {% if current_user.role == 'user' %}
+            {% if not user_in_challenge %}
+                <a type="button" class="btn btn-outline-success btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.join', id=challenge.id) }}" role="button">Join Challenge</a>
+            {% else %}
+                <a type="button" class="btn btn-outline-success btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.leave', id=challenge.id) }}" role="button">Unjoin Challenge</a>
+            {% endif %}
+            <br>
+            <a type="button" class="btn btn-outline-primary btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.challenges') }}" role="button">Back to Challenges</a>
+        {% endif %}
+    </div>
+
+{% endblock %}
