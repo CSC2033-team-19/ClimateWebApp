@@ -17,27 +17,35 @@ class EventForm(FlaskForm):
     Creates a form for the user to enter a new event
     """
 
-    # Validate the date is in the correct format
     def check_date_format(self, field):
+        """
+        Validate that the date entered into the form is in the correct format.
+        """
         try:
             datetime.strptime(self.date.data, "%d-%m-%Y")
         except ValueError:
             raise ValidationError("Date is not in the correct format (DD-MM-YYYY)")
 
-    # Validate the date is not in the past
     def in_future(self, field):
+        """
+        Check if the event entered is in the future
+        """
         if datetime.now() > self.get_date_time():
             raise ValidationError("You cannot hold an event in the past")
 
-    # Get the datetime object to put in the database.
     def get_date_time(self):
+        """
+        Combine the date and time fields.
+        """
         date = datetime.strptime(self.date.data, "%d-%m-%Y")
-
         date = date.replace(hour=self.time.data.hour, minute=self.time.data.minute)
 
         return date
 
     def get_lat_lng(self, field):
+        """
+        Get the latitude and longitude of the event using geocoding.
+        """
         # Request from google's geocoding service, bias towards uk
         req = requests.get(GEOCODE_URL, {"address": self.address, "key": os.environ["GMAP-KEY"], "region": "uk"})
 
@@ -62,8 +70,10 @@ class EventForm(FlaskForm):
     address = StringField(validators=[DataRequired(), get_lat_lng])
     submit = SubmitField()
 
-    # Fill out data in form for updating the event
     def fill_data(self, event):
+        """
+        Prefill out the form with given data.
+        """
         self.head.data = event.head
         self.body.data = event.body
         self.capacity.data = event.capacity

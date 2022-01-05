@@ -19,6 +19,12 @@ maps_blueprint = Blueprint("maps", __name__, template_folder="templates")
 
 # Change database into easily usable JSON file
 def map_event(event):
+    """
+    Map each database row into a JSON element
+
+    Keyword arguments:
+    event -- a row in the Event table.
+    """
     # Check if event is in the future
     if event.time > datetime.now():
         return ({
@@ -45,18 +51,30 @@ def map_event(event):
 @maps_blueprint.route("/events/", methods=["GET"])
 @login_required
 def events():
+    """
+    Render the events page in the default view
+    """
     return render_template("maps.html", gmap_key=os.environ["GMAP-KEY"], focus_event=False)
 
 
 @maps_blueprint.route("/events/<int:id>", methods=["GET"])
 @login_required
 def event_id(id):
+    """
+    Render the events page and focus on a specific event
+
+    Keyword arguments:
+    id -- The id which should be focused.
+    """
     return render_template("maps.html", gmap_key=os.environ["GMAP-KEY"], focus_event=id)
 
 
 @maps_blueprint.route("/events/handle_event", methods=["POST"])
 @login_required
 def handle_event():
+    """
+    Handle a user trying to join or leave an event.
+    """
     # Fetch the row related to the user in the event-user association
     event_user = Event.query.filter(Event.users.any(id=current_user.id), Event.id == request.form["event_id"])
 
@@ -102,6 +120,9 @@ def get_events():
 @maps_blueprint.route("/events/get_local_events.json", methods=["GET"])
 @login_required
 def get_local_events():
+    """
+    Get all events within a certain radius of the user.
+    """
     # Distance
     radius = 1
 
@@ -124,6 +145,9 @@ def get_local_events():
 @maps_blueprint.route("/events/event_details.json")
 @login_required
 def get_event():
+    """
+    Get an event with a specific ID.
+    """
     # Get event
     event = Event.query.filter(Event.id == request.args["id"]).first()
 
@@ -142,6 +166,9 @@ def get_event():
 @login_required
 @requires_roles("admin")
 def create_event():
+    """
+    Render the create event form and handle input from the form.
+    """
     form = EventForm()
 
     # if form valid
@@ -172,6 +199,12 @@ def create_event():
 @login_required
 @requires_roles("admin")
 def update_event(id):
+    """
+    Render the update event form for a specific ID, and handle input from the form.
+
+    Keyword arguments:
+    id -- The id of the event which is being updated.
+    """
     # get event with the matching id
     event = Event.query.filter_by(id=id).first()
 
@@ -208,6 +241,12 @@ def update_event(id):
 @login_required
 @requires_roles("admin")
 def delete_event(id):
+    """
+    Delete an event with a given id
+
+    Keyword arguments:
+    id -- The id of the event being deleted.
+    """
     # Delete the challenge which matches the given id.
     Event.query.filter(Event.id == id).delete()
     db.session.commit()

@@ -9,18 +9,18 @@ const focused_event = document.currentScript.getAttribute("focus-event"); // Sto
 script.src = `https://maps.googleapis.com/maps/api/js?key=${document.currentScript.getAttribute("api-key")}&callback=init_map`;
 script.async = true; // Ensure that the script is loaded asynchronously.
 
-// Initialise toast error displaying for geolocation and warning admins when deleting their events.
-$(function() {
+// Attach callback function to the window object
+window.init_map = function () {
+    /**
+     * Once the JavaScript APIs are loaded, begin execution of setup.
+     */
+
+    // Create the toast elements which will be used for error handling.
     var geo_toast_element = document.getElementById("geo-toast");
     var deletion_toast_element = document.getElementById("deletion-toast");
 
     geolocation_error_toast = new bootstrap.Toast(geo_toast_element);
     deletion_warning_toast = new bootstrap.Toast(deletion_toast_element);
-})
-
-// Attach callback function to the window object
-window.init_map = function () {
-    // JS API is loaded and available
 
     // Create map
     map = new google.maps.Map(document.getElementById("event-map"), {
@@ -47,6 +47,10 @@ document.head.appendChild(script);
 
 // Handle geolocation
 function center_map(center) {
+    /**
+     * Handle centering the map and rendering local events from the database.
+     * @param {json} center the point at which the map will be centered.
+     */
     var new_center = new google.maps.LatLng(center.coords.latitude, center.coords.longitude);
     map.setCenter(new_center);
     map.setZoom(13);
@@ -65,6 +69,9 @@ function center_map(center) {
 
 // Find out where the map needs to be focused
 function get_center() {
+    /**
+     * Get the type of centering that the user has selected, request their location and pass the data to center_map
+     */
     if (focused_event==="False") {
         // Ask user for their location (after map is loaded)
         if (navigator.geolocation) {
@@ -94,13 +101,16 @@ function get_center() {
     }
 }
 
-
 function create_events_on_map(result) {
+    /**
+     * This renders each marker onto the map and ensures that there are no duplicates.
+     * @param {json} result the event object which is being put onto the map.
+     */
     // Define variables
     var event_list_element = $("#event-list");
 
     result.events.forEach(event => {
-        // Check if event is already on the map
+        // Check if event is already on the map, pass if it is so that duplicate events are not displayed.
         if (ids_on_map.includes(event.id)) {
             return;
         }
@@ -146,6 +156,10 @@ function create_events_on_map(result) {
 
 // Display error in geolocation
 function show_error(error) {
+    /**
+     * Display if any error occurs in the geolocation to the user.
+     * @param {error} error the error which has occured.
+     */
     let body = document.getElementById("geo-toast-body");
     switch (error.code) {
         case error.PERMISSION_DENIED:
@@ -168,6 +182,10 @@ function show_error(error) {
 
 // Warn the user about deleting an event
 function warning_deletion(id) {
+    /**
+     * Warn the user that they are
+     * @param {number} id the id of the event which is being destroyed.
+     */
     var toast_element = document.getElementById("deletion-toast-body");
 
     // Create the confirmation button in the toast which will show to warn the user
@@ -183,6 +201,10 @@ function warning_deletion(id) {
 
 // Create an HTML representation of an event
 function render_event(event) {
+    /**
+     * Create an HTML card representation of an event object.
+     * @param {json} event the event which is being rendered into HTML.
+     */
     var button
 
     if (event.created_by_user) {
@@ -226,6 +248,11 @@ function render_event(event) {
 
 // Handles the joining and leaving of events
 function handle_event(event, id) {
+    /**
+     * Handle the joining and leaving of an event.
+     * @param {event} event the event which is being joined by the user.
+     * @param {number} id the id of the event which is being joined by the user.
+     */
     $.post("/events/handle_event",  // url
         {"event_id": id},  // pass ID of the event by parsing through the ID of the elmnt
         function(data, status, jqXHR) {
