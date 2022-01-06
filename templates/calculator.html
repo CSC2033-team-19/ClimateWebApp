@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
+    {# Import defaults for the page #}
     {{ super() }}
 
     {#  Import jQuery to make use of the AJAX query in calculator.js #}
@@ -13,6 +14,7 @@
     {# Import local styles #}
     <link rel="stylesheet" href="/static/calculator.css" />
     <script type="text/javascript" src="/static/calculator.js"></script>
+
 
 {% endblock %}
 
