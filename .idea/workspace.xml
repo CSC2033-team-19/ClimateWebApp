@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="added map image to home page">
-      <change afterPath="$PROJECT_DIR$/static/images/coral.png" afterDir="false" />
+    <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/base.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
@@ -187,14 +186,7 @@
       <workItem from="1641653319466" duration="4078000" />
       <workItem from="1641657500500" duration="1100000" />
       <workItem from="1641658606969" duration="22000" />
-      <workItem from="1641658718882" duration="6876000" />
-    </task>
-    <task id="LOCAL-00016" summary="Added stripe payment page, success.html and cancel.html. Allowed only admin to create donations. Added amounts.">
-      <created>1639682976254</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1639682976254</updated>
+      <workItem from="1641658718882" duration="7816000" />
     </task>
     <task id="LOCAL-00017" summary="Changed CSS and fixed success page error for donate">
       <created>1639922254568</created>
@@ -532,7 +524,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641664900819</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="added donation iamge to home page">
+      <created>1641666146610</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1641666146610</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -543,7 +542,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="added second donation" />
     <MESSAGE value="made services icons smaller" />
     <MESSAGE value="fixed graph pos" />
     <MESSAGE value="added table image" />
@@ -568,7 +566,8 @@
     <MESSAGE value="CLEANER HTML" />
     <MESSAGE value="updated" />
     <MESSAGE value="added map image to home page" />
-    <option name="LAST_COMMIT_MESSAGE" value="added map image to home page" />
+    <MESSAGE value="added donation iamge to home page" />
+    <option name="LAST_COMMIT_MESSAGE" value="added donation iamge to home page" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1641663545422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
