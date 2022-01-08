@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}<style>
-    /* Add a card effect for articles */
+    /* Add a card effect for donation posts */
     .card {
         background-color: white;
-        margin: 20px;
         padding: 20px;
+        height:1000px;
+        margin: 20px 20px 50px;
     }
 
     .flex-container {
@@ -15,14 +16,14 @@
 
     /* turbine video on donate */
     .donate-content {
-        width: 76.5vw;
-        height: 77vh;
+        width: 76vw;
+        height: 76vh;
         position: center;
         right: calc(-0vw + 0%);
     }
 
     .donate-content .text {
-        color: #558846;
+        color: rgba(83, 145, 88, 0.82)
     }
 
     .donate-content .text h1 {
@@ -60,6 +61,11 @@
         margin-bottom: 50px;
     }
 
+    .donate-testing {
+        font-family: "Arial Rounded MT Bold";
+        margin-top: 35px
+    }
+
     /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other
   instead of next to each other */
     @media screen and (max-width: 800px) {
@@ -74,6 +80,13 @@
                     <div class="divider-1"><span></span></div>
                 </div>
             </div>
+            <div class="donate-testing">
+                <div class="description">
+                    <p>
+                        NOTE: please enter >=£100 & card no. 42424242424 for testing purposes.
+                    </p>
+                </div>
+            </div>
             <div class="donate-how?">
                 <div class="description">
                     <p>
@@ -81,28 +94,28 @@
                     </p>
                 </div>
             </div>
-                        <div class="donate-explanation">
-                            <div class="description">
-                                <p>
+            <div class="donate-explanation">
+                <div class="description">
+                    <p>
                         Here you will see information about a carbon reducing projects around the world to which you can
                         choose to donation of any amount of money you see convenient in order to make an impact by helping
                         the given cause. Every month this page will be updated with a new project so we can make sure
                         we reach all areas affected by global warming and support the maximum number of different
                         organisations that are making that effort to pull us closer to the goal.
-                                </p>
-                            </div>
-                        <div class="donate-steps">
-                <div class="description">
-                    <p>
-                    <div>1) Pick a climate based project below
-                    <div>2) Enter a donation amount and click "donate"
-                        <div>3) Fill in your card details on stripe and send your donation
-                            <div>4) You're done, Greenify will ensure your donation is received and helps the selected project!
-                                <div>5) Once the donation goal is reached, the projected will change from "in progress" to "completed"
-                                    </p>
+                    </p>
+                </div>
+                <div class="donate-steps">
+                    <div class="description">
+                        <p>
+                        <div>1) Pick a climate based project below
+                        <div>2) Enter a donation amount and click "donate"
+                            <div>3) Fill in your card details on stripe and send your donation
+                                <div>4) You're done, Greenify will ensure your donation is received and helps the selected project!
+                                    <div>5) Once the donation goal is reached, the projected will change from "in progress" to "completed"
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                             <div class="section">
                                 <div class="flex-container">
                                     {% for donation in donations %}
@@ -113,7 +126,7 @@
                                                 <p>
                                                 <h6 class="card-subtitle mb-2 text-muted">Goal: £{{ donation.amount}} </h6>
                                                 <h6 class="card-subtitle mb-2 text-muted">Donated: £{{ donation.donated }}</h6>
-                                                <h6 class="card-subtitle mb-2 text-muted">{{ donation.created.strftime('%d-%m-%Y') }}</h6>
+                                                <h6 class="card-subtitle mb-2 text-muted">Published: {{ donation.created.strftime('%d-%m-%Y') }}</h6>
                                                 <p class="card-text">{{ donation.reason }}</p>
                                                 <p class="card-text">{{ donation.status }}</p>
 
@@ -137,7 +150,7 @@
                                             </div>
                                         </div>
                                     {% endfor %}
-                                       </div>
+                                </div>
                             </div>
                         </div>
                         <div class="donate-content">

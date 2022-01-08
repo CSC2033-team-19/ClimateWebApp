@@ -14,7 +14,8 @@ Donate, Map, Carbon Footprint Calculator, Admin, Contact us and Account.
 - **Feed** -  learn more about climate change, take part in a variety of challenges two subsections: Posts and Challenges, 
 which content will be restricted to ‘view only’ to users with the ‘user’ role while admin will be the on.
 - **Donate** - Display the information about a carbon reducing project to which users can choose to donate any amount 
-of money they see convenient 
+of money they see convenient. 
+- WARNING: PLEASE ENTER £100+ & card no. 42424242424 FOR TESTING PURPOSES. 
 - **Map** - This shows any events related to climate action which are being hosted nearby the user’s location. 
 can create and announce about any event in order to find more people who would like to collaborate into making a positive impact.
 - **Carbon Footprint Calculator** - Calculating your own Carbon Footprint by answering a series of questions. 
@@ -24,13 +25,9 @@ What does this repo contain?
 ---------------------------
 Backend
 
-- FlaskAPI <a href='https://flask.palletsprojects.com/en/2.0.x/'>Flask</a>.
-- Stripe <a href='https://stripe.com/docs/api?lang=python'>Stripe</a>.
+- Flask API <a href='https://flask.palletsprojects.com/en/2.0.x/'>Flask</a>.
+- Stripe API <a href='https://stripe.com/docs/api?lang=python'>Stripe</a>.
 Install stripe package -> sudo pip install --upgrade stripe.
+- Google maps API 
 - MariaDB
 
-Frontend
-
-- 
--
--
