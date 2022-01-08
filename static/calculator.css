@@ -2,11 +2,12 @@
 .tab-container {
     align-self: center;
     margin-top: 15%;
+    margin-bottom: 15%;
 }
 
 /* Fix error with the form jumping around during use */
-.content-container content-block {
-    align-self: start;   
+div.body-container {
+    align-items: start;
 }
 
 /* Set up border for the tabs */

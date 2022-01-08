@@ -325,12 +325,11 @@ class Event(db.Model):
         self.lat = lat
         self.lng = lng
         self.address = address
-        db.session.commit() 
+        db.session.commit()
+
+    # Join Challenge model class
 
 
-
-
-# Join Challenge model class
 class JoinChallenge(db.Model):
     """
     This class is used to represent the JoinChallenge object and the 'join_challenge' table in the database.
@@ -439,7 +438,7 @@ def init_db():
     db.session.add(event_4)
 
     # create two fake donation posts
-    with open(os.path.dirname(__file__) + "/static/images/donation1.png", "rb") as img_file:
+    with open(os.path.dirname(__file__) + "/static/images/forest.png", "rb") as img_file:
         image1 = base64.b64encode(img_file.read()).decode('ascii')
 
     create_donation = Donations(email='admin@email.com',
@@ -456,18 +455,20 @@ def init_db():
     db.session.add(create_donation)
     db.session.commit()
 
-    with open(os.path.dirname(__file__) + "/static/images/donation2.png", "rb") as img_file:
+    with open(os.path.dirname(__file__) + "/static/images/reef.png", "rb") as img_file:
         image2 = base64.b64encode(img_file.read()).decode('ascii')
 
     create_donation2 = Donations(email='admin@email.com',
-                                 title='Solar Project by ACME Group',
-                                 reason='Location: India, Asia. ACME Group specializes in the manufacturing and supply '
-                                        'of several disruptive green technology solutions within Energy Sector with '
-                                        'global operations and a workforce of over 5000 people blending technology '
-                                     'with innovation, donate now! . '
-                                        'Info: https://www.acme.in/index',
-                                 donated='240',
-                                 amount='50,000',
+                                 title='Coral Reef Alliance',
+                                 reason='Their mission: Local, regional, and global levels to keep coral reefs '
+                                        'healthy, '
+                                        'so they can adapt to climate change and survive for generations to come. As '
+                                        'one of the largest global NGOs focused exclusively on protecting coral reefs, '
+                                        'the Coral Reef Alliance has used cutting-edge science and '
+                                        'engagement for 30 years. '
+                                        'Info: https://coral.org/en/',
+                                 donated='6,865',
+                                 amount='10,000',
                                  status='In progress',
                                  image=image2)
     db.session.add(create_donation2)

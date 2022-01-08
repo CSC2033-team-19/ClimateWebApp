@@ -54,6 +54,7 @@ form div.field {
     justify-content: space-between;
     padding: 0 2.5%;
     width: 100%;
+    font-weight: bold;
 }
 
 .navbar-nav li a:hover {
@@ -204,22 +205,6 @@ form div.field {
     margin-top: 40px;
 }
 
-/* donate page */
-.donate-how\? {
-    font-size: 20px;
-    margin-top: 30px;
-    color: rgba(83, 145, 88, 0.82)
-}
-
-.donate-steps{
-    margin-top: 35px;
-}
-
-.donate-explanation {
-    margin-top: 30px;
-    margin-bottom: 50px;
-}
-
 /* social media icons */
 
 .sm_buttons {
@@ -255,35 +240,7 @@ form div.field {
     color: #1877f2;
     background: white;
 }
-/* turbine video on donate */
-.donate-content {
-    width: 76.5vw;
-    height: 77vh;
-    position: center;
-    right: calc(-0vw + 0%);
-}
 
-.donate-content .text {
-    color: #558846;
-}
-
-.donate-content .text h1 {
-    margin-top: 1px;
-    color: white;
-   text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
-   padding-top:1px;
-   font-size: 70px;
-   font-weight: 700;
-   text-align: center;
-   font-family: 'Source Sans Pro', sans-serif;
-}
-/* turbine video text */
-.donate-content .description {
-    font-size:30px;
-    font-style: italic;
-    margin-top: 10px;
-
-}
 /* admin page */
 
 .admin-title {
@@ -305,6 +262,20 @@ form div.field {
     margin-top: 40px;
     text-align: center;
 }
+
+.coral-graph {
+    margin-top: 5px;
+    position: absolute;
+    margin-left:600px;
+    margin-bottom: 100px;
+
+}
+
+.map-image {
+    margin-top: 50px;
+}
+
+
 
 
 

@@ -5,6 +5,8 @@ var geolocation_error_toast; // show errors with geolocation to the user.
 var deletion_warning_toast; // Warn the user that they are about to delete an event
 var markers = []; // Store all the markers as well as the corresponding IDs here.
 var ids_on_map = []; // Store all the ids that are on the map to ensure an event is not placed twice.
+var previous_timestamp = 0;
+
 const focused_event = document.currentScript.getAttribute("focus-event"); // Store which event is being focused
 script.src = `https://maps.googleapis.com/maps/api/js?key=${document.currentScript.getAttribute("api-key")}&callback=init_map`;
 script.async = true; // Ensure that the script is loaded asynchronously.
@@ -24,7 +26,7 @@ window.init_map = function () {
 
     // Create map
     map = new google.maps.Map(document.getElementById("event-map"), {
-        center: {lat: 54, lng: -1},  // Default location
+        center: {lat: 54.990446, lng: -1.6128411},  // Default location
         zoom: 8,
         markers: markers
     });
@@ -39,7 +41,21 @@ window.init_map = function () {
     // Get the center of the map
     get_center();
 
-
+    // Add event listener to the map to see when the center is changed
+    map.addListener("center_changed", () => {
+        if ((new Date() - previous_timestamp)/1000 > 10) {
+            previous_timestamp = new Date();
+            $.ajax({
+                type: "get",
+                url: "/events/get_local_events.json",
+                data: {
+                    "lat": map.getCenter().lat,
+                    "lng": map.getCenter().lng
+                },
+                success: create_events_on_map
+            })
+        }
+    })
 }
 
 // Add script tag to the head
@@ -94,7 +110,7 @@ function get_center() {
                     center_map({coords: {latitude: event.result.lat, longitude: event.result.lng}})
                 }
                 else {
-                    center_map({coords: {latitude: 54, longitude: -1}}); // render map with default position
+                    center_map({coords: {latitude: 54.990446, longitude: -1.6128411}}); // render map with default position
                 }
             }
         })
@@ -109,6 +125,10 @@ function create_events_on_map(result) {
     // Define variables
     var event_list_element = $("#event-list");
 
+    if (!result.success) {
+        return;
+    }
+
     result.events.forEach(event => {
         // Check if event is already on the map, pass if it is so that duplicate events are not displayed.
         if (ids_on_map.includes(event.id)) {
@@ -118,7 +138,9 @@ function create_events_on_map(result) {
         // Add markers to marker array
         var marker = new google.maps.Marker({
             position: {lat: event.lat, lng: event.lng},
-            map: map
+            map: map,
+            title: `${event.head}`,
+            optimized: false
         });
 
         // Create HTML for the event
@@ -219,8 +241,8 @@ function render_event(event) {
     }
     else {
         button = `
-            <a class="btn btn-primary" onClick="handle_event(event, ${event.id})">
-                ${event.attending.current_user_attending === false ? "Join event" : "Leave event"}<br>
+            <a class="btn btn-${event.attending.current_user_attending === false ? "primary" : "danger"}" onClick="handle_event(event, ${event.id})">
+                ${event.attending.current_user_attending === false ? "Join event" : "Leave event"}
             </a>`
     }
     return `
@@ -229,17 +251,18 @@ function render_event(event) {
         <div id="event-${event.id}" class="card-body">
             <h5 class="card-title">
                 ${event.head}
-                
             </h5>
             <p class="card-text">
-                <small>${event.time}, ${event.address}</small>
-            </p>
+                ${event.body}
+            </p> 
+            
             <p class="card-text">
                  <small>Current attendance: ${event.attending.users}/${event.capacity}</small> 
             </p>
             <p class="card-text">
-                ${event.body}
-            </p> 
+                <small>${event.address}</small><br>
+                <small>${event.time}</small>
+            </p>            
             ${button}     
         </div>
     </div>

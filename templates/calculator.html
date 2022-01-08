@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
+    {# Import defaults for the page #}
     {{ super() }}
 
     {#  Import jQuery to make use of the AJAX query in calculator.js #}
@@ -13,6 +14,7 @@
     {# Import local styles #}
     <link rel="stylesheet" href="/static/calculator.css" />
     <script type="text/javascript" src="/static/calculator.js"></script>
+
 
 {% endblock %}
 
@@ -34,6 +36,18 @@
             <li class="nav-item" role="presentation">
                 <a
                         class="nav-link active"
+                        id="about-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#about"
+                        type="button"
+                        role="tab"
+                        aria-controls="about"
+                        aria-selected="true"
+                >About this calculator</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a
+                        class="nav-link"
                         id="travel-tab"
                         data-bs-toggle="tab"
                         data-bs-target="#travel"
@@ -108,7 +122,29 @@
 
             <div class="tab-content" id="calculatorTabContent">
                 {{ form.csrf_token() }}
-                <div id="travel" class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+                <div id="about" class="tab-pane fade show active" role="tabpanel" aria-labelledby="about-tab">
+
+                    <h3>How to use this calculator</h3>
+                    <div class="m-5 mt-0 mb-0">
+                        <p>
+                            To use this calculator, simply enter how much money you spend on each thing which is listed.
+                            The placeholder values shown are what the average UK consumer spends.
+                        </p>
+                        <p>
+                            The preview will show you a combination of both your data and the average depending on whether
+                            or not you have filled in all the necessary data. However, you will not be able to submit an
+                            incomplete form.
+                        </p>
+                        <p>
+                            <small>
+                                <a href="https://bit.ly/32XfQpo">Data provided by the UK Government, and is available in this link</a>
+                            </small>
+                        </p>
+                    </div>
+                    <a class="btn btn-lg btn-next">Next</a>
+                </div>
+
+                <div id="travel" class="tab-pane fade show" role="tabpanel" aria-labelledby="home-tab">
 
                     <p><b>How much money did you spend on..?</b></p>
 
@@ -152,6 +188,7 @@
                         <p class="input-field">{{ form.air_travel(class="form-control") }}</p>
                     </div>
 
+                    <a class="btn btn-lg btn-prev">Next</a>
                     <a class="btn btn-lg btn-next">Next</a>
                 </div>
                 <div id="home" class="tab-pane fade" role="tabpanel" aria-labelledby="home-tab">
