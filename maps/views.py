@@ -111,14 +111,13 @@ def get_events():
                                 | (Event.users.any(id=current_user.id))
     )
     if events.first() is None:
-        print("test")
-        return render_template("404.html")
+        return jsonify({"success": False})
     events = events.all()
 
     # Format the event query into a JSON file to be fetched by the javascript when creating the map.
     prepared_events = list(map(map_event, events))
 
-    return jsonify({"events": prepared_events})
+    return jsonify({"events": prepared_events, "success": True})
 
 
 @maps_blueprint.route("/events/get_local_events.json", methods=["GET"])
@@ -138,12 +137,17 @@ def get_local_events():
                                 # Check if the event is within 50km of the user's location (longitude)
                                 & (Event.lng < (float(request.args["lng"]) + radius))
                                 & (Event.lng > (float(request.args["lng"]) - radius))
-                                ).all()
+                                )
 
+    if events.first() is None:
+        return jsonify({"success": False})
+
+    events = events.all()
     # Format the event query into a JSON file to be fetched by the javascript when creating the map.
     prepared_events = list(map(map_event, events))
 
-    return jsonify({"events": prepared_events})
+
+    return jsonify({"events": prepared_events, "success": True})
 
 
 @maps_blueprint.route("/events/event_details.json")
