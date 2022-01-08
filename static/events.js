@@ -24,7 +24,7 @@ window.init_map = function () {
 
     // Create map
     map = new google.maps.Map(document.getElementById("event-map"), {
-        center: {lat: 54, lng: -1},  // Default location
+        center: {lat: 54.990446, lng: -1.6128411},  // Default location
         zoom: 8,
         markers: markers
     });
