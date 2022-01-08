@@ -54,6 +54,8 @@ form div.field {
     justify-content: space-between;
     padding: 0 2.5%;
     width: 100%;
+    font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
+    font-weight: bold;
 }
 
 .navbar-nav li a:hover {
