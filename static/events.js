@@ -221,8 +221,8 @@ function render_event(event) {
     }
     else {
         button = `
-            <a class="btn btn-primary" onClick="handle_event(event, ${event.id})">
-                ${event.attending.current_user_attending === false ? "Join event" : "Leave event"}<br>
+            <a class="btn btn-${event.attending.current_user_attending === false ? "primary" : "danger"}" onClick="handle_event(event, ${event.id})">
+                ${event.attending.current_user_attending === false ? "Join event" : "Leave event"}
             </a>`
     }
     return `
