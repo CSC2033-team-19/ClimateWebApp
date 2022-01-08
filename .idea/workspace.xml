@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/static/images/reef.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Greenify.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/donate.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/donate.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/reef.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/reef.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,14 +182,8 @@
       <workItem from="1641129946203" duration="5015000" />
       <workItem from="1641312883492" duration="5889000" />
       <workItem from="1641404435579" duration="1236000" />
-      <workItem from="1641653319466" duration="3710000" />
-    </task>
-    <task id="LOCAL-00011" summary="success page on checkout html">
-      <created>1639337652865</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1639337652865</updated>
+      <workItem from="1641653319466" duration="4078000" />
+      <workItem from="1641657500500" duration="674000" />
     </task>
     <task id="LOCAL-00012" summary="backend js for taking in users ID for checkout">
       <created>1639337755062</created>
@@ -530,7 +521,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641654174735</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="new donation post and added NOTE for examiner">
+      <created>1641657364746</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1641657364746</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -541,7 +539,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Added donate content" />
     <MESSAGE value="donation project changes from &quot;in progress&quot; to &quot;completed&quot; once goal is reached." />
     <MESSAGE value="Added donation example" />
     <MESSAGE value="edit" />
@@ -566,9 +563,10 @@
     <MESSAGE value="updated" />
     <MESSAGE value="finished docstrings for donate" />
     <MESSAGE value="put donate CSS into donate.html and aligned items." />
-    <option name="LAST_COMMIT_MESSAGE" value="put donate CSS into donate.html and aligned items." />
+    <MESSAGE value="new donation post and added NOTE for examiner" />
+    <option name="LAST_COMMIT_MESSAGE" value="new donation post and added NOTE for examiner" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1641655559835" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1641658173536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

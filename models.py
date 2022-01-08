@@ -460,12 +460,12 @@ def init_db():
 
     create_donation2 = Donations(email='admin@email.com',
                                  title='Coral Reef Alliance',
-                                 reason='Their mission: ocal, regional, and global levels to keep coral reefs healthy, '
+                                 reason='Their mission: Local, regional, and global levels to keep coral reefs '
+                                        'healthy, '
                                         'so they can adapt to climate change and survive for generations to come. As '
                                         'one of the largest global NGOs focused exclusively on protecting coral reefs, '
                                         'the Coral Reef Alliance (CORAL) has used cutting-edge science and community '
-                                        'engagement for nearly 30 years to reduce direct threats to reefs and to '
-                                        'promote scalable and effective solutions for their protection.'
+                                        'engagement for nearly 30 years. '
                                         'Info: https://coral.org/en/',
                                  donated='6,865',
                                  amount='10,000',
