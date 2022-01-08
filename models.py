@@ -438,7 +438,7 @@ def init_db():
     db.session.add(event_4)
 
     # create two fake donation posts
-    with open(os.path.dirname(__file__) + "/static/images/donation1.png", "rb") as img_file:
+    with open(os.path.dirname(__file__) + "/static/images/forest.png", "rb") as img_file:
         image1 = base64.b64encode(img_file.read()).decode('ascii')
 
     create_donation = Donations(email='admin@email.com',
@@ -464,8 +464,8 @@ def init_db():
                                         'healthy, '
                                         'so they can adapt to climate change and survive for generations to come. As '
                                         'one of the largest global NGOs focused exclusively on protecting coral reefs, '
-                                        'the Coral Reef Alliance (CORAL) has used cutting-edge science and community '
-                                        'engagement for nearly 30 years. '
+                                        'the Coral Reef Alliance has used cutting-edge science and '
+                                        'engagement for 30 years. '
                                         'Info: https://coral.org/en/',
                                  donated='6,865',
                                  amount='10,000',

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Greenify" uuid="fa8c004d-0a73-436f-8344-3944420691db">
+    <data-source source="LOCAL" name="Greenify" uuid="2e7a223c-9bd2-429c-a65f-99ac0643f704">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
