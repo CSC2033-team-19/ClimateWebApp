@@ -18,6 +18,9 @@ users_blueprint = Blueprint('users', __name__, template_folder='templates')
 # view registration
 @users_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
+    """
+    This function renders the register form and handles input from the form.
+    """
 
     # create signup form object
     form = RegisterForm()
@@ -58,6 +61,9 @@ def register():
 # view user login
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    This function renders the login form and handles input from the form.
+    """
 
     # if session attribute logins does not exist create attribute logins
     if not session.get('logins'):
@@ -134,6 +140,9 @@ def login():
 @users_blueprint.route('/profile')
 @login_required
 def profile():
+    """
+    This function renders the user profile
+    """
     return render_template('profile.html',
                            name=current_user.firstname,
                            id=current_user.id,
@@ -147,6 +156,9 @@ def profile():
 @users_blueprint.route('/view_joined_challenges', methods=['POST'])
 @login_required
 def view_joined_challenges():
+    """
+    This function renders all challenges joined by the current user
+    """
     return render_template('profile.html', name=current_user.firstname,
                            id=current_user.id,
                            email=current_user.email,
@@ -160,6 +172,9 @@ def view_joined_challenges():
 @users_blueprint.route('/logout')
 @login_required
 def logout():
+    """
+    Function for logging users out
+    """
 
     # logging call for when users log out
     logging.warning('SECURITY - Log out [%s, %s, %s]', current_user.id, current_user.email, request.remote_addr)
@@ -173,6 +188,10 @@ def logout():
 # view contact us
 @users_blueprint.route('/contact', methods=['GET', 'POST'])
 def contact():
+    """
+    This function renders the contact form and handles input from the form.
+    """
+
     form = ContactForm()
 
     if form.validate_on_submit():
