@@ -1,3 +1,8 @@
+"""
+The posts/views.py module represents the Posts System functionality and contains all its functions.
+"""
+__author__ = "Inés Ruiz"
+
 import base64
 import copy
 from flask import Blueprint, render_template, flash, redirect, url_for, request
@@ -19,7 +24,7 @@ posts_blueprint = Blueprint('posts', __name__, template_folder='templates')
 def posts():
     """
     This function retrieves all posts in descending id order from the database and displays them
-        in the posts.html template.
+    in the posts.html template.
 
     Returns:
         render_template('posts.html', posts=decrypted_posts): renders the posts.html template with the decrypted data
@@ -179,7 +184,7 @@ def update(id):
 def delete(id):
     """
     This function enables the user with 'admin' role to delete the Post object from the database
-        which the matches post id passed in as a parameter.
+    which the matches post id passed in as a parameter.
 
     Parameters:
         id (int): post id

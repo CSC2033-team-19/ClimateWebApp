@@ -1,3 +1,8 @@
+"""
+The challenges/views.py module represents the Challenges System functionality and contains all its functions.
+"""
+__author__ = "Inés Ruiz"
+
 import base64
 import copy
 from flask import Blueprint, render_template, flash, redirect, url_for, request
@@ -18,7 +23,7 @@ challenges_blueprint = Blueprint('challenges', __name__, template_folder='templa
 def challenges():
     """
     This function retrieves all challenges in descending id order from the database and displays them
-        in the challenges.html template.
+    in the challenges.html template.
 
     Returns:
         render_template('challenges.html', challenges=decrypted_challenges, challenges_for_user=challenge_ids):
@@ -35,7 +40,8 @@ def challenges():
     decrypted_challenges = []
 
     # Create list of challenges which the user is in
-    user_challenges = JoinChallenge.query.with_entities(JoinChallenge.challenge_id).filter_by(user_email=current_user.email).all()
+    user_challenges = JoinChallenge.query.with_entities(JoinChallenge.challenge_id).filter_by(
+        user_email=current_user.email).all()
     challenge_ids = [challenge.challenge_id for challenge in user_challenges]
 
     # decrypt each copied challenge object and add it to decrypted_challenges array.
@@ -54,7 +60,7 @@ def challenges():
 def challenge(id):
     """
     This function retrieves the challenge with the matching id from the database and displays it
-        in the challenge.html template.
+    in the challenge.html template.
 
     Parameters:
         id (int): challenge id
@@ -189,7 +195,7 @@ def update(id):
 def delete(id):
     """
     This function enables the user with 'admin' role to delete the Challenge object from the database
-        which the matches challenge id passed in as a parameter.
+    which the matches challenge id passed in as a parameter.
 
     Parameters:
         id (int): challenge id
@@ -211,7 +217,7 @@ def delete(id):
 def join(id):
     """
     This function enables the user with 'user' role to join a Challenge object by creating a new JoinChallenge
-        object with challenge id and the current user email which will be saved to the database.
+    object with challenge id and the current user email which will be saved to the database.
 
     Parameters:
         id (int): challenge id
@@ -238,7 +244,7 @@ def join(id):
 def leave(id):
     """
     This function enables the user with 'user' role to unjoin a Challenge object by deleting from the database an
-        existing JoinChallenge object, which matches the challenge id passed in as a parameter.
+    existing JoinChallenge object, which matches the challenge id passed in as a parameter.
 
     Parameters:
         id (int): challenge id

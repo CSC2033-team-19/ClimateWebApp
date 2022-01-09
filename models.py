@@ -107,13 +107,15 @@ class Post(db.Model):
 
         Parameters:
             email (String): user's email
-            created (datetime): current date and time
             title (Text): post's title
             body (Text): post's body
             image (Text): post's image
+
+        Returns:
+            Post: object representing a post
         """
         self.email = email
-        self.created = datetime.now()
+        self.created = datetime.now() # current date and time
         self.title = encrypt(title, postkey)
         self.body = encrypt(body, postkey)
         self.image = image
@@ -127,6 +129,9 @@ class Post(db.Model):
             postkey: user's unique encryption key
             title (Text): post's title
             body (Text): post's body
+
+        Returns:
+            Post: represents a challenge object with their title and body fields encrypted.
         """
         self.title = encrypt(title, postkey)
         self.body = encrypt(body, postkey)
@@ -138,8 +143,9 @@ class Post(db.Model):
 
         Parameters:
             postkey: user's unique encryption key
-            title (Text): post's title
-            body (Text): post's body
+
+        Returns:
+            Post: represents a challenge object with their title and body fields decrypted.
         """
         self.title = decrypt(self.title, postkey)
         self.body = decrypt(self.body, postkey)
@@ -223,13 +229,16 @@ class Challenge(db.Model):
 
         Parameters:
             email (String): user's email
-            created (datetime): current date and time
             title (Text): challenge's title
             body (Text): challenge's body
             image (Text): challenge's image
+            postkey: user's encryption key
+
+        Returns:
+            Challenge: object representing a challenge
         """
         self.email = email
-        self.created = datetime.now()
+        self.created = datetime.now() # current date and time
         self.title = encrypt(title, postkey)
         self.body = encrypt(body, postkey)
         self.image = image
@@ -243,6 +252,9 @@ class Challenge(db.Model):
             postkey: user's unique encryption key
             title (Text): challenge's title
             body (Text): challenge's body
+
+        Returns:
+            Challenge: represents a challenge object with their title and body fields encrypted.
         """
         self.title = encrypt(title, postkey)
         self.body = encrypt(body, postkey)
@@ -254,8 +266,9 @@ class Challenge(db.Model):
 
         Parameters:
             postkey: user's unique encryption key
-            title (Text): challenge's title
-            body (Text): challenge's body
+
+        Returns:
+            Challenge: represents a challenge object with their title and body fields decrypted.
         """
         self.title = decrypt(self.title, postkey)
         self.body = decrypt(self.body, postkey)
@@ -353,12 +366,14 @@ class JoinChallenge(db.Model):
 
         Parameters:
             challenge_id (Integer): challenge id
-            user_email (String): user's email
-            date_joined (datetime): current date and time
+            email (String): user's email
+
+        Returns:
+            JoinChallenge: object containing the information of when and what challenge a user joined.
         """
         self.challenge_id = challenge_id
         self.user_email = email
-        self.date_joined = datetime.now()
+        self.date_joined = datetime.now() # current date and time
         db.session.commit()
 
 
