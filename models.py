@@ -283,7 +283,7 @@ class CarbonData(db.Model):
         self.home = _home
         self.food = _food
         self.goods = _goods
-        self.date_taken = datetime.utcnow()
+        self.date_taken = datetime.now()
 
 
 # Event class
