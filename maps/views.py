@@ -197,7 +197,7 @@ def create_event():
         db.session.add(new_event)
         db.session.commit()
 
-        new_id = Event.query.order_by(id.desc()).first().id
+        new_id = Event.query.order_by(Event.id.desc()).first().id
 
         return redirect(url_for("maps.event_id", id=new_id))
 
