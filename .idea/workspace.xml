@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/climatewebapp.log" beforeDir="false" afterPath="$PROJECT_DIR$/climatewebapp.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/greenify.db" beforeDir="false" afterPath="$PROJECT_DIR$/greenify.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/create_donation.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create_donation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,13 +190,6 @@
       <workItem from="1641657500500" duration="1100000" />
       <workItem from="1641658606969" duration="22000" />
       <workItem from="1641658718882" duration="4561000" />
-    </task>
-    <task id="LOCAL-00016" summary="Added stripe payment page, success.html and cancel.html. Allowed only admin to create donations. Added amounts.">
-      <created>1639682976254</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1639682976254</updated>
     </task>
     <task id="LOCAL-00017" summary="Changed CSS and fixed success page error for donate">
       <created>1639922254568</created>
@@ -533,7 +527,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641751921449</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="removed">
+      <created>1641752511281</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1641752511281</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -544,7 +545,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="made services icons smaller" />
     <MESSAGE value="fixed graph pos" />
     <MESSAGE value="added table image" />
     <MESSAGE value="font change?" />
@@ -569,7 +569,8 @@
     <MESSAGE value="CLEANER HTML" />
     <MESSAGE value="added shadow, made heading the same as rest" />
     <MESSAGE value="made green darker for nav and donate to match" />
-    <option name="LAST_COMMIT_MESSAGE" value="made green darker for nav and donate to match" />
+    <MESSAGE value="removed" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1641750071947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
