@@ -3,11 +3,18 @@
 
 {% block content %}<style>
     /* Add a card effect for donation posts */
+
+     .header {
+            padding: 30px;
+            font-size: 40px;
+            text-align: center;
+        }
     .card {
         background-color: rgb(255, 255, 255);
         padding: 10px;
         height:1000px;
         margin: 20px 20px 50px;
+        border-radius: 15px;
     }
 
     .flex-container {
@@ -67,14 +74,9 @@
 
     }
     </style>
-    <div class="services-container section-container">
-        <div class="container">
-            <div class="row">
-                <div class="col services section-description">
-                    <h2>Donate</h2>
-                    <div class="divider-1"><span></span></div>
-                </div>
-                <div class="donate-how?">
+        <h1 class="title is-1 header">Donate</h1>
+        <div class="subtitle-description2">
+            <div class="donate-how?">
                     <div class="description">
                         <p>
                             How's it work?
@@ -100,7 +102,6 @@
                             <div>3) Fill in your card details on stripe and send your donation
                                 <div>4) You're done, Greenify will ensure your donation is received and helps the
                                     selected project!
-                                    <div>NOTE: please enter a minimum of £100 & card no.4242424242424242 for testing purposes.
                                         </p>
                                     </div>
                                 </div>
@@ -108,7 +109,7 @@
     <div class="section">
         <div class="flex-container">
             {% for donation in donations %}
-                <div class="card w-20" style="width: 20rem;">
+                <div class="card shadow mb-5" style="width: 20rem;">
                     <img class="card-img-top" src="data:image/jpg;base64,{{ donation.image }}" alt="donation_img"  id="imgslot"/> </img>
                     <div class="card-body">
                         <h5 class="card-title">{{ donation.title}}</h5>
