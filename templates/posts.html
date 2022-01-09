@@ -45,7 +45,7 @@
     </style>
 
     {% for message in get_flashed_messages() %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success" role="alert">
           {{ message }}
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -54,7 +54,7 @@
     <div class="container">
         <h1 class="title is-1 header">Posts</h1>
         <div class="subtitle-description2">
-            <div class="description wow fadeInLeftBig">
+            <div class="description">
                 <p class="subtitle-description">
                     Welcome to Greenify's learning space!
                 </p>
