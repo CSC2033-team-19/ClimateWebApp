@@ -50,9 +50,11 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = "6Leg-5wdAAAAAJMdYCe4qxf5xZxt-qmJxGxgyySn"
 def create_customer():
 
     """
-    This function creates a object representing a customer of for the business (Greenify).
-    It lets you create recurring charges and track payments that belong to the same customer on our
-    stripe dashboard at https://dashboard.stripe.com
+        @author: Oliver Watson
+
+        This function creates a object representing a customer of for the business (Greenify).
+        It lets you create recurring charges and track payments that belong to the same customer on our
+        stripe dashboard at https://dashboard.stripe.com
     """
 
     # Reads application/json and returns a response
@@ -78,8 +80,10 @@ def create_customer():
 @app.route('/config', methods=['GET'])
 def get_publishable_key():
     """
-    This function makes a AJAX request from the client to the server requesting the publishable key,
-    respond with the key and Use the key to create a new instance.
+        @author: Oliver Watson
+
+        This function makes a AJAX request from the client to the server requesting the publishable key,
+        respond with the key and Use the key to create a new instance.
     """
 
     price = stripe.Price.retrieve(os.getenv('PRICE'))
@@ -94,10 +98,12 @@ def get_publishable_key():
 @app.route('/webhook', methods=['POST'])
 def webhook_received():
     """
-    This function configures webhook endpoints via the API to be notified about events that happen the Stripe
-    account.
+        @author: Oliver Watson
 
-    Return: notifications.
+        This function configures webhook endpoints via the API to be notified about events that happen the Stripe
+        account.
+
+        @return notifications.
     """
 
     # Webhooks to receive information about asynchronous payment events.

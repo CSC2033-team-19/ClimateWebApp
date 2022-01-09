@@ -6,10 +6,12 @@ from wtforms.validators import data_required
 # post form class
 class DonationForm(FlaskForm):
     """
-    This class represents an instance of a FlaskForm in order to retrieve and save to the database the inputted data
-    by user in order to create a Donation object.
+        @author: Oliver Watson
 
-    @param FlaskForm(Form): Flask-specific subclass of WTForms
+        This class represents an instance of a FlaskForm in order to retrieve and save to the database the inputted data
+        by user in order to create a Donation object.
+
+        @param FlaskForm(Form): Flask-specific subclass of WTForms
     """
 
     title = TextAreaField(validators=[data_required()])
