@@ -10,7 +10,18 @@
 
 
     {# Import static JavaScript for this page #}
-    <script src="/static/maps.js" type="application/javascript"></script>
+    <script>
+        // initialise date picker
+        $.datepicker.regional['uk'] = {
+            dateFormat: "dd-mm-yy"
+        }
+
+        $.datepicker.setDefaults(
+            $.datepicker.regional['uk']
+        )
+
+        $("#date").datepicker();
+    </script>
 {% endblock %}
 {% block content %}
 

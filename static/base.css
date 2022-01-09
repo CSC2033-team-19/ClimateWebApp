@@ -2,8 +2,8 @@
     /* Set up colour schemes */
     --navbar-bg-colour: white;
     --body-background-colour: #cbfcca;
-    --navbar-text-colour: black;
-    --body-text-colour: #3a3a3a;
+    --navbar-text-colour: rgba(43, 72, 45, 0.76);
+    --body-text-colour: rgb(0, 0, 0);
 }
 
 nav.bg-color-navbar {
@@ -31,7 +31,8 @@ div.body-container {
     min-height: 100%;
     overflow-x: hidden;
     width: 100%;
-    color: black;
+    color: #000000;
+
 
 
     /* Center all elements in the body */
@@ -52,6 +53,7 @@ form div.field {
 
 .navbar-nav {
     justify-content: space-between;
+    color: #1abc9c;
     padding: 0 2.5%;
     width: 100%;
     font-weight: bold;

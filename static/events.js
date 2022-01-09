@@ -43,7 +43,7 @@ window.init_map = function () {
 
     // Add event listener to the map to see when the center is changed
     map.addListener("center_changed", () => {
-        if ((new Date() - previous_timestamp)/1000 > 10) {
+        if ((new Date() - previous_timestamp)/1000 > 5) {
             previous_timestamp = new Date();
             $.ajax({
                 type: "get",

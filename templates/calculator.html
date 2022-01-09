@@ -43,7 +43,7 @@
                         role="tab"
                         aria-controls="about"
                         aria-selected="true"
-                >About this calculator</a>
+                >About</a>
             </li>
             <li class="nav-item" role="presentation">
                 <a
@@ -67,7 +67,7 @@
                         role="tab"
                         aria-controls="home"
                         aria-selected="false"
-                >Home utilities</a>
+                >Home</a>
             </li>
             <li class="nav-item" role="presentation">
                 <a
@@ -91,7 +91,7 @@
                         role="tab"
                         aria-controls="other"
                         aria-selected="false"
-                >Other Goods/Services</a>
+                >Other</a>
             </li>
             <li class="nav-item" role="presentation">
                 <a
@@ -188,7 +188,7 @@
                         <p class="input-field">{{ form.air_travel(class="form-control") }}</p>
                     </div>
 
-                    <a class="btn btn-lg btn-prev">Next</a>
+                    <a class="btn btn-lg btn-prev">Previous</a>
                     <a class="btn btn-lg btn-next">Next</a>
                 </div>
                 <div id="home" class="tab-pane fade" role="tabpanel" aria-labelledby="home-tab">
@@ -293,7 +293,7 @@
                         {% for error in form.goods.errors %}
                             <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
-                        <p class="query">1. Goods</p>
+                        <p class="query">1. Goods (Other tangible expenses, i.e. toiletries, furniture, etc.)</p>
                         <p class="input-field">{{ form.goods(class="form-control") }}</p>
                     </div>
 
@@ -301,7 +301,7 @@
                         {% for error in form.services.errors %}
                             <div class="alert alert-danger" role="alert">{{ error }}</div>
                         {% endfor %}
-                        <p class="query">2. Services</p>
+                        <p class="query">2. Services (Other non-tangible expenses, i.e. doctors appointments, insurance, repairs)</p>
                         <p class="input-field">{{ form.services(class="form-control") }}</p>
                     </div>
 
