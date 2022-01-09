@@ -8,15 +8,14 @@ from flask_login import UserMixin
 from app import db
 from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
-from donate.forms import DonationForm
 
 
-# function to encrypt posts / challenges / card details etc later on TODO
+# function to encrypt posts
 def encrypt(data, key):
     return Fernet(key).encrypt(bytes(data, 'utf-8'))
 
 
-# function to decrypt posts / challenges / card details etc later on TODO
+# function to decrypt posts
 def decrypt(data, key):
     return Fernet(key).decrypt(data).decode("utf-8")
 
@@ -154,6 +153,24 @@ class Post(db.Model):
 
 # Donation model class
 class Donations(db.Model):
+    """
+     This class is used to represent the Donate object and the 'donations' table in the database.
+
+     Attributes:
+         id (Integer): donate id, primary key
+         email (String): user's email, foreign key with the 'users' table
+         title (Text): charity name or donation title
+         created (datetime): date and time of when donation was created
+         reason (Text): donation's reason / cause
+         donated (Text): total amount donated to the post so far
+         amount (Text): the donation goal
+         status (Text): either "in progress" or "completed" dependent on if goal is met
+         image (Text): image used
+
+     Methods:
+         update_donation(self, title, body, postkey): encrypts donation title and body
+         view_donation(self, postkey): decrypts donation title and body
+     """
     __tablename__ = 'donations'
 
     id = db.Column(db.Integer, primary_key=True)
