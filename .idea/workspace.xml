@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="">
+    <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="Add docstrings">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/climatewebapp.log" beforeDir="false" afterPath="$PROJECT_DIR$/climatewebapp.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/create_donation.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create_donation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/greenify.db" beforeDir="false" afterPath="$PROJECT_DIR$/greenify.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/events.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,15 +89,16 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.app">
+  <component name="RunManager" selected="Python.ClimateWebApp">
     <configuration name="ClimateWebApp" type="PythonConfigurationType" factoryName="Python">
       <module name="ClimateWebApp" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="GMAP-KEY" value="AIzaSyCbb3LSNgxfDP9mtLXvmeBS4kAxPIlZji8" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\Adamw\PycharmProjects\Course\csc2031\ClimateWebApp\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -543,6 +545,18 @@
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.env" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="fixed graph pos" />
@@ -574,5 +588,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1641750071947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ClimateWebApp_fuckingshitasdjoaiwdj$ClimateWebApp.coverage" NAME="ClimateWebApp Coverage Results" MODIFIED="1641753282700" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

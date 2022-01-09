@@ -5,7 +5,7 @@ var geolocation_error_toast; // show errors with geolocation to the user.
 var deletion_warning_toast; // Warn the user that they are about to delete an event
 var markers = []; // Store all the markers as well as the corresponding IDs here.
 var ids_on_map = []; // Store all the ids that are on the map to ensure an event is not placed twice.
-var previous_timestamp = 0;
+var prev_location = {lat: -1000, lng: -1000};
 
 const focused_event = document.currentScript.getAttribute("focus-event"); // Store which event is being focused
 script.src = `https://maps.googleapis.com/maps/api/js?key=${document.currentScript.getAttribute("api-key")}&callback=init_map`;
@@ -42,20 +42,8 @@ window.init_map = function () {
     get_center();
 
     // Add event listener to the map to see when the center is changed
-    map.addListener("center_changed", () => {
-        if ((new Date() - previous_timestamp)/1000 > 5) {
-            previous_timestamp = new Date();
-            $.ajax({
-                type: "get",
-                url: "/events/get_local_events.json",
-                data: {
-                    "lat": map.getCenter().lat,
-                    "lng": map.getCenter().lng
-                },
-                success: create_events_on_map
-            })
-        }
-    })
+    map.addListener("dragend", update_bounds);
+    map.addListener("zoom_changed", update_bounds);
 }
 
 // Add script tag to the head
@@ -283,4 +271,21 @@ function handle_event(event, id) {
             window.location.href = data.redirect_to;
         }
     )
+}
+
+function update_bounds() {
+    if (Math.abs(prev_location.lat - map.getCenter().lat()) > 0.5
+        || Math.abs(prev_location.lng - map.getCenter().lng() > 0.5))
+    {
+        prev_location = {lat: map.getCenter().lat(), lng: map.getCenter().lng()};
+        $.ajax({
+            type: "get",
+            url: "/events/get_local_events.json",
+            data: {
+                "lat": map.getCenter().lat,
+                "lng": map.getCenter().lng
+            },
+            success: create_events_on_map
+        })
+    }
 }
