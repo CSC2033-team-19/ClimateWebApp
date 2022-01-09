@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="Add docstrings">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/climatewebapp.log" beforeDir="false" afterPath="$PROJECT_DIR$/climatewebapp.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/greenify.db" beforeDir="false" afterPath="$PROJECT_DIR$/greenify.db" afterDir="false" />
+    <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="Fix malformed database disk image">
       <change beforePath="$PROJECT_DIR$/static/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/events.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -192,20 +189,6 @@
       <workItem from="1641657500500" duration="1100000" />
       <workItem from="1641658606969" duration="22000" />
       <workItem from="1641658718882" duration="4561000" />
-    </task>
-    <task id="LOCAL-00017" summary="Changed CSS and fixed success page error for donate">
-      <created>1639922254568</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1639922254568</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Added greenify logo img to base.css">
-      <created>1639922671817</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1639922671817</updated>
     </task>
     <task id="LOCAL-00019" summary="Added video to the home page, working on scale / layers">
       <created>1639930743408</created>
@@ -536,7 +519,21 @@
       <option name="project" value="LOCAL" />
       <updated>1641752511281</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Change how new events are loaded onto the map to a smarter method.">
+      <created>1641753695775</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1641753695775</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Fix malformed database disk image">
+      <created>1641753849194</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1641753849194</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,8 +556,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="fixed graph pos" />
-    <MESSAGE value="added table image" />
     <MESSAGE value="font change?" />
     <MESSAGE value="swapped maps and calculator around to relate with image and added text" />
     <MESSAGE value="css for donation posts" />
@@ -584,10 +579,12 @@
     <MESSAGE value="added shadow, made heading the same as rest" />
     <MESSAGE value="made green darker for nav and donate to match" />
     <MESSAGE value="removed" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed" />
+    <MESSAGE value="Change how new events are loaded onto the map to a smarter method." />
+    <MESSAGE value="Fix malformed database disk image" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix malformed database disk image" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1641750071947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ClimateWebApp_fuckingshitasdjoaiwdj$ClimateWebApp.coverage" NAME="ClimateWebApp Coverage Results" MODIFIED="1641753282700" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/ClimateWebApp_fuckingshitasdjoaiwdj$ClimateWebApp.coverage" NAME="ClimateWebApp Coverage Results" MODIFIED="1641753774619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
