@@ -191,7 +191,7 @@ def historical_results():
     return_object = {"labels": [], "data": []}
 
     # Get all data
-    data = CarbonData.query.filter_by(user_id=current_user.id).all()
+    data = CarbonData.query.filter_by(user_id=current_user.id).order_by(CarbonData.date_taken.asc()).all()
 
     for i in data:
         # Add the piece of data to the return object
