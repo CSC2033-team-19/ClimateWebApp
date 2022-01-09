@@ -2,7 +2,7 @@
     /* Set up colour schemes */
     --navbar-bg-colour: white;
     --body-background-colour: #cbfcca;
-    --navbar-text-colour: rgba(43, 72, 45, 0.76);
+    --navbar-text-colour: rgb(44, 100, 49);
     --body-text-colour: rgb(0, 0, 0);
 }
 
