@@ -1,3 +1,10 @@
+"""
+This module will render a form for the user to enter their carbon data into.
+This handles input validation.
+"""
+
+__author__ = "Adam Winstanley"
+
 # Import flask modules
 import decimal
 

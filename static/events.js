@@ -5,7 +5,7 @@ var geolocation_error_toast; // show errors with geolocation to the user.
 var deletion_warning_toast; // Warn the user that they are about to delete an event
 var markers = []; // Store all the markers as well as the corresponding IDs here.
 var ids_on_map = []; // Store all the ids that are on the map to ensure an event is not placed twice.
-var previous_timestamp = 0;
+var prev_location = {lat: -1000, lng: -1000}; // Value far enough outside the possible range so that the first call will always be true.
 
 const focused_event = document.currentScript.getAttribute("focus-event"); // Store which event is being focused
 script.src = `https://maps.googleapis.com/maps/api/js?key=${document.currentScript.getAttribute("api-key")}&callback=init_map`;
@@ -15,6 +15,8 @@ script.async = true; // Ensure that the script is loaded asynchronously.
 window.init_map = function () {
     /**
      * Once the JavaScript APIs are loaded, begin execution of setup.
+     *
+     * @author Adam Winstanley
      */
 
     // Create the toast elements which will be used for error handling.
@@ -42,20 +44,8 @@ window.init_map = function () {
     get_center();
 
     // Add event listener to the map to see when the center is changed
-    map.addListener("center_changed", () => {
-        if ((new Date() - previous_timestamp)/1000 > 5) {
-            previous_timestamp = new Date();
-            $.ajax({
-                type: "get",
-                url: "/events/get_local_events.json",
-                data: {
-                    "lat": map.getCenter().lat,
-                    "lng": map.getCenter().lng
-                },
-                success: create_events_on_map
-            })
-        }
-    })
+    map.addListener("dragend", update_bounds);
+    map.addListener("zoom_changed", update_bounds);
 }
 
 // Add script tag to the head
@@ -66,6 +56,8 @@ function center_map(center) {
     /**
      * Handle centering the map and rendering local events from the database.
      * @param {json} center the point at which the map will be centered.
+     *
+     * @author Adam Winstanley
      */
     var new_center = new google.maps.LatLng(center.coords.latitude, center.coords.longitude);
     map.setCenter(new_center);
@@ -87,6 +79,8 @@ function center_map(center) {
 function get_center() {
     /**
      * Get the type of centering that the user has selected, request their location and pass the data to center_map
+     *
+     * @author Adam Winstanley
      */
     if (focused_event==="False") {
         // Ask user for their location (after map is loaded)
@@ -121,6 +115,8 @@ function create_events_on_map(result) {
     /**
      * This renders each marker onto the map and ensures that there are no duplicates.
      * @param {json} result the event object which is being put onto the map.
+     *
+     * @author Adam Winstanley
      */
     // Define variables
     var event_list_element = $("#event-list");
@@ -181,6 +177,8 @@ function show_error(error) {
     /**
      * Display if any error occurs in the geolocation to the user.
      * @param {error} error the error which has occured.
+     *
+     * @author W3Schools
      */
     let body = document.getElementById("geo-toast-body");
     switch (error.code) {
@@ -207,6 +205,8 @@ function warning_deletion(id) {
     /**
      * Warn the user that they are
      * @param {number} id the id of the event which is being destroyed.
+     *
+     * @author Adam Winstanley
      */
     var toast_element = document.getElementById("deletion-toast-body");
 
@@ -226,6 +226,8 @@ function render_event(event) {
     /**
      * Create an HTML card representation of an event object.
      * @param {json} event the event which is being rendered into HTML.
+     *
+     * @author Adam Winstanley
      */
     var button
 
@@ -275,6 +277,8 @@ function handle_event(event, id) {
      * Handle the joining and leaving of an event.
      * @param {event} event the event which is being joined by the user.
      * @param {number} id the id of the event which is being joined by the user.
+     *
+     * @author Adam Winstanley
      */
     $.post("/events/handle_event",  // url
         {"event_id": id},  // pass ID of the event by parsing through the ID of the elmnt
@@ -283,4 +287,27 @@ function handle_event(event, id) {
             window.location.href = data.redirect_to;
         }
     )
+}
+
+function update_bounds() {
+    /**
+     * Update the bounds of where an event is loaded. and load the new events onto the page iff the position of the map
+     * has changed sufficiently.
+     *
+     * @author Adam Winstanley
+     */
+    if (Math.abs(prev_location.lat - map.getCenter().lat()) > 0.5
+        || Math.abs(prev_location.lng - map.getCenter().lng() > 0.5))
+    {
+        prev_location = {lat: map.getCenter().lat(), lng: map.getCenter().lng()};
+        $.ajax({
+            type: "get",
+            url: "/events/get_local_events.json",
+            data: {
+                "lat": map.getCenter().lat,
+                "lng": map.getCenter().lng
+            },
+            success: create_events_on_map
+        })
+    }
 }

@@ -1,3 +1,9 @@
+"""
+This module will handle the web representation
+"""
+
+__author__ = "Adam Winstanley"
+
 # Import modules
 import os
 from datetime import datetime
