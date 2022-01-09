@@ -1,3 +1,9 @@
+"""
+This module will create a form, and handle input validation for the creation/updating of events for the map
+"""
+
+__author__ = "Adam Winstanley"
+
 # Import flask modules
 import os
 

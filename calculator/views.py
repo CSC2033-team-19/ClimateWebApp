@@ -1,3 +1,10 @@
+"""
+This module will handle the web representation of the carbon foorprint calculator.
+"""
+
+__author__ = "Adam Winstanley"
+
+
 # Import modules
 from app import db
 from calculator.forms import CalculatorForm
