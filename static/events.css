@@ -13,6 +13,12 @@
     width: 25%;
 }
 
+
+/* Remove scrollbar */
+div.body-container {
+    min-height: 0%;
+}
+
 .event-list-head {
     font-weight: bolder;
     text-transform: uppercase;
@@ -21,13 +27,13 @@
 
 /* Set the width and height to be correctly shown */
 .body-container, .content-block {
-    height:100%;
+    height:80%;
     width:100%;
 }
 
 /* Format the map and event list next to one another. pad them 10% down and up the page */
 .content-block {
-    padding: 10% 0;
+    padding: 0;
     display: flex;
 }
 

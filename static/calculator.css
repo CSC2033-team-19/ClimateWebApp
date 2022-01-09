@@ -17,6 +17,11 @@ div.body-container {
     border-radius: 0 0 5px 5px;
 }
 
+/* Remove scrollbar */
+div.body-container {
+    min-height: 0%;
+}
+
 /* Round the border of tab-container */
 
 .tab-container {
