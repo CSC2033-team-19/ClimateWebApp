@@ -20,12 +20,15 @@ donate_blueprint = Blueprint("donate", __name__, template_folder="templates")
 @login_required
 def donate():
     """
-    This function retrieves all donation posts in descending id order from the database and displays them
-    in the donate.html template.
+        @author: Oliver Watson
 
-    Returns:
-        render_template('donate.html', donations=decrypted_donations): renders the donate.html
-        template with the decrypted data of each post as a variable in order to be displayed.
+        This function retrieves all donation posts in descending id order from the database and displays them
+        in the donate.html template.
+
+        @returns:
+            render_template('donate.html', donations=decrypted_donations): renders the donate.html
+            template with the decrypted data of each post as a variable in order to be displayed.
+
     """
 
     donations = Donations.query.order_by(desc('id')).all()
@@ -46,14 +49,16 @@ def render_picture(data):
 @requires_roles('admin')
 def create():
     """
-    This function enables the user with 'admin' role to create a Donate object
-    by retrieving and storing the user input through the DonationForm to the database.
+        @author: Oliver Watson
 
-    Returns:
-        redirect(url_for('Donations.post', id=new_donate.id)): If DonationForm valid, it redirects the user to the
-        'donate' function and passing the donate id as a variable where the inputted post data is stored.
-        render_template('create_donation.html', form=form): If DonationForm not valid, it re-renders the
-        create_donation template along with the form.
+        This function enables the user with 'admin' role to create a Donate object
+        by retrieving and storing the user input through the DonationForm to the database.
+
+        @returns:
+            redirect(url_for('Donations.post', id=new_donate.id)): If DonationForm valid, it redirects the user to the
+            'donate' function and passing the donate id as a variable where the inputted post data is stored.
+            render_template('create_donation.html', form=form): If DonationForm not valid, it re-renders the
+            create_donation template along with the form.
     """
 
     form = DonationForm()
@@ -89,18 +94,20 @@ def create():
 @requires_roles('admin')
 def update(id):
     """
-      This function enables the user with 'admin' role to edit a Donate object
-      by retrieving and storing the new data inputted through the DonationForm to the database.
+        @author: Oliver Watson
 
-      @param: id (int): donate id
+        This function enables the user with 'admin' role to edit a Donate object
+        by retrieving and storing the new data inputted through the DonationForm to the database.
 
-      Returns:
-          return render_template('500.html'): If no post exists with the given id, render 500.html error page.
-          redirect(url_for('posts.post', id=post.id)): If DonateForm is valid, it redirects the user to the 'post'
-          function and passing the donate id as a variable where the new donation data is stored.
-          render_template('update_donation.html', form=form): If DonationForm not valid, it re-renders the
-          update_donation template along with the form.
-      """
+        @param: id (int): donate id
+
+        `@returns:
+            return render_template('500.html'): If no post exists with the given id, render 500.html error page.
+            redirect(url_for('posts.post', id=post.id)): If DonateForm is valid, it redirects the user to the 'post'
+            function and passing the donate id as a variable where the new donation data is stored.
+            render_template('update_donation.html', form=form): If DonationForm not valid, it re-renders the
+            update_donation template along with the form.
+    """
 
     # get donation with the matching id
     donation = Donations.query.filter_by(id=id).first()
@@ -140,12 +147,14 @@ def update(id):
 @requires_roles('admin')
 def delete(id):
     """
-    This function enables the user with 'admin' role to delete the Donate object from the database
-    which the matches donate id passed in as a parameter.
+        @author: Oliver Watson
 
-    @param id: donate id (int)
+        This function enables the user with 'admin' role to delete the Donate object from the database
+        which the matches donate id passed in as a parameter.
 
-    Returns:
+        @param id: donate id (int)
+
+        @returns:
         donate(): function which renders the donate.html template
     """
 
@@ -159,10 +168,12 @@ def delete(id):
 @login_required
 def create_session(id):
     """
-    This function creates a session object. The mode of the checkout session required when using prices or
-    setup mode. A list of the types of payment methods (e.g., card) this Checkout Session can accept.
+        @author: Oliver Watson
 
-    @param id: donate id (int)
+        This function creates a session object. The mode of the checkout session required when using prices or
+        setup mode. A list of the types of payment methods (e.g., card) this Checkout Session can accept.
+
+        @param id: donate id (int)
     """
 
     domain_url = os.getenv('DOMAIN')
@@ -203,11 +214,13 @@ def create_session(id):
 @login_required
 def retrieve_session():
     """
-     This function retrieves a session object.
-     The mode of the Checkout Session required when using prices or
-     setup mode. A list of the types of payment methods (e.g., card) this Checkout Session can accept.
+        @author: Oliver Watson
 
-     Returns: A session object.
+        This function retrieves a session object.
+        The mode of the Checkout Session required when using prices or
+        setup mode. A list of the types of payment methods (e.g., card) this Checkout Session can accept.
+
+        @returns: A session object.
      """
 
     session = stripe.checkout.Session.retrieve(
