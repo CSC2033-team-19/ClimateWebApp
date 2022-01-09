@@ -59,6 +59,7 @@ class User(db.Model, UserMixin):
     challenges = db.relationship('Challenge')
     carbon_data = db.relationship('CarbonData')
     created_events = db.relationship("Event")
+    donations = db.relationship("Donations")
     events = db.relationship('Event', secondary=join_event, back_populates="users")
     join_challenge = db.relationship('JoinChallenge')
 
