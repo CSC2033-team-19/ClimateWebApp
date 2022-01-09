@@ -197,7 +197,9 @@ def create_event():
         db.session.add(new_event)
         db.session.commit()
 
-        return render_template('create_event.html', form=EventForm())
+        new_id = Event.query.order_by(id.desc()).first().id
+
+        return redirect(url_for("maps.event_id", id=new_id))
 
     # re-render create_post page
     return render_template('create_event.html', form=form)
