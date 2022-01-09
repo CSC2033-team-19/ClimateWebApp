@@ -32,27 +32,27 @@ PRETTY_NAMES = {
 
 PLACEHOLDER_VALUES = {
     # VEHICLES
-    "public_transport": 94,
-    "air_travel": 55,
-    "vehicle_fuel": 97,
-    "vehicle_upkeep": 108,
+    "public_transport": 112,  #(src: https://www.statista.com/statistics/285660/transport-services-weekly-household-expenditure-in-the-united-kingdom-uk-by-age/)
+    "air_travel": 55,  #(src: https://www.statista.com/statistics/580052/average-spend-per-trip-abroad-from-the-united-kingdom-uk-by-purpose/)
+    "vehicle_fuel": 105,  #(src: https://www.nimblefins.co.uk/largest-car-insurance-companies/average-cost-petrol-car)
+    "vehicle_upkeep": 108,  #(src: https://www.moneyshake.com/car-finance-guides/maintaining-your-lease-car/how-much-should-car-maintenance-cost-per-year)
 
     # HOME UTILITIES
-    "electricity": 97,
-    "gas": 95,
-    "heating_oil": 55,
-    "water": 33,
+    "electricity": 97,  #(src: https://www.loveenergysavings.com/content-hub/energy-talk/how-much-is-the-average-uk-household-energy-bill/)
+    "gas": 39,  #(src: https://www.britishgas.co.uk/energy/guides/average-bill.html)
+    "heating_oil": 69,  #(src: https://www.which.co.uk/reviews/home-heating-systems/article/home-heating-systems/oil-central-heating-aP9gU4u5O8aO)
+    "water": 33,  #(src: https://www.moneyadviceservice.org.uk/blog/how-much-is-the-average-water-bill-per-month)
 
     # FOOD
-    "meat": 27,
-    "fruit_vegetables": 40,
-    "dairy": 24,
-    "grains": 46,
-    "snacks_drinks": 37,
+    "meat": 145,  #(src: https://www.nimblefins.co.uk/average-uk-household-cost-food)
+    "fruit_vegetables": 48,  #(src: https://www.nimblefins.co.uk/average-uk-household-cost-food)
+    "dairy": 101,  #(src: https://www.nimblefins.co.uk/average-uk-household-cost-food)
+    "grains": 46,  #(src: https://www.nimblefins.co.uk/average-uk-household-cost-food)
+    "snacks_drinks": 70,  #(src: https://www.nimblefins.co.uk/average-uk-household-cost-food)
 
-    # OTHER
-    "goods": 733,
-    "services": 1000
+    # OTHER (general guideline for data, does not give split of goods/services so that is estimated)
+    "goods": 780,  #(src: https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/expenditure/bulletins/familyspendingintheuk/april2018tomarch2019)
+    "services": 565  #(src: https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/expenditure/bulletins/familyspendingintheuk/april2018tomarch2019)
 }
 
 
