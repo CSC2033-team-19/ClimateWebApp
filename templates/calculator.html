@@ -19,15 +19,22 @@
 {% endblock %}
 
 {% block content %}
+    <div id="error-toast" class="toast p-3 top-0 start-50 translate-middle-x" style="position:absolute;" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong id="error-toast-header" class="me-auto"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="close"></button>
+        </div>
+
+        <div id="error-toast-body" class="toast-body"></div>
+    </div>
     {% if success %}
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            <div id="confirm-success" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong class="me-auto">Carbon Footprint Data</strong>
-                </div>
-                <div class="toast-body">
-                    {{ toast_body }}
-                </div>
+        <div id="confirm-success" class="toast p-3 top-0 start-50 translate-middle-x" style="position:absolute;" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header text-success">
+                <strong class="me-auto">Carbon Footprint Data</strong>
+            </div>
+            <div class="toast-body">
+                {{ toast_body }}
             </div>
         </div>
     {% endif %}

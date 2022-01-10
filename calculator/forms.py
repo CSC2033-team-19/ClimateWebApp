@@ -65,7 +65,6 @@ PLACEHOLDER_VALUES = {
 
 # Validators
 def validate_positive(form, field):
-    print(f"{field.id}: {field.data}")
     if type(field.data) != decimal.Decimal:
         raise ValidationError(f"{PRETTY_NAMES[field.id]} must contain a number.")
 
