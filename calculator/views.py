@@ -104,12 +104,16 @@ def calculator():
 
         logging.warning(f"SECURITY - Carbon data committed to database [{user.id, request.remote_addr}]")
 
-        print("success")
-
         return render_template("calculator.html",
                                form=form,
                                success=True,
                                toast_body="Successfully saved your carbon footprint data!")
+
+    if request.method == "POST" and not form.validate():
+        return render_template("calculator.html",
+                               form=form,
+                               success=True,
+                               toast_body="Failed to save your carbon footprint data.")
 
     return render_template("calculator.html", form=form)
 

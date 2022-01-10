@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="Fix malformed database disk image">
-      <change beforePath="$PROJECT_DIR$/templates/create_event.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create_event.html" afterDir="false" />
+    <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="Show the datepicker correctly on create event page.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calculator/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/calculator/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calculator/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/calculator/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/greenify.db" beforeDir="false" afterPath="$PROJECT_DIR$/greenify.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/calculator.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/calculator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/calculator.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/calculator.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,14 +196,8 @@
       <workItem from="1641657500500" duration="1100000" />
       <workItem from="1641658606969" duration="22000" />
       <workItem from="1641658718882" duration="4561000" />
-      <workItem from="1641754711048" duration="4000" />
-    </task>
-    <task id="LOCAL-00019" summary="Added video to the home page, working on scale / layers">
-      <created>1639930743408</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1639930743408</updated>
+      <workItem from="1641754711048" duration="880000" />
+      <workItem from="1641813977900" duration="2489000" />
     </task>
     <task id="LOCAL-00020" summary="Added video to the home page, working on scale / layers">
       <created>1639932215074</created>
@@ -536,7 +535,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641753849194</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Show the datepicker correctly on create event page.">
+      <created>1641754732607</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1641754732607</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,7 +565,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="font change?" />
     <MESSAGE value="swapped maps and calculator around to relate with image and added text" />
     <MESSAGE value="css for donation posts" />
     <MESSAGE value="removed tags" />
@@ -584,10 +589,12 @@
     <MESSAGE value="removed" />
     <MESSAGE value="Change how new events are loaded onto the map to a smarter method." />
     <MESSAGE value="Fix malformed database disk image" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix malformed database disk image" />
+    <MESSAGE value="Show the datepicker correctly on create event page." />
+    <option name="LAST_COMMIT_MESSAGE" value="Show the datepicker correctly on create event page." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1641750071947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ClimateWebApp_actually_a_fucking_joke$ClimateWebApp.coverage" NAME="ClimateWebApp Coverage Results" MODIFIED="1641814873127" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/ClimateWebApp_fuckingshitasdjoaiwdj$ClimateWebApp.coverage" NAME="ClimateWebApp Coverage Results" MODIFIED="1641753774619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
