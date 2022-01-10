@@ -11,6 +11,7 @@
             padding: 30px;
             font-size: 40px;
             text-align: center;
+            margin-top: 30px;
         }
 
         .subtitle-description{
@@ -46,11 +47,6 @@
             text-align: left;
         }
 
-        .flex-container {
-            display: block;
-            flex-wrap: wrap;
-        }
-
     </style>
 
     {% for message in get_flashed_messages() %}
@@ -60,36 +56,34 @@
         </div>
     {% endfor %}
 
-    <div class="flex-container">
+    <div class="container">
         <h1 class="title is-1 header">Challenges</h1>
         <div class="subtitle-description2">
             <div class="description">
-                <p>
-                    Join a challenge and help reach the UK's goal of cutting down territorial emissions to net zero by 2050.
-                </p>
+                <p>Join a challenge and help reach the UK's goal of cutting down territorial emissions to net zero by 2050.</p>
             </div>
         </div>
-        <h5 class="subtitle-description"><i>There are the little things that do count!</i></h5>
+        <div>
+            <h5 class="subtitle-description"><i>There are the little things that do count!</i></h5>
+            <br>
+        </div>
         {% for challenge in challenges %}
             <div class="card shadow mb-5">
                 <div class="card-body text-start">
                     <h2 class="card-title">{{ challenge.title }}</h2>
                     <h5 class="card-subtitle mb-2 text-muted">{{ challenge.created.strftime("%d %B, %Y") }}</h5>
                     <p class="card-text">{{ challenge.body | safe }}</p>
+                    <img class="card-img-bottom w-50 p-3 rounded mx-auto d-block" src="data:image/jpg;base64,{{ challenge.image }}" alt="post_img"  id="imgslot"/>
                 </div>
-                <img class="card-img-bottom w-50 p-3 rounded mx-auto d-block" src="data:image/jpg;base64,{{ challenge.image }}" alt="post_img"  id="imgslot"/>
                 {% if challenge.email == current_user.email %}
                     <div class="d-grid gap-2 d-md-block" role="group" aria-label="Basic outlined example">
-                        <br>
                         <a type="button" class="btn btn-outline-primary btn-rounded me-md-2" href="{{ url_for('challenges.challenge', id=challenge.id) }}" role="button">View Challenge</a>
                         <a type="button" class="btn btn-outline-success btn-rounded me-md-2" href="{{ url_for('challenges.update', id=challenge.id) }}" role="button">Update</a>
                         <a type="button" class="btn btn-outline-danger btn-rounded" href="{{ url_for('challenges.delete', id=challenge.id) }}" role="button">Delete</a>
                     </div>
                 {% endif %}
                 {% if current_user.role == 'user' %}
-                    <br>
-                    <a type="button" class="btn btn-outline-primary btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.challenge', id=challenge.id) }}" role="button">View Challenge</a>
-                    <br>
+                    <a type="button" class="btn btn-outline-primary btn-rounded d-grid gap-2 col-6 mx-auto mb-3" href="{{ url_for('challenges.challenge', id=challenge.id) }}" role="button">View Challenge</a>
                     {% if challenge.id not in challenges_for_user %}
                         <a type="button" class="btn btn-outline-success btn-rounded d-grid gap-2 col-6 mx-auto" href="{{ url_for('challenges.join', id=challenge.id) }}" role="button">Join Challenge</a>
                     {% else %}

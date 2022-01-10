@@ -606,7 +606,7 @@ def init_db():
         challenge2_image = base64.b64encode(img_file.read()).decode('ascii')
 
     # create challenge
-    challenge1 = Challenge(email='admin@email.com',
+    challenge2 = Challenge(email='admin@email.com',
                            title='Sustainable Shopping - Choose a Reusable Bag',
                            body='<p><strong>The challenge:</strong></p><p>At the supermarket or clothing stores use '
                                 'reusable bags instead of plastic carrier '
@@ -618,7 +618,7 @@ def init_db():
                                 'they can&#39;t be recycled at home.</p><p>While they may be convenient to use, '
                                 'plastic bags take too much time to break down. A plastic bag can take from 15 to 1,'
                                 '000 years to break down. In addition, the cost of recycling plastic bags outweighs '
-                                'their value.</p><p>Making a switch to a more s<strong>ustainable '
+                                'their value.</p><p>Making a switch to a more <strong>sustainable '
                                 'alternative</strong> such as bringing a reusable bag from home with you can be the '
                                 'smartest move to make, in order to help reduce the impact of plastic bags on the '
                                 'environment.</p><p>Plastic pollution kills wildlife, damages natural ecosystems, '
@@ -631,5 +631,5 @@ def init_db():
                            image=challenge2_image,
                            postkey=admin.postkey)
 
-    db.session.add(challenge1)
+    db.session.add(challenge2)
     db.session.commit()

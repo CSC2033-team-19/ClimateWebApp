@@ -6,7 +6,7 @@
      <style>
 
         .title{
-            margin-bottom: 15px;
+            margin-bottom: 60px;
         }
 
         .field {
@@ -15,14 +15,9 @@
 
         .form-control {
             font-family: Arial, serif;
-            border-radius: 25px;
-            border: 2px solid #59886f;
+            border-radius: 10px;
+            border: 1px solid #59886f;
             padding: 15px;
-
-        }
-
-        .text-center {
-            text-align: center;
         }
 
         .error{
@@ -32,7 +27,6 @@
         .btn{
             background-color: #59886f;
             border-color: #59886f;
-
         }
 
         .btn:hover{
@@ -72,18 +66,21 @@
                         {% endfor %}
                     </div>
                 </div>
-            <p> Upload an image below to be presented on your post
-                <div class="form-group">
-                    {{ form.image(class="form-control-file is-centered") }}
-                    {% if form.image.errors %}
-                        {% for error in form.image.errors %}
-                            <span class="text-danger">{{ error }}</span></br>
-                        {% endfor %}
-                    {% endif %}
+                <div class="field">
+                    <div class="control">
+                        <br>
+                        <p> Upload an image below to be presented on your post</p>
+                        {{ form.image(class="form-control-file is-centered") }}
+                        {% if form.image.errors %}
+                            {% for error in form.image.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
-            <p>
                 <div>
-               {{ form.submit(class="button is-info is-centered btn btn-lg btn-primary", value = "Post Donation") }}
+                    <br>
+                    {{ form.submit(class="btn btn-primary d-grid gap-2 col-6 mx-auto", value = "Post Donation") }}
                 </div>
             </form>
         </div>

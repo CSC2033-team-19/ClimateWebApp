@@ -2,65 +2,91 @@
 
 {% block content %}
 
+    <style>
+
+        .btn{
+            background-color: #59886f;
+            border-color: #59886f;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover{
+            background-color: #71887f;
+            border-color: #71887f;
+        }
+
+    </style>
+
     <h1 class="title">Welcome, {{ name }}</h1>
 
     <div class="column is-6 is-offset-3">
+        <br>
         <h3 class="title">Your Account</h3>
         <div class="box">
             <table class="table">
-            <tbody>
-                <tr>
-                    <th>User ID</th>
-                    <th>{{ id }}</th>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <th>{{ email }}</th>
-                </tr>
-                <tr>
-                    <th>First Name</th>
-                    <th>{{ firstname }}</th>
-                </tr>
-                <tr>
-                    <th>Last Name</th>
-                    <th>{{ lastname }}</th>
-                </tr>
-                <tr>
-                    <th>Phone Number</th>
-                    <th>{{ phone }}</th>
-                </tr>
-            </tbody>
+                <tbody>
+                    <tr>
+                        <th>User ID</th>
+                        <th>{{ id }}</th>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <th>{{ email }}</th>
+                    </tr>
+                    <tr>
+                        <th>First Name</th>
+                        <th>{{ firstname }}</th>
+                    </tr>
+                    <tr>
+                        <th>Last Name</th>
+                        <th>{{ lastname }}</th>
+                    </tr>
+                    <tr>
+                        <th>Phone Number</th>
+                        <th>{{ phone }}</th>
+                    </tr>
+                    <br>
+                </tbody>
             </table>
         </div>
     </div>
 
-    <h4 class="title is-4">Challenges Joined</h4>
+    <div class="column is-6 is-offset-3">
+        <br>
+        <h4 class="title is-4">Challenges Joined</h4>
         <div class="box">
             {% if joined_challenges %}
                 <div class="field">
-                    <table class="table">
-                        <tr>
-                            <th>Join ID</th>
-                            <th>User Email</th>
-                            <th>Challenge ID</th>
-                            <th>Date Joined</th>
-                        </tr>
-                        {% for challenge in joined_challenges %}
+                    <table class="table table-hover">
+                        <br>
+                        <thead>
                             <tr>
-                                <td>{{ challenge.id }}</td>
-                                <td>{{ challenge.user_email }}</td>
-                                <td>{{ challenge.challenge_id }}</td>
-                                <td>{{ challenge.date_joined.strftime('%d-%m-%Y') }}</td>
+                                <th scope="col">Join ID</th>
+                                <th scope="col">User Email</th>
+                                <th scope="col">Challenge ID</th>
+                                <th scope="col">Date Joined</th>
                             </tr>
-                        {% endfor %}
+                        </thead>
+                        <tbody>
+                            {% for challenge in joined_challenges %}
+                                <tr>
+                                    <td>{{ challenge.id }}</td>
+                                    <td>{{ challenge.user_email }}</td>
+                                    <td>{{ challenge.challenge_id }}</td>
+                                    <td>{{ challenge.date_joined.strftime('%d-%m-%Y') }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
                     </table>
                 </div>
             {% endif %}
             <form method="POST" action="/view_joined_challenges">
                 <div>
-                    <button class="button is-info is-centered">View Challenges Joined</button>
+                    <br>
+                    <button class="btn btn-primary btn-rounded">View Challenges Joined</button>
                 </div>
             </form>
         </div>
+    </div>
 
 {% endblock %}

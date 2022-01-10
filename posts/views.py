@@ -195,5 +195,5 @@ def delete(id):
     # delete post which id matches
     Post.query.filter_by(id=id).delete()
     db.session.commit()
-    flash("Post has been deleted")
+    flash("Post Deleted")
     return posts()

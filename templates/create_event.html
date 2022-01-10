@@ -27,6 +27,39 @@
 {% endblock %}
 {% block content %}
 
+    <style>
+
+        .title{
+            margin-bottom: 60px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            font-family: Arial, serif;
+            border-radius: 10px;
+            border: 1px solid #59886f;
+            padding: 15px;
+        }
+
+        .error{
+			color: #AB171DFF;
+		}
+
+        .btn{
+            background-color: #59886f;
+            border-color: #59886f;
+        }
+
+        .btn:hover{
+            background-color: #71887f;
+            border-color: #71887f;
+        }
+
+    </style>
+
     <div class="column is-6 is-offset-3">
         <h3 class="title is-3">Create Event</h3>
         <div class="box">
@@ -84,7 +117,8 @@
                     </div>
                 </div>
                 <div>
-                    {{ form.submit(class="btn btn-primary d-grid gap-2 col-6 mx-auto") }}
+                    <br>
+                    {{ form.submit(class="btn btn-primary d-grid gap-2 col-6 mx-auto", value = "Submit Event") }}
                 </div>
             </form>
         </div>
