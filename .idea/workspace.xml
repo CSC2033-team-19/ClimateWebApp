@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="Add toasts to show errors in the carbon footprint calculator.">
-      <change afterPath="$PROJECT_DIR$/maps/events_test.py" afterDir="false" />
+    <list default="true" id="2ac1f70a-e6fc-4123-b1f5-1eb1e916fc77" name="Changes" comment="Show the datepicker correctly on create event page.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/events.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calculator/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/calculator/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calculator/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/calculator/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/greenify.db" beforeDir="false" afterPath="$PROJECT_DIR$/greenify.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/calculator.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/calculator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/calculator.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/calculator.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,9 +18,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="Python Script" />
         <option value="HTML File" />
         <option value="CSS File" />
-        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -194,7 +197,14 @@
       <workItem from="1641658606969" duration="22000" />
       <workItem from="1641658718882" duration="4561000" />
       <workItem from="1641754711048" duration="880000" />
-      <workItem from="1641813977900" duration="3163000" />
+      <workItem from="1641813977900" duration="2489000" />
+    </task>
+    <task id="LOCAL-00020" summary="Added video to the home page, working on scale / layers">
+      <created>1639932215074</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1639932215074</updated>
     </task>
     <task id="LOCAL-00021" summary="text back to black">
       <created>1639933025487</created>
@@ -532,14 +542,7 @@
       <option name="project" value="LOCAL" />
       <updated>1641754732607</updated>
     </task>
-    <task id="LOCAL-00069" summary="Add toasts to show errors in the carbon footprint calculator.">
-      <created>1641816519448</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1641816519448</updated>
-    </task>
-    <option name="localTasksCounter" value="70" />
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -562,6 +565,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="swapped maps and calculator around to relate with image and added text" />
     <MESSAGE value="css for donation posts" />
     <MESSAGE value="removed tags" />
     <MESSAGE value="white background" />
@@ -586,8 +590,7 @@
     <MESSAGE value="Change how new events are loaded onto the map to a smarter method." />
     <MESSAGE value="Fix malformed database disk image" />
     <MESSAGE value="Show the datepicker correctly on create event page." />
-    <MESSAGE value="Add toasts to show errors in the carbon footprint calculator." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add toasts to show errors in the carbon footprint calculator." />
+    <option name="LAST_COMMIT_MESSAGE" value="Show the datepicker correctly on create event page." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ClimateWebApp$app.coverage" NAME="app Coverage Results" MODIFIED="1641750071947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
