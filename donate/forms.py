@@ -14,8 +14,8 @@ class DonationForm(FlaskForm):
         @param FlaskForm(Form): Flask-specific subclass of WTForms
     """
 
-    title = TextAreaField(validators=[data_required()])
-    reason = StringField(validators=[data_required()])
+    title = StringField(validators=[data_required()])
+    reason = TextAreaField(validators=[data_required()])
     amount = IntegerField(validators=[data_required()])
     status = TextAreaField()
     submit = SubmitField()

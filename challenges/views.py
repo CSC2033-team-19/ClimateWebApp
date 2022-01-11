@@ -206,7 +206,7 @@ def delete(id):
     # delete challenge which matches id
     Challenge.query.filter_by(id=id).delete()
     db.session.commit()
-    flash("Challenge has been deleted")
+    flash("Challenge Deleted")
     return challenges()
 
 
@@ -237,21 +237,22 @@ def join(id):
     flash('Challenge Joined Successfully')
     return redirect(url_for('challenges.challenge', id=challenge.id))
 
+
 # leave a challenge
 @challenges_blueprint.route('/<int:id>/leave_challenge', methods=('GET', 'POST'))
 @login_required
 @requires_roles('user')
 def leave(id):
     """
-    This function enables the user with 'user' role to unjoin a Challenge object by deleting from the database an
-    existing JoinChallenge object, which matches the challenge id passed in as a parameter.
+    This function enables the user with 'user' role to leave a Challenge by deleting the existing JoinChallenge object
+    from the database, which matches the challenge id passed in as a parameter.
 
     Parameters:
         id (int): challenge id
 
     Returns:
         redirect(url_for('challenges.challenge', id=challenge.id)): redirects user to the 'challenge' function
-            with the challenge id that the user will unjoin as a variable.
+            with the challenge id that the user will leave as a variable.
     """
     # get challenge with the matching id
     challenge = Challenge.query.filter_by(id=id).first()
@@ -260,5 +261,5 @@ def leave(id):
     JoinChallenge.query.filter_by(id=id).delete()
     db.session.commit()
 
-    flash("Unjoined Challenge")
+    flash("Challenge Left")
     return redirect(url_for('challenges.challenge', id=challenge.id))

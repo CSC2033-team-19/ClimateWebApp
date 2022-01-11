@@ -191,7 +191,7 @@ def create_session(id):
             'amount': amount,
             'name': 'Donation',
             'currency': 'GBP',
-            'quantity': 1
+            'quantity': 100
         }],
         payment_intent_data={
             'metadata': {
