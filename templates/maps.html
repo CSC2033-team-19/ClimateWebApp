@@ -17,10 +17,15 @@
 
 {% block content %}
 
-    <div id="event-map"></div>
-    <div id="event-list">
-        <h4 class="event-list-head">Your events</h4>
+    <h1 class="title is-1 header">Events</h1>
+
+    <div id="map-container">
+        <div id="event-map"></div>
+        <div id="event-list">
+            <h4 class="event-list-head">Your events</h4>
+        </div>
     </div>
+
 
     {# Geolocation error toast #}
     <div class="toast-container position-absolute p-3 top-0 start-50 translate-middle-x">
