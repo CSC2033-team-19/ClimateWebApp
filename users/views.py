@@ -93,7 +93,7 @@ def login():
                 flash('Number of incorrect logins exceeded')
 
                 # logging call for when users exceeded login attempts
-                logging.warning('SECURITY - Invalid Logins Attempts Exceeded [%s, %s, %s]', user.id, user.email,
+                logging.warning('SECURITY - Invalid Logins Attempts Exceeded [%s, %s]', form.email.data,
                                 request.remote_addr)
 
             # if login attempt is between 1 and 5 create error message
