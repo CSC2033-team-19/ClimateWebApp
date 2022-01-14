@@ -1,3 +1,10 @@
+""""
+This module contains RegisterForm, LoginForm and ContactForm classes which are used to render
+their respective forms, as well as several methods used for input validation
+"""
+
+__author__ = "Michalina Kazmierczak"
+
 # IMPORTS
 import re
 import phonenumbers
