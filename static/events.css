@@ -32,9 +32,10 @@ div.body-container {
 }
 
 /* Format the map and event list next to one another. pad them 10% down and up the page */
-.content-block {
+#map-container {
     padding: 0;
     display: flex;
+    height: 100%;
 }
 
 /* Format info-windows */

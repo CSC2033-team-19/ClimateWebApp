@@ -38,6 +38,7 @@
             </div>
         </div>
     {% endif %}
+    <h1 class="title is-1 header">Carbon Footprint Calculator</h1>
     <div class="tab-container">
         <ul class="nav nav-tabs justify-content-end" id="calculatorTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -153,7 +154,7 @@
 
                 <div id="travel" class="tab-pane fade show" role="tabpanel" aria-labelledby="home-tab">
 
-                    <p><b>How much money did you spend on..?</b></p>
+                    <p><b>How much money did you spend on ... last month? (£)</b></p>
 
                     <div class="input-container">
                         {% for error in form.vehicle_fuel.errors %}
@@ -200,7 +201,7 @@
                 </div>
                 <div id="home" class="tab-pane fade" role="tabpanel" aria-labelledby="home-tab">
 
-                    <p><b>How much money did you spend on..?</b></p>
+                    <p><b>How much money did you spend on ... last month? (£)</b></p>
 
                     <div class="input-container">
                         {% for error in form.electricity.errors %}
@@ -247,7 +248,7 @@
                 </div>
                 <div id="food" class="tab-pane fade" role="tabpanel" aria-labelledby="food-tab">
 
-                    <p><b>How much money did you spend on..?</b></p>
+                    <p><b>How much money did you spend on ... last month? (£)</b></p>
 
                     <div class="input-container">
                         {% for error in form.meat.errors %}
@@ -294,7 +295,7 @@
                 </div>
                 <div id="other" class="tab-pane fade" role="tabpanel" aria-labelledby="other-tab">
 
-                    <p><b>How much money did you spend on..?</b></p>
+                    <p><b>How much money did you spend on ... last month? (£)</b></p>
 
                     <div class="input-container">
                         {% for error in form.goods.errors %}

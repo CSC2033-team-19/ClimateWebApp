@@ -1,11 +1,10 @@
 // Create script tag
-var script = document.createElement("script"); // dynamically load script.
-var map; // map variable.
-var geolocation_error_toast; // show errors with geolocation to the user.
-var deletion_warning_toast; // Warn the user that they are about to delete an event
-var markers = []; // Store all the markers as well as the corresponding IDs here.
-var ids_on_map = []; // Store all the ids that are on the map to ensure an event is not placed twice.
-var prev_location = {lat: -1000, lng: -1000}; // Value far enough outside the possible range so that the first call will always be true.
+let script = document.createElement("script"); // dynamically load script.
+let map; // map variable.
+let geolocation_error_toast; // show errors with geolocation to the user.
+let deletion_warning_toast; // Warn the user that they are about to delete an event
+let markers = []; // Store all the markers as well as the corresponding IDs here.
+let ids_on_map = []; // Store all the ids that are on the map to ensure an event is not placed twice.
 
 const focused_event = document.currentScript.getAttribute("focus-event"); // Store which event is being focused
 script.src = `https://maps.googleapis.com/maps/api/js?key=${document.currentScript.getAttribute("api-key")}&callback=init_map`;
@@ -20,8 +19,8 @@ window.init_map = function () {
      */
 
     // Create the toast elements which will be used for error handling.
-    var geo_toast_element = document.getElementById("geo-toast");
-    var deletion_toast_element = document.getElementById("deletion-toast");
+    let geo_toast_element = document.getElementById("geo-toast");
+    let deletion_toast_element = document.getElementById("deletion-toast");
 
     geolocation_error_toast = new bootstrap.Toast(geo_toast_element);
     deletion_warning_toast = new bootstrap.Toast(deletion_toast_element);
@@ -59,7 +58,7 @@ function center_map(center) {
      *
      * @author Adam Winstanley
      */
-    var new_center = new google.maps.LatLng(center.coords.latitude, center.coords.longitude);
+    let new_center = new google.maps.LatLng(center.coords.latitude, center.coords.longitude);
     map.setCenter(new_center);
     map.setZoom(13);
 
@@ -119,7 +118,7 @@ function create_events_on_map(result) {
      * @author Adam Winstanley
      */
     // Define variables
-    var event_list_element = $("#event-list");
+    let event_list_element = $("#event-list");
 
     if (!result.success) {
         return;
@@ -132,7 +131,7 @@ function create_events_on_map(result) {
         }
 
         // Add markers to marker array
-        var marker = new google.maps.Marker({
+        let marker = new google.maps.Marker({
             position: {lat: event.lat, lng: event.lng},
             map: map,
             title: `${event.head}`,
@@ -140,10 +139,10 @@ function create_events_on_map(result) {
         });
 
         // Create HTML for the event
-        var rendered_event = render_event(event);
+        let rendered_event = render_event(event);
 
         // Create info window with HTML content with information from the marker.
-        var infowindow = new google.maps.InfoWindow({
+        let infowindow = new google.maps.InfoWindow({
             content: rendered_event
         })
 
@@ -208,7 +207,7 @@ function warning_deletion(id) {
      *
      * @author Adam Winstanley
      */
-    var toast_element = document.getElementById("deletion-toast-body");
+    let toast_element = document.getElementById("deletion-toast-body");
 
     // Create the confirmation button in the toast which will show to warn the user
     toast_element.innerHTML = `
@@ -229,7 +228,7 @@ function render_event(event) {
      *
      * @author Adam Winstanley
      */
-    var button
+    let button;
 
     if (event.created_by_user) {
         button = `
@@ -296,18 +295,13 @@ function update_bounds() {
      *
      * @author Adam Winstanley
      */
-    if (Math.abs(prev_location.lat - map.getCenter().lat()) > 0.5
-        || Math.abs(prev_location.lng - map.getCenter().lng() > 0.5))
-    {
-        prev_location = {lat: map.getCenter().lat(), lng: map.getCenter().lng()};
-        $.ajax({
-            type: "get",
-            url: "/events/get_local_events.json",
-            data: {
-                "lat": map.getCenter().lat,
-                "lng": map.getCenter().lng
-            },
-            success: create_events_on_map
-        })
-    }
+    $.ajax({
+        type: "get",
+        url: "/events/get_local_events.json",
+        data: {
+            "lat": map.getCenter().lat,
+            "lng": map.getCenter().lng
+        },
+        success: create_events_on_map
+    })
 }
