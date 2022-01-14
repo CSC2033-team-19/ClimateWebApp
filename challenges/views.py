@@ -245,7 +245,7 @@ def join(id):
 def leave(id):
     """
     This function enables the user with 'user' role to leave a Challenge by deleting the existing JoinChallenge object
-    from the database, which matches the challenge id passed in as a parameter.
+    from the database, which matches the challenge id passed in as a parameter and the current user email.
 
     Parameters:
         id (int): challenge id
@@ -258,7 +258,7 @@ def leave(id):
     challenge = Challenge.query.filter_by(id=id).first()
 
     # delete join_challenge row which matching id
-    JoinChallenge.query.filter_by(id=id).delete()
+    JoinChallenge.query.filter_by(challenge_id=id, user_email=current_user.email).delete()
     db.session.commit()
 
     flash("Challenge Left")
