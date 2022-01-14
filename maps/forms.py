@@ -12,7 +12,7 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField, DecimalField, DecimalRangeField, SelectField, StringField, IntegerField, TimeField
 from wtforms.validators import DataRequired, ValidationError, NumberRange
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json"
@@ -36,8 +36,8 @@ class EventForm(FlaskForm):
         """
         Check if the event entered is in the future
         """
-        if datetime.now() > self.get_date_time():
-            raise ValidationError("You cannot hold an event in the past")
+        if datetime.now() + timedelta(7) > self.get_date_time():
+            raise ValidationError("Please give your guests ample time to attend the event.")
 
     def get_date_time(self):
         """
