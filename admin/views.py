@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from app import requires_roles
-from models import User, JoinChallenge
-from models import User, Donations
+from models import User, JoinChallenge, Donations
 
 # CONFIG
 admin_blueprint = Blueprint('admin', __name__, template_folder='templates')

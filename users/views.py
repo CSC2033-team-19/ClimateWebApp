@@ -1,7 +1,6 @@
 # IMPORTS
 import logging
 from datetime import datetime
-import pyotp
 from flask import render_template, flash, redirect, url_for, session, Blueprint, request
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash

@@ -1,15 +1,13 @@
 # IMPORTS
 import logging
-import socket
 from functools import wraps
 import stripe
-from flask import Flask, render_template, request, jsonify, redirect
+from flask import Flask, render_template, request, jsonify
 from flask_ckeditor import CKEditor
 from flask_login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
 import os
 from dotenv import load_dotenv, find_dotenv
-import sshtunnel
 
 # Setup Stripe python client library.
 from itsdangerous import json
@@ -29,13 +27,6 @@ stripe.set_app_info(
 
 stripe.api_version = '2020-08-27'
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
-
-# CONFIG
-# app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://csc2033_team19:SeerMid._Dim@127.0.0.1:{" \
-# f"{tunnel.local_bind_port}/csc2033_team19 "
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config['SECRET_KEY'] = 'LongAndRandomSecretKey'
 
 # DB FOR TESTING
 app = Flask(__name__)
@@ -214,9 +205,11 @@ def internal_error(error):
 def page_forbidden(error):
     return render_template('503.html'), 503
 
+
 @app.route('/success')
 def success():
     return render_template('success.html')
+
 
 @app.route('/cancel')
 def cancel():
@@ -232,6 +225,7 @@ if __name__ == '__main__':
     free_port = free_socket.getsockname()[1]
     free_socket.close()
     '''
+
     # LOGIN MANAGER
     # create instance of LoginManager to hold the settings used for logging in
     login_manager = LoginManager()
@@ -266,5 +260,5 @@ if __name__ == '__main__':
     app.register_blueprint(donate_blueprint)
     app.register_blueprint(maps_blueprint)
 
-    #free_port
+    # free_port
     app.run(host=my_host, port=55757, debug=True)
