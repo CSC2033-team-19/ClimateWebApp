@@ -1,3 +1,9 @@
+""""
+This module contains methods that handle rendering the registration, login, logout, profile and contact pages
+"""
+
+__author__ = "Michalina Kazmierczak, Inés Ruiz"
+
 # IMPORTS
 import logging
 from datetime import datetime
