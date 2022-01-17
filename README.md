@@ -31,3 +31,12 @@ Install stripe package -> sudo pip install --upgrade stripe.
 - Google maps API 
 - MariaDB
 
+Running the application
+---------------------------
+
+Running from the command line.
+1. Open the command line and navigate to the directory where `app.py` is stored.
+2. Install requirements with `pip install -r requirements.txt` (consider using a virtual environment)
+3. Set up the database with `python -c "import models; models.init_db()"`, if you get a malformed disk error, delete `greenify.db` and retry.
+4. Set up the Google Maps api key with `set GMAP-KEY=API-KEY` (api key provided in code submission files under GMAP-KEY.txt)
+5. Start the web server with `python app.py`
