@@ -7,15 +7,9 @@ __author__ = "Adam Winstanley"
 # Import modules
 import os
 from datetime import datetime
-
-import flask
-import sqlalchemy
-
 from app import requires_roles, db
 from flask import Blueprint, render_template, request, flash, jsonify, url_for, redirect
 from flask_login import current_user, login_required
-import logging
-
 from models import Event, join_event, User
 from maps.forms import EventForm
 

@@ -6,8 +6,6 @@ __author__ = "Adam Winstanley"
 
 # Import flask modules
 import os
-
-import wtforms
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, DecimalField, DecimalRangeField, SelectField, StringField, IntegerField, TimeField
 from wtforms.validators import DataRequired, ValidationError, NumberRange
