@@ -21,4 +21,5 @@ pymysql
 phonenumbers~=8.12.39
 python-dotenv==0.19.2
 stripe==2.63.0
+flask-ckeditor
 flask-googlemaps
