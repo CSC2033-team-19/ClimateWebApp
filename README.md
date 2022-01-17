@@ -28,8 +28,9 @@ Backend
 - Flask API <a href='https://flask.palletsprojects.com/en/2.0.x/'>Flask</a>.
 - Stripe API <a href='https://stripe.com/docs/api?lang=python'>Stripe</a>.
 Install stripe package -> sudo pip install --upgrade stripe.
-- Google maps API 
-- MariaDB
+- Google Maps API <a href="https://developers.google.com/maps/documentation">Google Maps Platform</a> 
+- ChartJS API <a href="https://www.chartjs.org/docs/3.5.0/developers/api.html">ChartJS</a>
+- SQLite
 
 Running the application
 ---------------------------
