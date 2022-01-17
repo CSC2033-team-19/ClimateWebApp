@@ -69,3 +69,6 @@ What does this repository contain?
 - Google maps API - <a href='https://developers.google.com/maps/documentation'>Google Maps Platform Documentation</a>.<br>
 - CKEditor API - <a href='https://ckeditor.com/docs/ckeditor4/latest/index.html'>CKEditor 4 Documentation</a>.<br>
 `pip install flask-ckeditor`
+- ChartJS API - <a href="https://www.chartjs.org/docs/3.5.0/developers/api.html">ChartJS API</a>
+- <a href='https://www.sqlite.org/index.html'>SQLite</a>
+- <a href='https://www.sqlalchemy.org'>SQLAlchemy</a>
